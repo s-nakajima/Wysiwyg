@@ -8,4 +8,4 @@ Wysiwyg for NetComomns3
 
 | dependencies  | status |
 | ------------- | ------ |
-| composer.json | [![Dependency Status](https://www.versioneye.com/user/projects/(versioneye_project_ID)/badge.png)](https://www.versioneye.com/user/projects/(versioneye_project_ID)) |
+| composer.json | [![Dependency Status](https://www.versioneye.com/user/projects/5674ce1a84f9b4000e0015b1/badge.png)](https://www.versioneye.com/user/projects/5674ce1a84f9b4000e0015b1) |
