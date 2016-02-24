@@ -19,25 +19,31 @@ NetCommonsApp.factory('NetCommonsWysiwyg', function() {
   var options = {
     mode: 'exact',
     menubar: false,
-    plugins: 'advlist textcolor colorpicker table hr emoticons charmap link media image code preview searchreplace paste',
+    plugins: 'advlist textcolor colorpicker table hr emoticons charmap ' +
+        'link media image code preview searchreplace paste',
     toolbar: [
-      'fontselect fontsizeselect formatselect | bold italic underline strikethrough | subscript superscript | forecolor backcolor | removeformat',
-      'undo redo | alignleft aligncenter alignright | bullist numlist | outdent indent blockquote | table | hr | emoticons | tex | link unlink',
-      'media books image newdocument | pastetext code preview'
+              'fontselect fontsizeselect formatselect ' +
+              '| bold italic underline strikethrough ' +
+              '| subscript superscript | forecolor backcolor ' +
+              '| removeformat',
+              'undo redo | alignleft aligncenter alignright ' +
+              '| bullist numlist | outdent indent blockquote ' +
+              '| table | hr | emoticons | tex | link unlink',
+              'media books image newdocument | pastetext code preview'
     ],
     paste_as_text: true,
-    setup: function (editor) {
+    setup: function(editor) {
       editor.addButton('tex', {
         text: 'Tex',
         icon: false,
-        onclick: function () {
+        onclick: function() {
           editor.windowManager.alert('Tex');
         }
       });
       editor.addButton('books', {
         text: '書籍',
         icon: false,
-        onclick: function () {
+        onclick: function() {
           editor.windowManager.alert('書籍検索');
         }
       });
