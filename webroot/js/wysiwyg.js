@@ -47,8 +47,9 @@ NetCommonsApp.factory('NetCommonsWysiwyg', function() {
           editor.windowManager.alert('書籍検索');
         }
       });
-    }
-    // language: 'ja'
+    },
+    language: 'ja',
+    language_url: '/wysiwyg/js/langs/ja.js'
   };
 
   /**
