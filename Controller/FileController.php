@@ -74,4 +74,18 @@ class FileController extends WysiwygAppController {
 		$this->set(compact('uploadFile', 'requestFile'));
 		$this->set('_serialize', ['uploadFile', 'requestFile']);
 	}
+
+/**
+ * download action
+ *
+ * @param Int $id File id
+ * @return void
+ */
+	public function download($id) {
+		$options = [
+				'field' => 'Wysiwyg.file',
+				'download' => true,
+		];
+		return $this->Download->doDownloadByUploadFileId($id, $options);
+	}
 }
