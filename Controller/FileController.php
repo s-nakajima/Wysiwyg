@@ -31,6 +31,13 @@ class FileController extends WysiwygAppController {
 	);
 
 /**
+ * uploadFileモデル用の validation設定
+ *
+ * @var array
+ */
+	protected $_validate = [];
+
+/**
  * beforeFilter
  *
  * @return void
@@ -54,25 +61,53 @@ class FileController extends WysiwygAppController {
  */
 	public function upload() {
 		// 初期処理
-		$uploadFileModel = ClassRegistry::init('Files.UploadFile');
+		$uploadFileModel = $this->__getUploadFileModel();
 
-		// FileUploadコンポーネントからアップロードファイル情報の取得
-		$file = $this->FileUpload->getTemporaryUploadFile('Wysiwyg.file');
+		// Wysiwyg.file 情報が与えられていない時はエラーを返す。
+		$uploadFile = false;
+		if ($this->__isUploadedFile($this->data['Wysiwyg'])) {
+			// FileUploadコンポーネントからアップロードファイル情報の取得
+			$file = $this->FileUpload->getTemporaryUploadFile('Wysiwyg.file');
 
-		// uploadFile登録に必要な data（block_key）を作成する。
-		$data = [
-			'UploadFile' => [
-				'block_key' => $this->data['Block']['key']
-			]
-		];
-		$uploadFile = $uploadFileModel->registByFile($file, 'wysiwyg', null, 'Wysiwyg.file', $data);
+			// uploadFile登録に必要な data（block_key）を作成する。
+			$data = [
+				'UploadFile' => [
+					'block_key' => $this->data['Block']['key']
+				]
+			];
+			$uploadFile = $uploadFileModel->registByFile($file, 'wysiwyg', null, 'Wysiwyg.file', $data);
+		}
 
-		$requestFile = $this->data['Wysiwyg']['file'];
+		// 戻り値として生成する値を返す
+		// $file: ファイル情報
+		// $message: エラーメッセージ
+		// $result: 結果の OK/NG
+		// ＄statusCode: responseとしても返す
+		//
+		$file = [];
+		$message = '';
+		if ($uploadFile) {
+			$statusCode = 200;	// Status 200(OK)
+			$result = true;
+			$file = [
+				'id' => $uploadFile['UploadFile']['id'],
+				'original_name' => $uploadFile['UploadFile']['original_name'],
+			];
+		} else {
+			$statusCode = 400;	// Status 400(Bad request)
+			$result = false;
+			if ($uploadFileModel->validationErrors) {
+				$message = $uploadFileModel->validationErrors['real_file_name'];
+			} else {
+				$message = 'File is required.';
+			}
+		}
 
-		// 戻りとして JSONを返す
+		// JSONを返す
 		$this->viewClass = 'Json';
-		$this->set(compact('uploadFile', 'requestFile'));
-		$this->set('_serialize', ['uploadFile', 'requestFile']);
+		$this->response->statusCode($statusCode);
+		$this->set(compact('statusCode', 'result', 'message', 'file'));
+		$this->set('_serialize', ['statusCode', 'result', 'message', 'file']);
 	}
 
 /**
@@ -87,5 +122,38 @@ class FileController extends WysiwygAppController {
 				'download' => true,
 		];
 		return $this->Download->doDownloadByUploadFileId($id, $options);
+	}
+
+/**
+ * UploadFileモデルの取得
+ *
+ * 取得と同時にファイル関係の Validateをセットする
+ *
+ * @return UploadFile $file UploadFiloモデル
+ */
+	private function __getUploadFileModel() {
+		// UploadFileモデルを取得
+		$file = ClassRegistry::init('Files.UploadFile');
+
+		// validateルールの設定
+		$file->validate = $this->_validate;
+
+		return $file;
+	}
+
+/**
+ * requestの中でファイルのアップロードエラーがあるかどうかを調べる
+ *
+ * @param Array $params 調べるリクエストデータ
+ * @return bool
+ */
+	private function __isUploadedFile($params) {
+		$val = array_shift($params);
+		if ((isset($val['error']) && $val['error'] == 0) ||
+			(!empty( $val['tmp_name']) && $val['tmp_name'] != 'none')
+		) {
+			return is_uploaded_file($val['tmp_name']);
+		}
+		return false;
 	}
 }
