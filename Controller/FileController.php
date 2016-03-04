@@ -61,11 +61,11 @@ class FileController extends WysiwygAppController {
  */
 	public function upload() {
 		// 初期処理
-		$uploadFileModel = $this->__getUploadFileModel();
+		$uploadFileModel = $this->_getUploadFileModel();
 
 		// Wysiwyg.file 情報が与えられていない時はエラーを返す。
 		$uploadFile = false;
-		if ($this->__isUploadedFile($this->data['Wysiwyg'])) {
+		if ($this->_isUploadedFile($this->data['Wysiwyg'])) {
 			// FileUploadコンポーネントからアップロードファイル情報の取得
 			$file = $this->FileUpload->getTemporaryUploadFile('Wysiwyg.file');
 
@@ -131,7 +131,7 @@ class FileController extends WysiwygAppController {
  *
  * @return UploadFile $file UploadFiloモデル
  */
-	private function __getUploadFileModel() {
+	protected function _getUploadFileModel() {
 		// UploadFileモデルを取得
 		$file = ClassRegistry::init('Files.UploadFile');
 
@@ -147,7 +147,7 @@ class FileController extends WysiwygAppController {
  * @param Array $params 調べるリクエストデータ
  * @return bool
  */
-	private function __isUploadedFile($params) {
+	protected function _isUploadedFile($params) {
 		$val = array_shift($params);
 		if ((isset($val['error']) && $val['error'] == 0) ||
 			(!empty( $val['tmp_name']) && $val['tmp_name'] != 'none')
