@@ -2,8 +2,7 @@ tinymce.addI18n('ja', {
   'Cut': '\u5207\u308a\u53d6\u308a',
   'Heading 5': '\u898b\u51fa\u3057 5',
   'Header 2': '\u30d8\u30c3\u30c0\u30fc 2',
-  "Your browser doesn't support direct access to the clipboard. " +
-      'Please use the Ctrl+X\/C\/V keyboard shortcuts instead.':
+  "Your browser doesn't support direct access to the clipboard. Please use the Ctrl+X\/C\/V keyboard shortcuts instead.":
       '\u304a\u4f7f\u3044\u306e\u30d6\u30e9\u30a6\u30b6\u3067\u306f\u30af' +
       '\u30ea\u30c3\u30d7\u30dc\u30fc\u30c9\u6a5f\u80fd\u3092\u5229\u7528' +
       '\u3059\u308b\u3053\u3068\u304c\u3067\u304d\u307e\u305b\u3093\u3002' +
@@ -50,8 +49,7 @@ tinymce.addI18n('ja', {
   'Heading 3': '\u898b\u51fa\u3057 3',
   'Decrease indent': '\u30a4\u30f3\u30c7\u30f3\u30c8\u3092\u6e1b\u3089\u3059',
   'Header 4': '\u30d8\u30c3\u30c0\u30fc 4',
-  'Paste is now in plain text mode. Contents will now be pasted as plain ' +
-      'text until you toggle this option off.':
+  'Paste is now in plain text mode. Contents will now be pasted as plain text until you toggle this option off.':
       '\u8cbc\u308a\u4ed8\u3051\u306f\u73fe\u5728\u30d7\u30ec\u30fc\u30f3' +
       '\u30c6\u30ad\u30b9\u30c8\u30e2\u30fc\u30c9\u3067\u3059\u3002\u3053' +
       '\u306e\u30aa\u30d7\u30b7\u30e7\u30f3\u3092\u30aa\u30d5\u306b\u3057' +
@@ -144,15 +142,13 @@ tinymce.addI18n('ja', {
   'Insert link': '\u30ea\u30f3\u30af',
   'New window': '\u65b0\u898f\u30a6\u30a3\u30f3\u30c9\u30a6',
   'None': '\u306a\u3057',
-  'The URL you entered seems to be an external link. Do you want to add the ' +
-      'required http:\/\/ prefix?':
+  'The URL you entered seems to be an external link. Do you want to add the required http:\/\/ prefix?':
       '\u5165\u529b\u3055\u308c\u305fURL\u306f\u5916\u90e8\u30ea\u30f3\u30af' +
       '\u306e\u3088\u3046\u3067\u3059\u3002\u300chttp:\/\/\u300d\u30d7\u30ec' +
       '\u30d5\u30a3\u30c3\u30af\u30b9\u3092\u8ffd\u52a0\u3057\u307e\u3059' +
       '\u304b\uff1f',
   'Target': '\u30bf\u30fc\u30b2\u30c3\u30c8\u5c5e\u6027',
-  'The URL you entered seems to be an email address. Do you want to add the ' +
-      'required mailto: prefix?':
+  'The URL you entered seems to be an email address. Do you want to add the required mailto: prefix?':
       '\u5165\u529b\u3055\u308c\u305fURL\u306f\u30e1\u30fc\u30eb\u30a2\u30c9' +
       '\u30ec\u30b9\u306e\u3088\u3046\u3067\u3059\u3002\u300cmailto:\u300d' +
       '\u30d7\u30ec\u30d5\u30a3\u30c3\u30af\u30b9\u3092\u8ffd\u52a0\u3057' +
@@ -253,8 +249,7 @@ tinymce.addI18n('ja', {
   'Insert': '\u633f\u5165',
   'File': '\u30d5\u30a1\u30a4\u30eb',
   'Edit': '\u7de8\u96c6',
-  'Rich Text Area. Press ALT-F9 for menu. Press ALT-F10 for toolbar. ' +
-      'Press ALT-0 for help':
+  'Rich Text Area. Press ALT-F9 for menu. Press ALT-F10 for toolbar. Press ALT-0 for help':
       '\u66f8\u5f0f\u4ed8\u304d\u30c6\u30ad\u30b9\u30c8\u306e\u7de8\u96c6' +
       '\u753b\u9762\u3002ALT-F9\u3067\u30e1\u30cb\u30e5\u30fc\u3001ALT-F10' +
       '\u3067\u30c4\u30fc\u30eb\u30d0\u30fc\u3001ALT-0\u3067\u30d8\u30eb' +
