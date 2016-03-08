@@ -19,6 +19,11 @@ App::uses('FileController', 'Wysiwyg.Controller');
  */
 class ImageController extends FileController {
 
+/**
+ * uploadFileモデル用の validation設定
+ *
+ * @var array
+ */
 	protected $_validate = [
 		'real_file_name' => [
 			'rule' => ['isValidMimeType', ['image/gif', 'image/png', 'image/jpg', 'image/jpeg']],
