@@ -31,6 +31,15 @@ class FileController extends WysiwygAppController {
 	);
 
 /**
+ * use helpers
+ *
+ * @var array
+ */
+	public $helpers = array(
+		'NetCommons.NetCommonsHtml',
+	);
+
+/**
  * uploadFileモデル用の validation設定
  *
  * @var array
@@ -89,9 +98,22 @@ class FileController extends WysiwygAppController {
 		if ($uploadFile) {
 			$statusCode = 200;	// Status 200(OK)
 			$result = true;
+
+			// アップロードしたファイルのパスを作成
+			$url = NetCommonsUrl::actionUrl(
+				array(
+					'plugin' => 'wysiwyg',
+					'controller' => strtolower($this->name),
+					'action' => 'download',
+					$uploadFile['UploadFile']['id']
+				),
+				true
+			);
+
 			$file = [
 				'id' => $uploadFile['UploadFile']['id'],
 				'original_name' => $uploadFile['UploadFile']['original_name'],
+				'path' => $url,
 			];
 		} else {
 			$statusCode = 400;	// Status 400(Bad request)
