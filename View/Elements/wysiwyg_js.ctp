@@ -11,8 +11,11 @@
 // wysiwyg呼び出し
 echo $this->NetCommonsHtml->script(
 	array(
-		'/wysiwyg/js/wysiwyg.js',
 		'/components/tinymce-dist/tinymce.min.js',
 		'/components/angular-ui-tinymce/src/tinymce.js',
+		'/wysiwyg/js/wysiwyg.js',
+		'/wysiwyg/js/plugins/tex/plugin.js',
+		'/wysiwyg/js/plugins/tex/iframe.js',
+		'/wysiwyg/js/plugins/nc3_preview/plugin.js',
 	)
 );
