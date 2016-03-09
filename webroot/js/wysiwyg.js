@@ -42,7 +42,8 @@ NetCommonsApp.factory('NetCommonsWysiwyg', function() {
       });
     },
     language: 'ja',
-    language_url: '/wysiwyg/js/langs/ja.js'
+    language_url: '/wysiwyg/js/langs/ja.js',
+    convert_urls: false
   };
 
   /**
