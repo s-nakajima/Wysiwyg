@@ -20,7 +20,7 @@ NetCommonsApp.factory('NetCommonsWysiwyg', function() {
     mode: 'exact',
     menubar: false,
     plugins: 'advlist textcolor colorpicker table hr emoticons charmap ' +
-        'link media image code nc3Preview searchreplace paste tex file',
+        'link media nc3Image code nc3Preview searchreplace paste tex file',
     toolbar: [
               'fontselect fontsizeselect formatselect ' +
               '| bold italic underline strikethrough ' +
@@ -29,7 +29,7 @@ NetCommonsApp.factory('NetCommonsWysiwyg', function() {
               'undo redo | alignleft aligncenter alignright ' +
               '| bullist numlist | outdent indent blockquote ' +
               '| table | hr | emoticons | tex | link unlink',
-              'media books image file | pastetext code nc3Preview'
+              'media books nc3Image file | pastetext code nc3Preview'
     ],
     paste_as_text: true,
     setup: function(editor) {

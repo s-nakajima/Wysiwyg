@@ -18,6 +18,7 @@ echo $this->NetCommonsHtml->script(
 		'/wysiwyg/js/plugins/tex/plugin.js',
 		'/wysiwyg/js/plugins/tex/iframe.js',
 		'/wysiwyg/js/plugins/file/plugin.js',
+		'/wysiwyg/js/plugins/nc3_image/plugin.js',
 		'/wysiwyg/js/plugins/nc3_preview/plugin.js',
 	)
 );
