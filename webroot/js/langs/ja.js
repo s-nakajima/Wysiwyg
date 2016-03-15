@@ -218,8 +218,9 @@ tinymce.addI18n('ja',{
 "Format": "\u66f8\u5f0f",
 // Add new japanese
 "Image-Size": "画像サイズ",
+"Image-Position": "位置",
 "Large": "大",
 "Medium": "中",
 "Small": "小",
-"Thumbnail": "サムネイル",
+"Thumbnail": "サムネイル"
 });
