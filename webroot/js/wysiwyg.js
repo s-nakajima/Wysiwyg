@@ -25,11 +25,11 @@ NetCommonsApp.factory('NetCommonsWysiwyg', function(nc3Configs) {
               'fontselect fontsizeselect formatselect ' +
               '| bold italic underline strikethrough ' +
               '| subscript superscript | forecolor backcolor ' +
-              '| removeformat',
-              'undo redo | alignleft aligncenter alignright ' +
+              '| removeformat' +
+              '| undo redo | alignleft aligncenter alignright ' +
               '| bullist numlist | outdent indent blockquote ' +
-              '| table | hr | titleicons | tex | link unlink',
-              'media books nc3Image file | pastetext code nc3Preview'
+              '| table | hr | titleicons | tex | link unlink' +
+              '| media books nc3Image file | pastetext code nc3Preview'
     ],
     paste_as_text: true,
 
@@ -39,7 +39,8 @@ NetCommonsApp.factory('NetCommonsWysiwyg', function(nc3Configs) {
     setup: function(editor) {
       editor.addButton('books', {
         text: '書籍',
-        icon: false,
+        tooltip: 'BookSearch',
+        image: '/wysiwyg/img/title_icons/book.svg',
         onclick: function() {
           editor.windowManager.alert('書籍検索');
         }
