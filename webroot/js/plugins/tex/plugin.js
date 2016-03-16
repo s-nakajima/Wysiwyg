@@ -118,12 +118,11 @@ tinymce.PluginManager.add('tex', function(editor, url) {
 
   // windowへのボタン登録
   editor.addButton('tex', {
-    text: 'Tex',
-    icon: false,
+    tooltip: 'Tex',
     id: 'tex-btn',
-    // image: '', //アイコン用？
     stateSelector: '.' + vals.tex_elm_class,
-    onclick: showDialog
+    onclick: showDialog,
+    image: '/wysiwyg/img/title_icons/tex.svg'
   });
 
   // setWysiwygTextEvent();

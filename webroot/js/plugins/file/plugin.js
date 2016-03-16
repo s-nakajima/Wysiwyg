@@ -71,9 +71,9 @@ tinymce.PluginManager.add('file', function(editor, url) {
 
   // windowへのボタン登録
   editor.addButton('file', {
-    text: 'File',
-    icon: false,
+    tooltip: 'Fileup',
     id: 'file-btn',
-    onclick: showDialog
+    onclick: showDialog,
+    image: '/wysiwyg/img/title_icons/fileup.svg'
   });
 });
