@@ -24,6 +24,8 @@ class WysiwygHelper extends AppHelper {
  * @var array
  */
 	public $helpers = array(
+		'NetCommons.NetCommonsHtml',
+		'NetCommons.TitleIcon',
 	);
 
 /**
@@ -32,6 +34,34 @@ class WysiwygHelper extends AppHelper {
  * @return String wysiwyg js
  */
 	public function wysiwygScript() {
+		// NetCommonsApp.constant で定義する変数の定義
+		$constants = [];
+
+		// タイトルアイコン用のファイルリスト
+		$constants['title_icon_paths'] = $this->__getTitleIconFiles();
+
+		$this->NetCommonsHtml->scriptStart(array('inline' => false));
+		echo "NetCommonsApp.service('nc3Configs', function() {";
+			foreach ($constants as $key => $value) {
+				if (is_array($value)) {
+					echo 'this.' . $key . ' = ' . json_encode($value) . ';';
+				} else {
+					echo "this." . $key . " = '" . $value . "';";
+				}
+			}
+		echo "});";
+		$this->NetCommonsHtml->scriptEnd();
+
 		return $this->_View->element('Wysiwyg.wysiwyg_js');
+	}
+
+/**
+ * TitleIconFilesを取得して加工する
+ *
+ * @return Array
+ */
+	private function __getTitleIconFiles() {
+		$files = json_decode($this->TitleIcon->getIconFiles());
+		return array_chunk($files, 8);
 	}
 }

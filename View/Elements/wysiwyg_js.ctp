@@ -20,5 +20,6 @@ echo $this->NetCommonsHtml->script(
 		'/wysiwyg/js/plugins/file/plugin.js',
 		'/wysiwyg/js/plugins/nc3_image/plugin.js',
 		'/wysiwyg/js/plugins/nc3_preview/plugin.js',
+		'/wysiwyg/js/plugins/titleicons/plugin.js',
 	)
 );
