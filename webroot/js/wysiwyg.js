@@ -9,7 +9,7 @@ NetCommonsApp.requires.push('ui.tinymce');
 /**
  * NetCommonsWysiwyg factory
  */
-NetCommonsApp.factory('NetCommonsWysiwyg', function() {
+NetCommonsApp.factory('NetCommonsWysiwyg', function(nc3Configs) {
 
   /**
    * tinymce optins
@@ -19,7 +19,7 @@ NetCommonsApp.factory('NetCommonsWysiwyg', function() {
   var options = {
     mode: 'exact',
     menubar: false,
-    plugins: 'advlist textcolor colorpicker table hr emoticons charmap ' +
+    plugins: 'advlist textcolor colorpicker table hr titleicons charmap ' +
         'link media nc3Image code nc3Preview searchreplace paste tex file',
     toolbar: [
               'fontselect fontsizeselect formatselect ' +
@@ -28,10 +28,14 @@ NetCommonsApp.factory('NetCommonsWysiwyg', function() {
               '| removeformat',
               'undo redo | alignleft aligncenter alignright ' +
               '| bullist numlist | outdent indent blockquote ' +
-              '| table | hr | emoticons | tex | link unlink',
+              '| table | hr | titleicons | tex | link unlink',
               'media books nc3Image file | pastetext code nc3Preview'
     ],
     paste_as_text: true,
+
+    nc3Configs: nc3Configs,
+    titleIconSize: 18,
+
     setup: function(editor) {
       editor.addButton('books', {
         text: '書籍',
