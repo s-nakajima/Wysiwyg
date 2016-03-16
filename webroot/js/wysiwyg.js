@@ -32,13 +32,15 @@ NetCommonsApp.factory('NetCommonsWysiwyg', function(nc3Configs) {
               '| media books nc3Image file | pastetext code nc3Preview'
     ],
     paste_as_text: true,
+    convert_urls: false,
 
     nc3Configs: nc3Configs,
+
+    // タイトルアイコンのサイズ指定
     titleIconSize: 18,
 
     setup: function(editor) {
       editor.addButton('books', {
-        text: '書籍',
         tooltip: 'BookSearch',
         image: '/wysiwyg/img/title_icons/book.svg',
         onclick: function() {
@@ -46,9 +48,10 @@ NetCommonsApp.factory('NetCommonsWysiwyg', function(nc3Configs) {
         }
       });
     },
-    language: 'ja',
-    language_url: '/wysiwyg/js/langs/ja.js',
-    convert_urls: false
+
+    // 言語設定
+    language: nc3Configs.lang,
+    language_url: '/wysiwyg/js/langs/' + nc3Configs.lang + '.js'
   };
 
   /**
