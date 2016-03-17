@@ -9,7 +9,25 @@ NetCommonsApp.requires.push('ui.tinymce');
 /**
  * NetCommonsWysiwyg factory
  */
-NetCommonsApp.factory('NetCommonsWysiwyg', function(nc3Configs) {
+NetCommonsApp.factory('NetCommonsWysiwyg', function(nc3Configs, colorPaletteBaseColors, colorPaletteDefaultColors) {
+
+  // textclor で使用するためのカラーパレット情報を構築
+  // textcolor_map の設定値をココで構築する内容で設定する
+  //
+  var colors = function(baseColors, defaultColors) {
+    var _colors = baseColors.concat(defaultColors);
+
+    // TinyMCEのカラーパレット情報の
+    // ['色コード', '色名', '色コード', '色名', ... ]
+    // と言う形式に colors 配列を作成する
+    //
+    var colors = [];
+    for (var i = 0;  i < _colors.length; i++) {
+      colors.push(_colors[i].replace(/#/g, ''));
+      colors.push('');
+    }
+    return colors;
+  };
 
   /**
    * tinymce optins
@@ -19,7 +37,7 @@ NetCommonsApp.factory('NetCommonsWysiwyg', function(nc3Configs) {
   var options = {
     mode: 'exact',
     menubar: false,
-    plugins: 'advlist textcolor colorpicker table hr titleicons charmap ' +
+    plugins: 'advlist nc3_textcolor colorpicker table hr titleicons charmap ' +
         'link media nc3Image code nc3Preview searchreplace paste tex file',
     toolbar: [
               'fontselect fontsizeselect formatselect ' +
@@ -38,6 +56,11 @@ NetCommonsApp.factory('NetCommonsWysiwyg', function(nc3Configs) {
 
     // タイトルアイコンのサイズ指定
     titleIconSize: 18,
+
+    // colorpicker 関連
+    textcolor_cols: 10,
+    textcolor_rows: 6,
+    textcolor_map: colors(colorPaletteBaseColors, colorPaletteDefaultColors),
 
     setup: function(editor) {
       editor.addButton('books', {

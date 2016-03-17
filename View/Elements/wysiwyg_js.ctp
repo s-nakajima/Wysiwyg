@@ -13,6 +13,7 @@ echo $this->NetCommonsHtml->script(
 	array(
 		'/components/tinymce-dist/tinymce.min.js',
 		'/components/angular-ui-tinymce/src/tinymce.js',
+		'/net_commons/js/color_palette_value.js',
 		'/wysiwyg/js/wysiwyg.js',
 		'/wysiwyg/js/wysiwyg_app.js',
 		'/wysiwyg/js/plugins/tex/plugin.js',
@@ -21,5 +22,6 @@ echo $this->NetCommonsHtml->script(
 		'/wysiwyg/js/plugins/nc3_image/plugin.js',
 		'/wysiwyg/js/plugins/nc3_preview/plugin.js',
 		'/wysiwyg/js/plugins/titleicons/plugin.js',
+		'/wysiwyg/js/plugins/nc3_textcolor/plugin.js',
 	)
 );
