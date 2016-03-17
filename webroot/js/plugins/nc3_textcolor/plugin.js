@@ -115,7 +115,6 @@ tinymce.PluginManager.add('nc3_textcolor', function(editor) {
 
 		html = '<table class="mce-grid mce-grid-border mce-colorbutton-grid" role="list" cellspacing="0"><tbody>';
 
-		html += '<tr><td colspan=' + cols + '><form action="" onSubmit="console.log(test); return false;"><input type="text" id="mce-color-value" class="mce-textbox" /><input type="submit" value="OK" /></form></td></tr>';
 
 		last = colors.length - 1;
 
@@ -157,9 +156,29 @@ tinymce.PluginManager.add('nc3_textcolor', function(editor) {
 		// 	html += '</tr>';
 		// }
 
+		html += '<tr><td colspan=' + cols + '><input type="text" id="mce-colorcode-' + ctrl.parent().settings.format + '" class="mce-textbox" /></td></tr>';
+
 		html += '</tbody></table>';
 
 		return html;
+	}
+
+	function onKeyPressColorCode(e) {
+		var buttonCtrl = this.parent(), value;
+		var format = buttonCtrl.settings.format;
+
+		if (e.keyCode == 13) {
+				value = document.getElementById("mce-colorcode-" + format).value;
+
+				// 頭に # がついていなければつける
+				if (value.match(/^#.*/) == null) {
+					value = '#' + value;
+				}
+
+				buttonCtrl.hidePanel();
+				buttonCtrl.color(value);
+				applyFormat(format, value);
+    }
 	}
 
 	function applyFormat(format, value) {
@@ -176,10 +195,6 @@ tinymce.PluginManager.add('nc3_textcolor', function(editor) {
 			editor.formatter.remove(format, {value: null}, null, true);
 			editor.nodeChanged();
 		});
-	}
-
-	function onPanelChange(e) {
-		console.log(e);
 	}
 
 	function onPanelClick(e) {
@@ -228,9 +243,6 @@ tinymce.PluginManager.add('nc3_textcolor', function(editor) {
 					}
 				}
 
-				buttonCtrl.panel.getEl().getElementById('mce-color-value').value = value;
-				console.log(value);
-
 				setDivColor(div, value);
 				selectColor(value);
 			}, getCurrentColor(buttonCtrl.settings.format));
@@ -265,6 +277,16 @@ tinymce.PluginManager.add('nc3_textcolor', function(editor) {
 		}
 	}
 
+	function onShowPanel() {
+		// パネル表示時にテキストボックスに現在の色をセットする
+		var self = this;
+		var format = self.parent().settings.format;
+		var color = getCurrentColor(format);
+		var input = document.getElementById('mce-colorcode-' + format);
+
+		input.value= editor.dom.toHex(color);
+	}
+
 	editor.addButton('forecolor', {
 		type: 'colorbutton',
 		tooltip: 'Text color',
@@ -273,7 +295,9 @@ tinymce.PluginManager.add('nc3_textcolor', function(editor) {
 			role: 'application',
 			ariaRemember: true,
 			html: renderColorPicker,
-			onclick: onPanelClick
+			onclick: onPanelClick,
+			onkeypress: onKeyPressColorCode,
+			onshow: onShowPanel
 		},
 		onclick: onButtonClick
 	});
@@ -286,7 +310,9 @@ tinymce.PluginManager.add('nc3_textcolor', function(editor) {
 			role: 'application',
 			ariaRemember: true,
 			html: renderColorPicker,
-			onclick: onPanelClick
+			onclick: onPanelClick,
+			onkeypress: onKeyPressColorCode,
+			onshow: onShowPanel
 		},
 		onclick: onButtonClick
 	});
