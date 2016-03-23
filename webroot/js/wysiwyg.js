@@ -40,7 +40,7 @@ NetCommonsApp.factory('NetCommonsWysiwyg', function(nc3Configs,
         menubar: false,
         plugins: 'advlist nc3_textcolor colorpicker table hr titleicons ' +
             'charmap link media nc3Image code nc3Preview searchreplace ' +
-            'paste tex file',
+            'paste tex file booksearch',
         toolbar: [
                   'fontselect fontsizeselect formatselect ' +
                   '| bold italic underline strikethrough ' +
@@ -49,7 +49,7 @@ NetCommonsApp.factory('NetCommonsWysiwyg', function(nc3Configs,
                   '| undo redo | alignleft aligncenter alignright ' +
                   '| bullist numlist | outdent indent blockquote ' +
                   '| table | hr | titleicons | tex | link unlink' +
-                  '| media books nc3Image file | pastetext code nc3Preview'
+                  '| media booksearch nc3Image file | pastetext code nc3Preview'
         ],
         paste_as_text: true,
         convert_urls: false,
@@ -66,16 +66,6 @@ NetCommonsApp.factory('NetCommonsWysiwyg', function(nc3Configs,
             colorPaletteBaseColors,
             colorPaletteDefaultColors
         ),
-
-        setup: function(editor) {
-          editor.addButton('books', {
-            tooltip: 'BookSearch',
-            image: '/wysiwyg/img/title_icons/book.svg',
-            onclick: function() {
-              editor.windowManager.alert('書籍検索');
-            }
-          });
-        },
 
         // 言語設定
         language: nc3Configs.lang,

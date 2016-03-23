@@ -1,0 +1,154 @@
+/**
+ * ダイアログ表示の補正(書籍検索)
+ */
+#books-result, #books-detail {
+    display:none;
+    position:absolute;
+    width:100%;
+    top:0;
+    background-color:#fff;
+}
+#books-result .result-items-wrap, #books-detail .result-items-wrap {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    margin: 0 auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/**
+ * 書籍検索/詳細表示用スタイル
+ */
+ul.books, div.books {
+    max-width: 500px;
+    height: auto;
+    margin: 20px auto;
+    position: relative;
+    list-style: none;
+}
+.books .title{
+    margin-bottom: 5px;
+    white-space: normal;
+}
+.books .title a, .books .title span {
+	font-size: 1.2em;
+    color: #337ab7;
+    text-decoration: none;
+    white-space: normal;
+}
+.books .item {
+    position: relative;
+    height: auto;
+    min-height: 100px;
+    margin-bottom: 20px;
+}
+.books .item > div{
+    position: relative;
+}
+.books .item-detail {
+    position: relative;
+    line-height: 1.5;
+}
+
+.books .item-img {
+    position: absolute;
+    display: inline-block;
+    width: 60px;
+    height: 76px;
+}
+.books .item-img img{
+    width: 60px;
+    height: 76px;
+}
+
+.books .item-inner {
+    position: relative;
+    max-width: 430px;
+    margin-left: 70px;
+}
+.books .item-inner *{
+    line-height: 1.5;
+}
+.books .item-inner > div{
+    width: 100%;
+    margin-bottom: 5px;
+}
+.books .item-inner .authors a {
+    color: #337ab7;
+    text-decoration: none;
+    white-space: normal;
+}
+.books .item .item-description {
+    white-space: normal;
+}
+.books .btn-area {
+    width: 100%;
+    text-align: right;
+}
+
+.books .btn {
+    padding: 4px 8px;
+    line-height: 20px;
+    cursor: pointer;
+    color: #fff;
+    text-align: center;
+    overflow: visible;
+    -webkit-appearance: none;
+    box-sizing: border-box;
+}
+
+.books .link-btn {
+    background-image: -webkit-linear-gradient(top,#337ab7 0,#265a88 100%);
+    background-image: -o-linear-gradient(top,#337ab7 0,#265a88 100%);
+    background-image: -webkit-gradient(linear,left top,left bottom,from(#337ab7),to(#265a88));
+    background-image: linear-gradient(to bottom,#337ab7 0,#265a88 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff337ab7', endColorstr='#ff265a88', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+    background-repeat: repeat-x;
+    border-color: #245580;
+}
+/**
+ * detail - style.
+ */
+.books .item.detail .item-img img{
+    width: 128px;
+    height: 162px;
+}
+.books .item.detail .item-inner {
+    max-width: 360px;
+    margin-left: 140px;
+}
+.books .item.detail .item-inner *{
+    /*font-size: 1.3em;*/
+}
+
+/**
+ * ボタンスタイル
+ */
+
+/**
+ * ページャ用スタイル
+ */
+#pagination {
+    text-align: center;
+    margin-bottom: 20px;
+}
+#pagination ul {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+}
+/**
+ * clearfix
+ */
+.clearfix:after {
+    content: '.';
+    display: block;
+    clear: both;
+    height: 0;
+    visibility: hidden;
+}
+.clearfix {
+    min-height: 1px;
+}

@@ -222,5 +222,7 @@ tinymce.addI18n('ja',{
 "Large": "大",
 "Medium": "中",
 "Small": "小",
-"Thumbnail": "サムネイル"
+"Thumbnail": "サムネイル",
+"Book search": "書籍検索",
+"Attach file": "ファイル添付"
 });
