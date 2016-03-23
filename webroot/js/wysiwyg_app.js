@@ -15,11 +15,11 @@ var NC3_APP = new (function nc3WysiwygApp() {
       uploadFile: function() {
         return '/wysiwyg/file/upload';
       },
-      searchBooks: function(q){
-        return 'https://www.googleapis.com/books/v1/volumes?q='+q;
+      searchBooks: function(q) {
+        return 'https://www.googleapis.com/books/v1/volumes?q=' + q;
       },
-      getBookDetail: function(id){
-        return 'https://www.googleapis.com/books/v1/volumes/'+id;
+      getBookDetail: function(id) {
+        return 'https://www.googleapis.com/books/v1/volumes/' + id;
       }
     };
   })();
@@ -120,7 +120,7 @@ var NC3_APP = new (function nc3WysiwygApp() {
   /**
    * 書籍検索(Google books API)
    */
-  self.searchBooks = function(params, onsuccess, onerr){
+  self.searchBooks = function(params, onsuccess, onerr) {
     var url = __appURLs.searchBooks(params.keyword);
     __httpReq(
         'get',
@@ -130,11 +130,12 @@ var NC3_APP = new (function nc3WysiwygApp() {
         onerror,
         'searchBooks'
     );
-  }
+  };
+
   /**
    * 書籍の詳細情報取得
    */
-  self.getBookDetail = function(id, onsuccess, onerr){
+  self.getBookDetail = function(id, onsuccess, onerr) {
     var url = __appURLs.getBookDetail(id);
     __httpReq(
         'get',
@@ -144,7 +145,8 @@ var NC3_APP = new (function nc3WysiwygApp() {
         onerror,
         'getBookDetail'
     );
-  }
+  };
+
 })();
 
 
