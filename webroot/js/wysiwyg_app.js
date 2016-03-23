@@ -14,6 +14,12 @@ var NC3_APP = new (function nc3WysiwygApp() {
       },
       uploadFile: function() {
         return '/wysiwyg/file/upload';
+      },
+      searchBooks: function(q) {
+        return 'https://www.googleapis.com/books/v1/volumes?q=' + q;
+      },
+      getBookDetail: function(id) {
+        return 'https://www.googleapis.com/books/v1/volumes/' + id;
       }
     };
   })();
@@ -111,6 +117,36 @@ var NC3_APP = new (function nc3WysiwygApp() {
         'uploadFile'
     );
   };
+  /**
+   * 書籍検索(Google books API)
+   */
+  self.searchBooks = function(params, onsuccess, onerr) {
+    var url = __appURLs.searchBooks(params.keyword);
+    __httpReq(
+        'get',
+        url,
+        {},
+        onsuccess,
+        onerror,
+        'searchBooks'
+    );
+  };
+
+  /**
+   * 書籍の詳細情報取得
+   */
+  self.getBookDetail = function(id, onsuccess, onerr) {
+    var url = __appURLs.getBookDetail(id);
+    __httpReq(
+        'get',
+        url,
+        {},
+        onsuccess,
+        onerror,
+        'getBookDetail'
+    );
+  };
+
 })();
 
 
