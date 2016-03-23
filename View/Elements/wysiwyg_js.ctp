@@ -23,5 +23,12 @@ echo $this->NetCommonsHtml->script(
 		'/wysiwyg/js/plugins/nc3_preview/plugin.js',
 		'/wysiwyg/js/plugins/titleicons/plugin.js',
 		'/wysiwyg/js/plugins/nc3_textcolor/plugin.js',
+		'/wysiwyg/js/plugins/booksearch/plugin.js',
+	)
+);
+
+echo $this->NetCommonsHtml->css(
+	array(
+		'/wysiwyg/css/adjust.css',
 	)
 );

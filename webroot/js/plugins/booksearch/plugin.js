@@ -2,7 +2,7 @@
  * Books - plugin
  */
 // add tinymce plugin
-tinymce.PluginManager.add('nc3Books', function(editor, url) {
+tinymce.PluginManager.add('booksearch', function(editor, url) {
   var win;
   var itemsOnPage = 4; // 1ページあたりの表示件数
   var currentDialog = 'top'; //ダイアログ内の表示状態(top,result,detail)
@@ -267,9 +267,9 @@ tinymce.PluginManager.add('nc3Books', function(editor, url) {
   editor.addCommand('mceBooks', showDialog);
 
   // windowへのボタン登録
-  editor.addButton('nc3Books', {
-    tooltip: 'Book Search',
-    image: './img/title_icons/book.svg',
+  editor.addButton('booksearch', {
+    tooltip: 'Book search',
+    image: '/wysiwyg/img/title_icons/book.svg',
     // icon: 'newdocument',
     onclick: showDialog
   });
@@ -339,8 +339,7 @@ var booksTemplate = (function() {
                 '</div>' +
                 '<div class="item-inner">' +
                     //'<div>https://books.google.com/books?isbn='+isbn+'</div>'+
-                    '<div class="authors">' +
-                        '<a href="" title="">' + authors + '</a>&nbsp;&nbsp;' +
+                    '<div class="authors">' + authors + '&nbsp;&nbsp;' +
                         publishedDate +
                     '</div>' +
                     '<div class="item-description">' + description + '</div>' +
@@ -409,8 +408,7 @@ var booksTemplate = (function() {
                 '</div>' +
                 '<div class="item-inner">' +
                     //'<div>https://books.google.com/books?isbn='+isbn+'</div>'+
-                    '<div class="authors">' +
-                        '<a href="" title="">' + authors +
+                    '<div class="authors">' + authors +
                         '</a>&nbsp;&nbsp;' + publishedDate +
                     '</div>' +
                     '<div class="item-description">' + description + '</div>' +
