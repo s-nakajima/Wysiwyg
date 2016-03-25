@@ -53,11 +53,9 @@ NetCommonsApp.factory('NetCommonsWysiwyg', function(nc3Configs,
         ],
         paste_as_text: true,
         convert_urls: false,
+        content_css: nc3Configs.content_css,
 
         nc3Configs: nc3Configs,
-
-        // タイトルアイコンのサイズ指定
-        titleIconSize: 18,
 
         // colorpicker 関連
         textcolor_cols: 10,
