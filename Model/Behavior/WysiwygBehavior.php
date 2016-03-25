@@ -85,6 +85,10 @@ class WysiwygBehavior extends ModelBehavior {
 /**
  * afterSave is called after a model is saved.
  *
+ * Wysiwyg に登録したファイル・画像には、content_key, block_key が未定義のため
+ * 登録されていない場合がある。
+ * それらのファイルデータに対して、登録を実行する。
+ *
  * @param Model $model Model using this behavior
  * @param bool $created True if this save created a new record
  * @param array $options Options passed from Model::save().
@@ -92,6 +96,30 @@ class WysiwygBehavior extends ModelBehavior {
  * @see Model::save()
  */
 	public function afterSave(Model $model, $created, $options = array()) {
+		// アップロードされたファイル・画像の ID を取得
+		$pattern = sprintf('/%s\/%s\/([0-9]*)/', self::REPLACE_BASE_URL, self::WYSIWYG_REPLACE_PATH);
+		preg_match_all($pattern, $model->data[$model->alias]['content'], $matches);
+
+		$fileIds = $matches[1];
+
+		// 更新対象となる Fileデータを取得
+		// $fieIds より検索
+		//
+		$uploadFile = ClassRegistry::init('Files.UploadFile');
+		$files = $uploadFile->find('all', ['conditions' => ['id' => $fileIds]]);
+
+		foreach ($files as $file) {
+			// content_key または block_key が NULL の時は新規の登録ファイルとなるので
+			// 改めて content_key, block_key をセットする
+			//
+			if (empty($file['UploadFile']['content_key']) || empty($file['UploadFile']['block_key'])) {
+				$file['UploadFile']['content_key'] = $model->data[$model->alias]['key'];
+				$file['UploadFile']['block_key'] = $model->data['Block']['key'];
+
+				$uploadFile->create();
+				$uploadFile->save($file);
+			}
+		}
 	}
 
 /**
