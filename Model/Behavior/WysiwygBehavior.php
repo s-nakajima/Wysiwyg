@@ -33,7 +33,9 @@ class WysiwygBehavior extends ModelBehavior {
  * @return void
  */
 	public function setup(Model $model, $config = array()) {
-		$this->_fields = $config['_fields'];
+		if (isset($config['fields'])) {
+			$this->_fields = $config['fields'];
+		}
 	}
 
 }
