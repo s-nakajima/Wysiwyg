@@ -85,7 +85,10 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
         .files[0];
       var formData = new FormData();
       formData.append('data[Wysiwyg][file]', files);
-      formData.append('data[Block][key]', 'block_1'); // ひとまずダミー送信
+      formData.append('data[Block][key]',
+          editor.settings.nc3Configs.block_key);
+      formData.append('data[Block][room_id]',
+          editor.settings.nc3Configs.room_id);
       formData.append('src', d.src);
       formData.append('alt', d.alt);
       formData.append('size', d.size);

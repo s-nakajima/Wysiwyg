@@ -81,7 +81,8 @@ class FileController extends WysiwygAppController {
 			// uploadFile登録に必要な data（block_key）を作成する。
 			$data = [
 				'UploadFile' => [
-					'block_key' => $this->data['Block']['key']
+					'block_key' => $this->data['Block']['key'],
+					'room_id' => $this->data['Block']['room_id']
 				]
 			];
 			$uploadFile = $uploadFileModel->registByFile($file, 'wysiwyg', null, 'Wysiwyg.file', $data);
