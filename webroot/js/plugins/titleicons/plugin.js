@@ -52,8 +52,7 @@ tinymce.PluginManager.add('titleicons', function(editor, url) {
           editor.insertContent(
               '<img src="' + linkElm.getAttribute('data-mce-url') + '"' +
               ' alt="' + linkElm.getAttribute('data-mce-alt') + '"' +
-              ' width="' + editor.settings.titleIconSize + '"' +
-              ' height="' + editor.settings.titleIconSize + '" />'
+              ' class="nc-title-icon" />'
           );
 
           this.hide();
