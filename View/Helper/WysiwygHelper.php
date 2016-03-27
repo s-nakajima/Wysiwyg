@@ -39,9 +39,22 @@ class WysiwygHelper extends AppHelper {
 
 		// タイトルアイコン用のファイルリスト
 		$constants['title_icon_paths'] = $this->__getTitleIconFiles();
-		$constants['lang'] = Current::read('Language.code');
-		$constants['content_css'] = [$this->NetCommonsHtml->url('/net_commons/css/style.css'), $this->NetCommonsHtml->url('/wysiwyg/css/style.css')];
 
+		// 言語情報
+		$constants['lang'] = Current::read('Language.code');
+
+		// wysiwyg で利用するスタイルシート
+		$constants['content_css'] = [
+			$this->NetCommonsHtml->url('/net_commons/css/style.css'),
+			$this->NetCommonsHtml->url('/wysiwyg/css/style.css'),
+		];
+
+		// ファイル／画像プラグインアップロード時に必要なデータの用意
+		$constants['block_key'] = Current::read('Block.key');
+		$constants['room_id'] = Current::read('Block.room_id');
+
+		// constsnts 設定を JavaScriptで利用するための設定に変換する
+		//
 		$this->NetCommonsHtml->scriptStart(array('inline' => false));
 		echo "NetCommonsApp.service('nc3Configs', function() {";
 			foreach ($constants as $key => $value) {
