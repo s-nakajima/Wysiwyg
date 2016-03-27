@@ -224,5 +224,8 @@ tinymce.addI18n('ja',{
 "Small": "小",
 "Thumbnail": "サムネイル",
 "Book search": "書籍検索",
+"Keyword": "キーワード",
+"Search": "検索",
+"Link-Insert-Type": "リンク挿入方法",
 "Attach file": "ファイル添付"
 });
