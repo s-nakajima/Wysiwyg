@@ -40,7 +40,7 @@ class WysiwygHelper extends AppHelper {
 		// タイトルアイコン用のファイルリスト
 		$constants['title_icon_paths'] = $this->__getTitleIconFiles();
 		$constants['lang'] = Current::read('Language.code');
-		$constants['content_css'] = $this->NetCommonsHtml->url('/net_commons/css/style.css');
+		$constants['content_css'] = [$this->NetCommonsHtml->url('/net_commons/css/style.css'), $this->NetCommonsHtml->url('/wysiwyg/css/style.css')];
 
 		$this->NetCommonsHtml->scriptStart(array('inline' => false));
 		echo "NetCommonsApp.service('nc3Configs', function() {";

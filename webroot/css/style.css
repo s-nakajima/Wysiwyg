@@ -1,14 +1,17 @@
+#wysiwyg-book-search {
+    font-size: 0.9em;
+}
+
 /**
  * ダイアログ表示の補正(書籍検索)
  */
-#books-result, #books-detail {
-    display:none;
-    position:absolute;
+#wysiwyg-books-result {
+    position:relative;
     width:100%;
     top:0;
     background-color:#fff;
 }
-#books-result .result-items-wrap, #books-detail .result-items-wrap {
+#wysiwyg-books-result .result-items-wrap {
     width: 100%;
     height: 100%;
     position: relative;
@@ -20,74 +23,78 @@
 /**
  * 書籍検索/詳細表示用スタイル
  */
-ul.books, div.books {
-    max-width: 500px;
+ul.wysiwyg-books, div.wysiwyg-books {
     height: auto;
-    margin: 20px auto;
+    margin: 0px auto;
     position: relative;
     list-style: none;
 }
-.books .title{
+div.wysiwyg-books {
+    max-width: none;
+    /*margin: 10px: 0px;*/
+}
+.wysiwyg-books .book-title{
     margin-bottom: 5px;
     white-space: normal;
 }
-.books .title a, .books .title span {
+.wysiwyg-books .book-title a, .wysiwyg-books .book-title span {
 	font-size: 1.2em;
     color: #337ab7;
     text-decoration: none;
     white-space: normal;
 }
-.books .item {
+.wysiwyg-books .book-item {
     position: relative;
+    padding: 5px 10px;
     height: auto;
     min-height: 100px;
     margin-bottom: 20px;
+    border-bottom: 1px solid #ccc;
 }
-.books .item > div{
+.wysiwyg-books .book-item > div{
     position: relative;
 }
-.books .item-detail {
+.wysiwyg-books .book-item-detail {
     position: relative;
     line-height: 1.5;
 }
 
-.books .item-img {
+.wysiwyg-books .book-item-img {
     position: absolute;
     display: inline-block;
     width: 60px;
     height: 76px;
 }
-.books .item-img img{
+.wysiwyg-books .book-item-img img{
     width: 60px;
     height: 76px;
 }
 
-.books .item-inner {
+.wysiwyg-books .book-item-inner {
     position: relative;
-    max-width: 430px;
     margin-left: 70px;
 }
-.books .item-inner *{
+.wysiwyg-books .book-item-inner *{
     line-height: 1.5;
 }
-.books .item-inner > div{
+.wysiwyg-books .book-item-inner > div{
     width: 100%;
     margin-bottom: 5px;
 }
-.books .item-inner .authors a {
+.wysiwyg-books .book-item-inner .authors a {
     color: #337ab7;
     text-decoration: none;
     white-space: normal;
 }
-.books .item .item-description {
+.wysiwyg-books .book-item .book-item-description {
     white-space: normal;
 }
-.books .btn-area {
+.wysiwyg-books .btn-area {
     width: 100%;
     text-align: right;
 }
 
-.books .btn {
+.wysiwyg-books .btn {
     padding: 4px 8px;
     line-height: 20px;
     cursor: pointer;
@@ -98,7 +105,7 @@ ul.books, div.books {
     box-sizing: border-box;
 }
 
-.books .link-btn {
+.wysiwyg-books .link-btn {
     background-image: -webkit-linear-gradient(top,#337ab7 0,#265a88 100%);
     background-image: -o-linear-gradient(top,#337ab7 0,#265a88 100%);
     background-image: -webkit-gradient(linear,left top,left bottom,from(#337ab7),to(#265a88));
@@ -108,20 +115,6 @@ ul.books, div.books {
     background-repeat: repeat-x;
     border-color: #245580;
 }
-/**
- * detail - style.
- */
-.books .item.detail .item-img img{
-    width: 128px;
-    height: 162px;
-}
-.books .item.detail .item-inner {
-    max-width: 360px;
-    margin-left: 140px;
-}
-.books .item.detail .item-inner *{
-    /*font-size: 1.3em;*/
-}
 
 /**
  * ボタンスタイル
@@ -130,11 +123,11 @@ ul.books, div.books {
 /**
  * ページャ用スタイル
  */
-#pagination {
+#wysiwyg-pagination {
     text-align: center;
     margin-bottom: 20px;
 }
-#pagination ul {
+#wysiwyg-pagination ul {
     display: inline-block;
     padding: 0;
     margin: 0;
@@ -142,13 +135,13 @@ ul.books, div.books {
 /**
  * clearfix
  */
-.clearfix:after {
+.wysiwyg-clearfix:after {
     content: '.';
     display: block;
     clear: both;
     height: 0;
     visibility: hidden;
 }
-.clearfix {
+.wysiwyg-clearfix {
     min-height: 1px;
 }
