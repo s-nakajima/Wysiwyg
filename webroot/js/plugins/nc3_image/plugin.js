@@ -7,7 +7,8 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
   var vals = {
     dispThumArea: 'image-thumb',
     img_elm_class: 'nc3-img',
-    img_basepath: '/wysiwyg/image/download/'
+    img_basepath: editor.settings.nc3Configs.baseUrl +
+        '/wysiwyg/image/download/'
   };
   var position_form_vals = [{
     text: 'Select Position',
@@ -76,7 +77,8 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
 
   // submit時動作(insert)
   var onSubmitForm_Insert = function(data) {
-    if (data.src) {
+    var d = data;
+    if (d.src) {
       // formオブジェクト作成
       var files = $('#uploadForm')
         .find('input[type="file"]')[0]
@@ -84,22 +86,22 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
       var formData = new FormData();
       formData.append('data[Wysiwyg][file]', files);
       formData.append('data[Block][key]', 'block_1'); // ひとまずダミー送信
-      formData.append('src', data.src);
-      formData.append('alt', data.alt);
-      formData.append('size', data.size);
-      formData.append('position', data.position);
+      formData.append('src', d.src);
+      formData.append('alt', d.alt);
+      formData.append('size', d.size);
+      formData.append('position', d.position);
       NC3_APP.uploadImage(formData,
           function(res) {
             // onsuccess
-            if (res.result) {
+            if (res && res.result) {
               editor.selection.collapse(true);
               editor.execCommand('mceInsertContent', false,
                   editor.dom.createHTML('img', {
-                    src: vals.img_basepath + res.file.id + '/' + data.size,
-                    alt: data.alt,
+                    src: res.file.path + '/' + d.size,
+                    alt: d.alt,
                     class: vals.img_elm_class,
-                    'data-size': data.size,
-                    'data-position': data.position,
+                    'data-size': d.size,
+                    'data-position': d.position,
                     'data-imgid': res.file.id
                   })
               );
@@ -183,7 +185,7 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
         style: 'text-align:right;background-color:#fff;',
         html: function() {
           if (data.id) {
-            return '<img src="' + vals.img_basepath + data.id + '/thumb">';
+            return '<img src="' + data.file.path + '/thumb">';
           } else {
             return '';
           }
