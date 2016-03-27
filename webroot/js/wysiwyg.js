@@ -51,6 +51,23 @@ NetCommonsApp.factory('NetCommonsWysiwyg', function(nc3Configs,
                   '| table | hr | titleicons | tex | link unlink' +
                   '| media booksearch nc3Image file | pastetext code nc3Preview'
         ],
+
+        font_formats: 'ゴシック=Arial, Roboto, “Droid Sans”, ' +
+                      '“游ゴシック”, "Yu Gothic", "YuGothic", ' +
+                      '“ヒラギノ角ゴ ProN W3”, “Hiragino Kaku Gothic ProN”, ' +
+                      '“メイリオ”, Meiryo, sans-serif;' +
+                      '明朝=“Times New Roman”, “游明朝”, "Yu Mincho", "YuMincho", ' +
+                      '“ヒラギノ明朝 ProN W3”, “Hiragino Mincho ProN”, ' +
+                      '"ＭＳ Ｐ明朝", "MS PMincho", serif;' +
+                      'メイリオ=“メイリオ”, Meiryo, sans-serif;' +
+                      'ヒラギノ角ゴ=“ヒラギノ角ゴ ProN W3”, ' +
+                      '“Hiragino Kaku Gothic ProN”, sans-serif;' +
+                      'ヒラギノ明朝=“ヒラギノ明朝 ProN W3”, “Hiragino Mincho ProN”, ' +
+                      '“游明朝”, "Yu Mincho", "YuMincho", ' +
+                      '"ＭＳ Ｐ明朝", "MS PMincho", serif;' +
+                      'MS Pゴシック= "MS PGothic", Osaka, Arial, sans-serif;' +
+                      'MS P明朝= "ＭＳ Ｐ明朝", "MS PMincho", serif;',
+
         paste_as_text: true,
         convert_urls: false,
         content_css: nc3Configs.content_css,
