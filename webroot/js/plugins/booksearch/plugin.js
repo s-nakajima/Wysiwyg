@@ -8,10 +8,10 @@ tinymce.PluginManager.add('booksearch', function(editor, url) {
   var currentInsertType = '';     //挿入タイプ
   // 各要素のセレクタ
   var selectors = {
-    form: '#books-search',        // フォームid
+    form: '#wysiwyg-books-search',        // フォームid
     iptKeyword: '#keyword',       // キーワード入力領域
-    panelResult: '#books-result', // 検索結果表示用パネル
-    resultWrap: '#result-items',  //結果リスト表示領域
+    panelResult: '#wysiwyg-books-result', // 検索結果表示用パネル
+    resultWrap: '#wysiwyg-result-items',  //結果リスト表示領域
     linkBtn: '.link-btn'          // リンク作成ボタン
   };
   var vals = {
@@ -22,13 +22,12 @@ tinymce.PluginManager.add('booksearch', function(editor, url) {
   var searchBooks = function(btn, e) {
     var $form = $(selectors.form);
     var keyword = $form.find(selectors.iptKeyword).val();
-    if (!keyword) keyword = 'NetCommons'; // forDEBUG
     NC3_APP.searchBooks({keyword: keyword},
         function(res) {
           // onsucceurlss
           setResultItems(res.items, function(page) {
             // paginatinon init
-            $('#pagination').pagination({
+            $('#wysiwyg-pagination').pagination({
               items: page,
               cssStyle: 'light-theme',
               onPageClick: function(pageNumber) {
@@ -98,16 +97,16 @@ tinymce.PluginManager.add('booksearch', function(editor, url) {
 
     var dom;
     var url = vals.googleBooksUrl + '?id=' + id;
-    var $item = $(selectors.form).find('.item[data-bid="' + id + '"]');
+    var $item = $(selectors.form).find('.book-item[data-bid="' + id + '"]');
     if (currentInsertType == 'detail') {
       var $el = $item.children().clone(false);
       // 不要な要素の削除
       $el.find('.btn-area').remove();
-      var $div = $('<div>').append($el);
+      var $div = $('<div class="wysiwyg-books">').append($el);
       dom = $div.prop('outerHTML');
     }
     else if (currentInsertType == 'text') {
-      var title = $item.find('.title > a').text();
+      var title = $item.find('.book-title > a').text();
       dom = editor.dom.createHTML('a', {
         class: 'book-link',
         href: url,
@@ -115,12 +114,12 @@ tinymce.PluginManager.add('booksearch', function(editor, url) {
       }, title);
     }
     else if (currentInsertType == 'smallImg') {
-      var $el = $item.find('.item-img').children().clone(false);
+      var $el = $item.find('.book-item-img').children().clone(false);
       $el.find('img').removeAttr('data-bthumb');
       dom = $el.prop('outerHTML');
     }
     else if (currentInsertType == 'bigImg') {
-      var $el = $item.find('.item-img').children().clone(false);
+      var $el = $item.find('.book-item-img').children().clone(false);
       var url = $el.find('img').attr('data-thumb');
       $el.find('img')
       .attr('src', url)
@@ -186,7 +185,7 @@ tinymce.PluginManager.add('booksearch', function(editor, url) {
     // 検索結果表示パネル
     {
       type: 'panel',
-      id: 'books-result',
+      id: 'wysiwyg-books-result',
       html: booksTemplate.resultWrapper(),
       minHeight: 300,
       maxHeight: 300
@@ -197,7 +196,7 @@ tinymce.PluginManager.add('booksearch', function(editor, url) {
   var showDialog = function() {
     win = editor.windowManager.open({
       title: '書籍検索',
-      id: 'books-search',
+      id: 'wysiwyg-books-search',
       body: bookFormItems,
       width: 600,
       height: 500,
@@ -234,8 +233,8 @@ var booksTemplate = (function() {
   var resultWrapper = function() {
     return '' +
         '<div class="result-items-wrap">' +
-        '<ul class="books" id="result-items"></ul>' +
-        '<div id="pagination"></div>' +
+        '<ul class="wysiwyg-books" id="wysiwyg-result-items"></ul>' +
+        '<div id="wysiwyg-pagination"></div>' +
         '</div>';
   };
 
@@ -278,13 +277,13 @@ var booksTemplate = (function() {
 
     // .itemと.link-btn共にdata-bidが存在するのは関連付けの為
     return '' +
-        '<li class="item" data-bid="' + _DATA_.id + '">' +
-            '<div class="title"><a href="' + previewLink + '"' +
+        '<li class="book-item" data-bid="' + _DATA_.id + '">' +
+            '<div class="book-title"><a href="' + previewLink + '"' +
             ' target="_blank">' +
                 title +
             '</a></div>' +
-            '<div class="item-detail">' +
-                '<div class="item-img">' +
+            '<div class="book-item-detail">' +
+                '<div class="book-item-img">' +
                     '<a href="' + previewLink + '"' +
                     ' target="_blank">' +
                         '<img src="' + sThumb + '"' +
@@ -292,11 +291,12 @@ var booksTemplate = (function() {
                         ' alt="' + title + '" height="76" width="60">' +
                     '</a>' +
                 '</div>' +
-                '<div class="item-inner">' +
+                '<div class="book-item-inner">' +
                     '<div class="authors">' + authors + '&nbsp;&nbsp;' +
                         publishedDate +
                     '</div>' +
-                    '<div class="item-description">' + description + '</div>' +
+                    '<div class="book-item-description">' + description +
+                    '</div>' +
                     '<div class="btn-area"><button class="btn link-btn"' +
                     ' data-bid="' + _DATA_.id + '"' +
                     '">リンク作成</button></div>' +
