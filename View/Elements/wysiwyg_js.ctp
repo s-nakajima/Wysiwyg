@@ -30,7 +30,7 @@ echo $this->NetCommonsHtml->script(
 
 echo $this->NetCommonsHtml->css(
 	array(
-		'/wysiwyg/css/adjust.css',
+		'/wysiwyg/css/wysiwyg.css',
 		'/components/jquery.simplePagination/simplePagination.css',
 	)
 );

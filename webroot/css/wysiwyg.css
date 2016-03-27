@@ -1,14 +1,13 @@
 /**
  * ダイアログ表示の補正(書籍検索)
  */
-#books-result, #books-detail {
-    display:none;
-    position:absolute;
+#books-result {
+    position:relative;
     width:100%;
     top:0;
     background-color:#fff;
 }
-#books-result .result-items-wrap, #books-detail .result-items-wrap {
+#books-result .result-items-wrap {
     width: 100%;
     height: 100%;
     position: relative;
@@ -26,6 +25,9 @@ ul.books, div.books {
     margin: 20px auto;
     position: relative;
     list-style: none;
+}
+div.books {
+    margin: 10px: 0px;
 }
 .books .title{
     margin-bottom: 5px;
@@ -107,20 +109,6 @@ ul.books, div.books {
     filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
     background-repeat: repeat-x;
     border-color: #245580;
-}
-/**
- * detail - style.
- */
-.books .item.detail .item-img img{
-    width: 128px;
-    height: 162px;
-}
-.books .item.detail .item-inner {
-    max-width: 360px;
-    margin-left: 140px;
-}
-.books .item.detail .item-inner *{
-    /*font-size: 1.3em;*/
 }
 
 /**
