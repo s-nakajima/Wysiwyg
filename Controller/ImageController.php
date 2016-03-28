@@ -34,12 +34,13 @@ class ImageController extends FileController {
 /**
  * download action
  *
+ * @param Int $roomId Room id
  * @param Int $id File id
  * @param String $size 画像のサイズ(big, midiul, small, thumb の4つから)
  * @throws NotFoundException
  * @return void
  */
-	public function download($id, $size = '') {
+	public function download($roomId, $id, $size = '') {
 		$options = [
 				'field' => 'Wysiwyg.file',
 		];
