@@ -50,8 +50,8 @@ class WysiwygHelper extends AppHelper {
 		];
 
 		// ファイル／画像プラグインアップロード時に必要なデータの用意
-		$constants['block_key'] = Current::read('Block.key');
-		$constants['room_id'] = Current::read('Block.room_id');
+		$constants['blockKey'] = Current::read('Block.key');
+		$constants['roomId'] = Current::read('Room.id');
 
 		// constsnts 設定を JavaScriptで利用するための設定に変換する
 		//
