@@ -82,7 +82,7 @@ class FileController extends WysiwygAppController {
 			$data = [
 				'UploadFile' => [
 					'block_key' => $this->data['Block']['key'],
-					'room_id' => $this->data['Block']['room_id']
+					'room_id' => $this->data['Block']['room_id'],
 				]
 			];
 			$uploadFile = $uploadFileModel->registByFile($file, 'wysiwyg', null, 'Wysiwyg.file', $data);
@@ -106,6 +106,7 @@ class FileController extends WysiwygAppController {
 					'plugin' => 'wysiwyg',
 					'controller' => strtolower($this->name),
 					'action' => 'download',
+					$uploadFile['UploadFile']['room_id'],
 					$uploadFile['UploadFile']['id']
 				),
 				true
@@ -136,10 +137,11 @@ class FileController extends WysiwygAppController {
 /**
  * download action
  *
+ * @param Int $roomId Room id
  * @param Int $id File id
  * @return void
  */
-	public function download($id) {
+	public function download($roomId, $id) {
 		$options = [
 				'field' => 'Wysiwyg.file',
 				'download' => true,

@@ -96,7 +96,7 @@ class WysiwygBehavior extends ModelBehavior {
  * @see Model::save()
  */
 	public function afterSave(Model $model, $created, $options = array()) {
-		$pattern = sprintf('/%s\/%s\/([0-9]*)/', self::REPLACE_BASE_URL, self::WYSIWYG_REPLACE_PATH);
+		$pattern = sprintf('/%s\/%s\/[0-9]*\/([0-9]*)/', self::REPLACE_BASE_URL, self::WYSIWYG_REPLACE_PATH);
 		$uploadFile = ClassRegistry::init('Files.UploadFile');
 
 		foreach ($this->_fields as $field) {

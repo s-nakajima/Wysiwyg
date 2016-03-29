@@ -86,14 +86,14 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
       var formData = new FormData();
       formData.append('data[Wysiwyg][file]', files);
       formData.append('data[Block][key]',
-          editor.settings.nc3Configs.block_key);
+          editor.settings.nc3Configs.blockKey);
       formData.append('data[Block][room_id]',
-          editor.settings.nc3Configs.room_id);
+          editor.settings.nc3Configs.roomId);
       formData.append('src', d.src);
       formData.append('alt', d.alt);
       formData.append('size', d.size);
       formData.append('position', d.position);
-      NC3_APP.uploadImage(formData,
+      NC3_APP.uploadImage(editor.settings.nc3Configs.roomId, formData,
           function(res) {
             // onsuccess
             if (res && res.result) {

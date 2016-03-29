@@ -9,11 +9,11 @@ var NC3_APP = new (function nc3WysiwygApp() {
   */
   var __appURLs = (function() {
     return {
-      uploadImage: function() {
-        return '/wysiwyg/image/upload';
+      uploadImage: function(roomId) {
+        return '/wysiwyg/image/upload/' + roomId;
       },
-      uploadFile: function() {
-        return '/wysiwyg/file/upload';
+      uploadFile: function(roomId) {
+        return '/wysiwyg/file/upload/' + roomId;
       },
       searchBooks: function(q) {
         return 'https://www.googleapis.com/books/v1/volumes?q=' + q;
@@ -84,12 +84,12 @@ var NC3_APP = new (function nc3WysiwygApp() {
   /**
   * 画像のアップロード
   */
-  self.uploadImage = function(formData, onsuccess, onerr, isDEBUG) {
+  self.uploadImage = function(roomId, formData, onsuccess, onerr, isDEBUG) {
     if (isDEBUG) {
       onsuccess();
       return false;
     }
-    var url = __appURLs.uploadImage();
+    var url = __appURLs.uploadImage(roomId);
     __httpReq(
         'post',
         url,
@@ -102,12 +102,12 @@ var NC3_APP = new (function nc3WysiwygApp() {
   /**
   * ファイルのアップロード
   */
-  self.uploadFile = function(formData, onsuccess, onerr, isDEBUG) {
+  self.uploadFile = function(roomId, formData, onsuccess, onerr, isDEBUG) {
     if (isDEBUG) {
       onsuccess(DUMMY_DATA.upload_file);
       return false;
     }
-    var url = __appURLs.uploadFile();
+    var url = __appURLs.uploadFile(roomId);
     __httpReq(
         'post',
         url,

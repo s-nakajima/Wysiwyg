@@ -40,11 +40,11 @@ tinymce.PluginManager.add('file', function(editor, url) {
           var formData = new FormData();
           formData.append('data[Wysiwyg][file]', files);
           formData.append('data[Block][key]',
-              editor.settings.nc3Configs.block_key);
+              editor.settings.nc3Configs.blockKey);
           formData.append('data[Block][room_id]',
-              editor.settings.nc3Configs.room_id);
+              editor.settings.nc3Configs.roomId);
 
-          NC3_APP.uploadFile(formData,
+          NC3_APP.uploadFile(editor.settings.nc3Configs.roomId, formData,
               function(res) {
                 // onsuccess
                 if (res.result) {
