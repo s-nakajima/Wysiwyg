@@ -99,18 +99,19 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
       formData.append('alt', d.alt);
       formData.append('size', d.size);
       formData.append('position', d.position);
-      //NC3_APP.uploadImage(editor.settings.nc3Configs.roomId, formData,
-      NC3_APP.uploadImage(formData,
+      NC3_APP.uploadImage(editor.settings.nc3Configs.roomId, formData,
           function(res) {
             // onsuccess
             if (res && res.result) {
-              var imgSrc = (d.size)?(res.file.path + '/' + d.size):(res.file.path);
+              var imgSrc = (d.size) ?
+                           (res.file.path + '/' + d.size) :
+                           (res.file.path);
               editor.selection.collapse(true);
               editor.execCommand('mceInsertContent', false,
                   editor.dom.createHTML('img', {
                     src: imgSrc,
                     alt: d.alt,
-                    class: vals.img_elm_class+' '+positionClass[d.position],
+                    class: vals.img_elm_class + ' ' + positionClass[d.position],
                     'data-size': d.size,
                     'data-position': d.position,
                     'data-imgid': res.file.id
@@ -127,7 +128,7 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
   };
   // submit時動作(update)
   var onSubmitFormUpdate = function(d, selectedNode) {
-    var imgSrc = (d.size_edit)?(d.src_edit + '/' + d.size_edit):(d.src);
+    var imgSrc = (d.size_edit) ? (d.src_edit + '/' + d.size_edit) : (d.src);
 
     // domの更新
     $el = $(selectedNode);
@@ -136,7 +137,8 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
     $el.attr('src', imgSrc);
     $el.attr('data-position', d.position_edit);
     $el.attr('class', ''); // クラス初期化
-    $el.attr('class', vals.img_elm_class+' '+positionClass[d.position_edit]);
+    $el.attr('class', vals.img_elm_class + ' ' +
+        positionClass[d.position_edit]);
   };
 
   // ダイアログ内要素(新規用タブ)
@@ -193,13 +195,13 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
         label: 'Url',
         multiline: true,
         value: data.src,
-        disabled : true
+        disabled: false
       },
       // サムネイル表示用パネル
       {
         type: 'panel',
         id: 'image-thumb-ed',
-        style: 'text-align:right;background-color:#fff;',
+        style: 'height:60px;text-align:right;background-color:#fff;',
         html: function() {
           if (data.id) {
             return '<img src="' + data.src + '/thumb">';

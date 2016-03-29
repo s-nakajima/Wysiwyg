@@ -46,6 +46,7 @@ class WysiwygHelper extends AppHelper {
 		// wysiwyg で利用するスタイルシート
 		$constants['content_css'] = [
 			$this->NetCommonsHtml->url('/net_commons/css/style.css'),
+			$this->NetCommonsHtml->url('/components/bootstrap/dist/css/bootstrap.css'),
 			$this->NetCommonsHtml->url('/wysiwyg/css/style.css'),
 		];
 
