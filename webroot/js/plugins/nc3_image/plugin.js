@@ -10,7 +10,7 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
     img_basepath: editor.settings.nc3Configs.baseUrl +
         '/wysiwyg/image/download/'
   };
-  var position_form_vals = [{
+  var positionFormVals = [{
     text: 'Select Position',
     value: ''
   }, {
@@ -23,7 +23,13 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
     text: 'right',
     value: 'right'
   }];
-  var size_form_vals = [{
+  // 画像の位置のformValueと挿入時クラス
+  var positionClass = {
+    center: 'center-block',
+    left: '',
+    right: 'pull-right'
+  };
+  var sizeFormVals = [{
     text: 'Select Size',
     value: ''
   }, {
@@ -41,7 +47,7 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
   }];
 
   // 新規登録時のサムネイル表示
-  var __setImageThumb = function(e) {
+  var setImageThumb = function(e) {
     if (!$(e).prop('files')) return;
     var file = $(e).prop('files')[0],
         fileRdr = new FileReader(),
@@ -76,7 +82,7 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
   };
 
   // submit時動作(insert)
-  var onSubmitForm_Insert = function(data) {
+  var onSubmitFormInsert = function(data) {
     var d = data;
     if (d.src) {
       // formオブジェクト作成
@@ -93,16 +99,18 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
       formData.append('alt', d.alt);
       formData.append('size', d.size);
       formData.append('position', d.position);
-      NC3_APP.uploadImage(editor.settings.nc3Configs.roomId, formData,
+      //NC3_APP.uploadImage(editor.settings.nc3Configs.roomId, formData,
+      NC3_APP.uploadImage(formData,
           function(res) {
             // onsuccess
             if (res && res.result) {
+              var imgSrc = (d.size)?(res.file.path + '/' + d.size):(res.file.path);
               editor.selection.collapse(true);
               editor.execCommand('mceInsertContent', false,
                   editor.dom.createHTML('img', {
-                    src: res.file.path + '/' + d.size,
+                    src: imgSrc,
                     alt: d.alt,
-                    class: vals.img_elm_class,
+                    class: vals.img_elm_class+' '+positionClass[d.position],
                     'data-size': d.size,
                     'data-position': d.position,
                     'data-imgid': res.file.id
@@ -118,12 +126,17 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
     } // if(src)
   };
   // submit時動作(update)
-  var onSubmitForm_Update = function(data, selectedNode) {
+  var onSubmitFormUpdate = function(d, selectedNode) {
+    var imgSrc = (d.size_edit)?(d.src_edit + '/' + d.size_edit):(d.src);
+
     // domの更新
     $el = $(selectedNode);
-    $el.attr('alt', data.alt_edit);
-    $el.attr('data-size', data.size_edit);
-    $el.attr('data-position', data.position_edit);
+    $el.attr('alt', d.alt_edit);
+    $el.attr('data-size', d.size_edit);
+    $el.attr('src', imgSrc);
+    $el.attr('data-position', d.position_edit);
+    $el.attr('class', ''); // クラス初期化
+    $el.attr('class', vals.img_elm_class+' '+positionClass[d.position_edit]);
   };
 
   // ダイアログ内要素(新規用タブ)
@@ -136,7 +149,7 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
       label: 'File',
       autofocus: true,
       onchange: function(e) {
-        __setImageThumb(e.target);
+        setImageThumb(e.target);
       }
     },
     // サムネイル表示用パネル
@@ -159,7 +172,7 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
       label: 'Image-Position',
       name: 'position',
       onselect: function(e) {},
-      values: position_form_vals
+      values: positionFormVals
     },
     // 画像サイズ
     {
@@ -167,7 +180,7 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
       label: 'Image-Size',
       name: 'size',
       onselect: function(e) {},
-      values: size_form_vals
+      values: sizeFormVals
     }
   ];
   // ダイアログ内要素(編集用タブ)
@@ -178,8 +191,9 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
         name: 'src_edit',
         type: 'textbox',
         label: 'Url',
-        autofocus: true,
-        value: data.src
+        multiline: true,
+        value: data.src,
+        disabled : true
       },
       // サムネイル表示用パネル
       {
@@ -188,7 +202,7 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
         style: 'text-align:right;background-color:#fff;',
         html: function() {
           if (data.id) {
-            return '<img src="' + data.file.path + '/thumb">';
+            return '<img src="' + data.src + '/thumb">';
           } else {
             return '';
           }
@@ -208,7 +222,7 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
         name: 'position_edit',
         value: data.position,
         onselect: function(e) {},
-        values: position_form_vals
+        values: positionFormVals
       },
       // 画像サイズ
       {
@@ -217,7 +231,7 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
         name: 'size_edit',
         value: data.size,
         onselect: function(e) {},
-        values: size_form_vals
+        values: sizeFormVals
       }
     ];
   };
@@ -238,7 +252,7 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
         editor.dom.hasClass(selectedNode, vals.img_elm_class) == true;
     if (isTarget) {
       var re_src = editor.dom.getAttrib(selectedNode, 'src');
-      re_src = re_src.replace(/\/(big|middle|small|thumb)$/, '');
+      re_src = re_src.replace(/(\/big|\/medium|\/small|\/thumb)$/, '');
       data.src = re_src;
       data.alt = editor.dom.getAttrib(selectedNode, 'alt');
       data.w = editor.dom.getAttrib(selectedNode, 'width');
@@ -250,6 +264,7 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
     win = editor.windowManager.open({
       title: 'Insert/edit image',
       bodyType: 'tabpanel',
+      // activeTab: 2, // TODO: setActiveTab
       body: [
         // タブ1(新規投稿)
         {
@@ -258,7 +273,7 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
           id: 'uploadForm',
           items: generalFormItems
         },
-        // タブ2(nc3より画像取得)
+        // タブ2(既存画像編集)
         {
           title: 'Edit',
           type: 'form',
@@ -269,14 +284,15 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
       onsubmit: function(e) {
         var d = tinymce.extend(e.data, win.toJSON());
         if (isTarget) {
-          onSubmitForm_Update(d, selectedNode);
+          onSubmitFormUpdate(d, selectedNode);
         } else {
-          onSubmitForm_Insert(d);
+          onSubmitFormInsert(d);
         }
       }
     }); // open()
-
-    __setImageThumb();
+    // TODO: setActiveTab
+    // console.log(tinymce.activeEditor);
+    setImageThumb();
   }; // showDialog
 
   // コマンド登録

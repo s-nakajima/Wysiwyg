@@ -76,7 +76,7 @@ class WysiwygHelper extends AppHelper {
  * @return Array
  */
 	private function __getTitleIconFiles() {
-		$files = json_decode($this->TitleIcon->getIconFiles());
+		$files = json_decode($this->TitleIcon->getIconFiles(false));
 		return array_chunk($files, 8);
 	}
 }
