@@ -140,10 +140,12 @@ tinymce.PluginManager.add('nc3_textcolor', function(editor) {
       html += '</tr>';
     }
 
-    html += '<tr><td colspan=' + cols + '>' +
+    html += '<tr><td colspan=' + cols +
+        ' style="align: right; vertical-align: middle;">' +
+        'カラーコード ' +
         '<input type="text" ' +
         'id="mce-colorcode-' + ctrl.parent().settings.format + '" ' +
-        'class="mce-textbox" /></td></tr>';
+        'class="mce-textbox" style="width: 8em; height: 1.2em;" /></td></tr>';
 
     html += '</tbody></table>';
 

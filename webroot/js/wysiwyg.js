@@ -47,7 +47,7 @@ NetCommonsApp.factory('NetCommonsWysiwyg', function(nc3Configs,
                   '| subscript superscript | forecolor backcolor ' +
                   '| removeformat' +
                   '| undo redo | alignleft aligncenter alignright ' +
-                  '| bullist numlist | outdent indent blockquote ' +
+                  '| bullist numlist | indent outdent blockquote ' +
                   '| table | hr | titleicons | tex | link unlink' +
                   '| media booksearch nc3Image file | pastetext code nc3Preview'
         ],

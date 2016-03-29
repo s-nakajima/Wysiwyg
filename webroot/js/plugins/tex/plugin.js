@@ -18,7 +18,7 @@ tinymce.PluginManager.add('tex', function(editor, url) {
   var preview = function() {
     // TODO tinymce処理版にできるかどうか
     var txt = $(vals.iptTextArea).val();
-    $('#tex-preview').text('$$ ' + txt + ' $$');
+    $('#tex-preview').text('$$' + txt + '$$');
     MathJax.Hub.Queue(['Typeset', MathJax.Hub, 'tex-preview']);
     return false;
   };
@@ -94,7 +94,7 @@ tinymce.PluginManager.add('tex', function(editor, url) {
         var txt = e.data.tex;
         // 再編集の場合
         if (isTarget) {
-          selectedNode.innerText = '$$ ' + txt + ' $$';
+          selectedNode.innerText = '$$' + txt + '$$';
         }
         // 新規挿入の場合
         else {
