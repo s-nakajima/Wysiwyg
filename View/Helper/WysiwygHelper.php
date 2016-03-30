@@ -35,24 +35,24 @@ class WysiwygHelper extends AppHelper {
  */
 	public function wysiwygScript() {
 		// NetCommonsApp.constant で定義する変数の定義
-		$constants = [];
+		$constants = [
+			// タイトルアイコン用のファイルリスト
+			'title_icon_paths' => $this->__getTitleIconFiles(),
 
-		// タイトルアイコン用のファイルリスト
-		$constants['title_icon_paths'] = $this->__getTitleIconFiles();
+			// 言語情報
+			'lang' => Current::read('Language.code'),
 
-		// 言語情報
-		$constants['lang'] = Current::read('Language.code');
+			// wysiwyg で利用するスタイルシート
+			'content_css' => [
+				$this->NetCommonsHtml->url('/net_commons/css/style.css'),
+				$this->NetCommonsHtml->url('/components/bootstrap/dist/css/bootstrap.css'),
+				$this->NetCommonsHtml->url('/wysiwyg/css/style.css'),
+			],
 
-		// wysiwyg で利用するスタイルシート
-		$constants['content_css'] = [
-			$this->NetCommonsHtml->url('/net_commons/css/style.css'),
-			$this->NetCommonsHtml->url('/components/bootstrap/dist/css/bootstrap.css'),
-			$this->NetCommonsHtml->url('/wysiwyg/css/style.css'),
+			// ファイル／画像プラグインアップロード時に必要なデータの用意
+			'blockKey' => Current::read('Block.key'),
+			'roomId' => Current::read('Room.id'),
 		];
-
-		// ファイル／画像プラグインアップロード時に必要なデータの用意
-		$constants['blockKey'] = Current::read('Block.key');
-		$constants['roomId'] = Current::read('Room.id');
 
 		// constsnts 設定を JavaScriptで利用するための設定に変換する
 		//
