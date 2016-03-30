@@ -84,7 +84,7 @@ NetCommonsApp.factory('NetCommonsWysiwyg', function(nc3Configs,
 
         // 言語設定
         language: nc3Configs.lang,
-        language_url: '/wysiwyg/js/langs/' + nc3Configs.lang + '.js'
+        language_url: nc3Configs.lang_js
       };
 
       /**

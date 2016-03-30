@@ -122,7 +122,7 @@ tinymce.PluginManager.add('tex', function(editor, url) {
     id: 'tex-btn',
     stateSelector: '.' + vals.tex_elm_class,
     onclick: showDialog,
-    image: '/wysiwyg/img/title_icons/tex.svg'
+    image: editor.settings.nc3Configs.tex_icon
   });
 
   // setWysiwygTextEvent();

@@ -39,7 +39,7 @@ tinymce.PluginManager.add('nc3Preview', function(editor) {
             '">';
         // new add for Mathjax //////////////////////////////////
         headHtml += '<script type="text/javascript" async ' +
-            'src="/components/MathJax/MathJax.js?config=TeX-MML-AM_CHTML"' +
+            'src="' + editor.settings.nc3Configs.mathjax_js + '"' +
             '></script>';
         /////////////////////////////////////////////////////////
 
