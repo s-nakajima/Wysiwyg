@@ -35,24 +35,37 @@ class WysiwygHelper extends AppHelper {
  */
 	public function wysiwygScript() {
 		// NetCommonsApp.constant で定義する変数の定義
-		$constants = [];
+		$constants = [
+			// タイトルアイコン用のファイルリスト
+			'title_icon_paths' => $this->__getTitleIconFiles(),
 
-		// タイトルアイコン用のファイルリスト
-		$constants['title_icon_paths'] = $this->__getTitleIconFiles();
+			// 言語情報
+			'lang' => Current::read('Language.code'),
+			'lang_js' => $this->NetCommonsHtml->url('/wysiwyg/js/langs/' . Current::read('Language.code') . '.js'),
 
-		// 言語情報
-		$constants['lang'] = Current::read('Language.code');
+			// wysiwyg で利用するスタイルシート
+			'content_css' => [
+				$this->NetCommonsHtml->url('/net_commons/css/style.css'),
+				$this->NetCommonsHtml->url('/components/bootstrap/dist/css/bootstrap.css'),
+				$this->NetCommonsHtml->url('/wysiwyg/css/style.css'),
+			],
 
-		// wysiwyg で利用するスタイルシート
-		$constants['content_css'] = [
-			$this->NetCommonsHtml->url('/net_commons/css/style.css'),
-			$this->NetCommonsHtml->url('/components/bootstrap/dist/css/bootstrap.css'),
-			$this->NetCommonsHtml->url('/wysiwyg/css/style.css'),
+			// ファイル／画像プラグインアップロード時に必要なデータの用意
+			'blockKey' => Current::read('Block.key'),
+			'roomId' => Current::read('Room.id'),
+
+			// 独自ツールバーアイコン
+			'book_icon' => $this->NetCommonsHtml->url('/wysiwyg/img/title_icons/book.svg'),
+			'fileup_icon' => $this->NetCommonsHtml->url('/wysiwyg/img/title_icons/fileup.svg'),
+			'tex_icon' => $this->NetCommonsHtml->url('/wysiwyg/img/title_icons/tex.svg'),
+
+			// MathJax JSのリンク
+			'mathjax_js' => $this->NetCommonsHtml->url('/components/MathJax/MathJax.js?config=TeX-MML-AM_CHTML'),
+
+			// ファイル・画像アップロードパス
+			'file_upload_path' => $this->NetCommonsHtml->url('/wysiwyg/file/upload'),
+			'image_upload_path' => $this->NetCommonsHtml->url('/wysiwyg/image/upload'),
 		];
-
-		// ファイル／画像プラグインアップロード時に必要なデータの用意
-		$constants['blockKey'] = Current::read('Block.key');
-		$constants['roomId'] = Current::read('Room.id');
 
 		// constsnts 設定を JavaScriptで利用するための設定に変換する
 		//

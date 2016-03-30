@@ -91,7 +91,7 @@ tinymce.PluginManager.add('booksearch', function(editor, url) {
     // エラー処理TODO
     if (!id) { alert('データが見つかりません'); return false }
     if (!currentInsertType) {
-      alert('画像の表示が選択されていません');
+      alert('リンク挿入方法が選択されていません');
       return false;
     }
 
@@ -137,7 +137,7 @@ tinymce.PluginManager.add('booksearch', function(editor, url) {
   // "画像の表示"セレクトボックス設定
   // TODO 多言語化
   var insert_type_vals = [{
-    text: '---',
+    text: '選択してください',
     value: ''
   }, {
     text: '詳細情報',
@@ -217,7 +217,7 @@ tinymce.PluginManager.add('booksearch', function(editor, url) {
   // windowへのボタン登録
   editor.addButton('booksearch', {
     tooltip: 'Book search',
-    image: '/wysiwyg/img/title_icons/book.svg',
+    image: editor.settings.nc3Configs.book_icon,
     // icon: 'newdocument',
     onclick: showDialog
   });

@@ -6,9 +6,7 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
   //　セレクタなど
   var vals = {
     dispThumArea: 'image-thumb',
-    img_elm_class: 'nc3-img',
-    img_basepath: editor.settings.nc3Configs.baseUrl +
-        '/wysiwyg/image/download/'
+    img_elm_class: 'nc3-img'
   };
   var positionFormVals = [{
     text: 'Select Position',

@@ -77,6 +77,6 @@ tinymce.PluginManager.add('file', function(editor, url) {
     tooltip: 'Attach file',
     id: 'file-btn',
     onclick: showDialog,
-    image: '/wysiwyg/img/title_icons/fileup.svg'
+    image: editor.settings.nc3Configs.fileup_icon
   });
 });
