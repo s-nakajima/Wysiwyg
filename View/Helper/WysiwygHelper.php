@@ -24,9 +24,40 @@ class WysiwygHelper extends AppHelper {
  * @var array
  */
 	public $helpers = array(
+		'NetCommons.NetCommonsForm',
 		'NetCommons.NetCommonsHtml',
 		'NetCommons.TitleIcon',
 	);
+
+/**
+ * Overwrite FormHelper::input($fieldName, array('type' => 'textarea'))
+ *
+ * @param string $fieldName Name of a field, like this "Modelname.fieldname"
+ * @param array $attributes Array of HTML attributes, and special attributes above.
+ * @return string Completed radio widget set.
+ * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/form.html#options-for-select-checkbox-and-radio-inputs
+ */
+	public function wysiwyg($fieldName, $attributes = array()) {
+		$ngModel = Hash::expand(array($fieldName => 0));
+		$ngModel = NetCommonsAppController::camelizeKeyRecursive($ngModel);
+		$ngModel = Hash::flatten($ngModel);
+		$ngModel = array_flip($ngModel);
+
+		$defaultAttributes = array(
+			'type' => 'textarea',
+			'ui-tinymce' => 'tinymce.options',
+			'ng-model' => $ngModel[0],
+			'rows' => 5,
+		);
+		$attributes = Hash::merge($defaultAttributes, $attributes);
+
+		// wysiwygに関連する js読み込みを Wysiwygプラグインから行う
+		$html = '';
+		$html .= $this->wysiwygScript();
+		$html .= $this->NetCommonsForm->input($fieldName, $attributes);
+
+		return $html;
+	}
 
 /**
  * wysiwyg用のスクリプト呼び出し対応
