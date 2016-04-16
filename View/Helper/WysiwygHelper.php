@@ -35,7 +35,7 @@ class WysiwygHelper extends AppHelper {
  * @param string $fieldName フィールド名（"Modelname.fieldname"形式）
  * @param array $attributes HTML属性のオプション配列
  * @return string WYSIWYGのHTML
-*/
+ */
 	public function wysiwyg($fieldName, $attributes = array()) {
 		$ngModel = Hash::expand(array($fieldName => 0));
 		$ngModel = NetCommonsAppController::camelizeKeyRecursive($ngModel);
