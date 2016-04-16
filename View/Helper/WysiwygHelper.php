@@ -30,13 +30,12 @@ class WysiwygHelper extends AppHelper {
 	);
 
 /**
- * Overwrite FormHelper::input($fieldName, array('type' => 'textarea'))
+ * WYSIWYGの初期処理
  *
- * @param string $fieldName Name of a field, like this "Modelname.fieldname"
- * @param array $attributes Array of HTML attributes, and special attributes above.
- * @return string Completed radio widget set.
- * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/form.html#options-for-select-checkbox-and-radio-inputs
- */
+ * @param string $fieldName フィールド名（"Modelname.fieldname"形式）
+ * @param array $attributes HTML属性のオプション配列
+ * @return string WYSIWYGのHTML
+*/
 	public function wysiwyg($fieldName, $attributes = array()) {
 		$ngModel = Hash::expand(array($fieldName => 0));
 		$ngModel = NetCommonsAppController::camelizeKeyRecursive($ngModel);
