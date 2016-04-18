@@ -24,9 +24,39 @@ class WysiwygHelper extends AppHelper {
  * @var array
  */
 	public $helpers = array(
+		'NetCommons.NetCommonsForm',
 		'NetCommons.NetCommonsHtml',
 		'NetCommons.TitleIcon',
 	);
+
+/**
+ * WYSIWYGの初期処理
+ *
+ * @param string $fieldName フィールド名（"Modelname.fieldname"形式）
+ * @param array $attributes HTML属性のオプション配列
+ * @return string WYSIWYGのHTML
+ */
+	public function wysiwyg($fieldName, $attributes = array()) {
+		$ngModel = Hash::expand(array($fieldName => 0));
+		$ngModel = NetCommonsAppController::camelizeKeyRecursive($ngModel);
+		$ngModel = Hash::flatten($ngModel);
+		$ngModel = array_flip($ngModel);
+
+		$defaultAttributes = array(
+			'type' => 'textarea',
+			'ui-tinymce' => 'tinymce.options',
+			'ng-model' => $ngModel[0],
+			'rows' => 5,
+		);
+		$attributes = Hash::merge($defaultAttributes, $attributes);
+
+		// wysiwygに関連する js読み込みを Wysiwygプラグインから行う
+		$html = '';
+		$html .= $this->wysiwygScript();
+		$html .= $this->NetCommonsForm->input($fieldName, $attributes);
+
+		return $html;
+	}
 
 /**
  * wysiwyg用のスクリプト呼び出し対応
