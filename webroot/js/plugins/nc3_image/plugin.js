@@ -109,7 +109,7 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
                   editor.dom.createHTML('img', {
                     src: imgSrc,
                     alt: d.alt,
-                    class: vals.img_elm_class + ' ' + positionClass[d.position],
+                    class: 'img-responsive ' + vals.img_elm_class + ' ' + positionClass[d.position],
                     'data-size': d.size,
                     'data-position': d.position,
                     'data-imgid': res.file.id
