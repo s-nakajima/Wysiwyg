@@ -115,6 +115,8 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
                     'data-imgid': res.file.id
                   })
               );
+              // dialog close
+              top.tinymce.activeEditor.windowManager.close();
             } // if
           },
           function(res) {
@@ -137,6 +139,9 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
     $el.attr('class', ''); // クラス初期化
     $el.attr('class', vals.img_elm_class + ' ' +
         positionClass[d.position_edit]);
+    // dialog close
+    top.tinymce.activeEditor.windowManager.close();
+
   };
 
   // ダイアログ内要素(新規用タブ)
@@ -282,12 +287,15 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
         }
       ],
       onsubmit: function(e) {
+        e.preventDefault();
+        e.stopPropagation();
         var d = tinymce.extend(e.data, win.toJSON());
         if (isTarget) {
           onSubmitFormUpdate(d, selectedNode);
         } else {
           onSubmitFormInsert(d);
         }
+        return false;
       }
     }); // open()
     // TODO: setActiveTab
