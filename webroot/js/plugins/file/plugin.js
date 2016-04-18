@@ -3,14 +3,6 @@
  */
 // ad tinymce plugin
 tinymce.PluginManager.add('file', function(editor, url) {
-  //
-  var srcChange = function(e) {
-
-  };
-
-  var onSubmit = function() {
-
-  };
 
   // ダイアログ表示
   var showDialog = function() {
@@ -33,6 +25,8 @@ tinymce.PluginManager.add('file', function(editor, url) {
         }
       ],
       onsubmit: function(e) {
+        e.preventDefault();
+        e.stopPropagation();
         var src = e.data.uploadfile;
         if (src) {
           // formオブジェクト作成
@@ -58,6 +52,8 @@ tinymce.PluginManager.add('file', function(editor, url) {
                           res.file.original_name
                       )
                   );
+                  // dialog close
+                  top.tinymce.activeEditor.windowManager.close();
                 } // if
               },
               function(res) {
@@ -65,6 +61,7 @@ tinymce.PluginManager.add('file', function(editor, url) {
               },
               editor.settings.isDEBUG); // uploadfile()
         } // if(src)
+        return false;
       } // onsubmit
     }); // open()
   }; // showDialog
