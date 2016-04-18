@@ -71,7 +71,9 @@ class WysiwygHelper extends AppHelper {
 
 			// 言語情報
 			'lang' => Current::read('Language.code'),
-			'lang_js' => $this->NetCommonsHtml->url('/wysiwyg/js/langs/' . Current::read('Language.code') . '.js'),
+			'lang_js' => $this->NetCommonsHtml->url(
+				'/wysiwyg/js/langs/' . Current::read('Language.code') . '.js'
+			),
 
 			// wysiwyg で利用するスタイルシート
 			'content_css' => [
@@ -90,7 +92,9 @@ class WysiwygHelper extends AppHelper {
 			'tex_icon' => $this->NetCommonsHtml->url('/wysiwyg/img/title_icons/tex.svg'),
 
 			// MathJax JSのリンク
-			'mathjax_js' => $this->NetCommonsHtml->url('/components/MathJax/MathJax.js?config=TeX-MML-AM_CHTML'),
+			'mathjax_js' => $this->NetCommonsHtml->url(
+				'/components/MathJax/MathJax.js?config=TeX-MML-AM_CHTML'
+			),
 
 			// ファイル・画像アップロードパス
 			'file_upload_path' => $this->NetCommonsHtml->url('/wysiwyg/file/upload'),
