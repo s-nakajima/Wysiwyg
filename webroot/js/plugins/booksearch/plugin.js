@@ -34,6 +34,7 @@ tinymce.PluginManager.add('booksearch', function(editor, url) {
                 var page = '#page-' + pageNumber;
                 $('.selection').hide();
                 $(page).show();
+                $('.result-items-wrap').scrollTop(0);
               }
             });
             showResult();
@@ -201,7 +202,7 @@ tinymce.PluginManager.add('booksearch', function(editor, url) {
       width: 600,
       height: 500,
       scrollbars: true,
-      buttons: {},
+      buttons: [],
       onsubmit: function(e) {
         e.preventDefault();
         e.stopPropagation();
