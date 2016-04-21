@@ -42,7 +42,7 @@ class WysiwygHelper extends AppHelper {
  */
 	public function __construct(View $view, $settings = array()) {
 		parent::__construct($view, $settings);
-		$this->mobileDetect = new MobileDetectComponent(new ComponentCollection());
+		$this->_mobileDetect = new MobileDetectComponent(new ComponentCollection());
 	}
 
 /**
@@ -117,7 +117,7 @@ class WysiwygHelper extends AppHelper {
 			'image_upload_path' => $this->NetCommonsHtml->url('/wysiwyg/image/upload'),
 
 			// mobile判別
-			'is_mobile' => $this->mobileDetect->detect('isMobile'),
+			'is_mobile' => $this->_mobileDetect->detect('isMobile'),
 		];
 
 		// constsnts 設定を JavaScriptで利用するための設定に変換する
