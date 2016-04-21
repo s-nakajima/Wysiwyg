@@ -10,8 +10,6 @@
  */
 
 App::uses('AppHelper', 'View/Helper');
-App::uses('ComponentCollection', 'Controller');
-App::uses('MobileDetectComponent', 'MobileDetect.Controller/Component');
 
 /**
  * WysiwygHelper
@@ -30,20 +28,6 @@ class WysiwygHelper extends AppHelper {
 		'NetCommons.NetCommonsHtml',
 		'NetCommons.TitleIcon',
 	);
-
-	/** MobileDetectコンポーネント定義 */
-	protected $_mobileDetect;
-
-/**
- * Constructor
- *
- * @param View $view The View this helper is being attached to.
- * @param array $settings Configuration settings for the helper.
- */
-	public function __construct(View $view, $settings = array()) {
-		parent::__construct($view, $settings);
-		$this->_mobileDetect = new MobileDetectComponent(new ComponentCollection());
-	}
 
 /**
  * WYSIWYGの初期処理
@@ -117,7 +101,7 @@ class WysiwygHelper extends AppHelper {
 			'image_upload_path' => $this->NetCommonsHtml->url('/wysiwyg/image/upload'),
 
 			// mobile判別
-			'is_mobile' => $this->_mobileDetect->detect('isMobile'),
+			'is_mobile' => Configure::read('isMobile'),
 		];
 
 		// constsnts 設定を JavaScriptで利用するための設定に変換する
