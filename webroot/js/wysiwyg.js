@@ -30,6 +30,22 @@ NetCommonsApp.factory('NetCommonsWysiwyg', function(nc3Configs,
         return colors;
       };
 
+      var toolbarPc = [
+        'fontselect fontsizeselect formatselect ' +
+            '| bold italic underline strikethrough ' +
+            '| subscript superscript | forecolor backcolor ' +
+            '| removeformat' +
+            '| undo redo | alignleft aligncenter alignright ' +
+            '| bullist numlist | indent outdent blockquote ' +
+            '| table | hr | titleicons | tex | link unlink' +
+            '| media booksearch nc3Image file | pastetext code nc3Preview'
+      ];
+      var toolbarMobile = [
+        'styleselect forecolor backcolor titleicons nc3Image mybutton'
+      ];
+
+      var toolbar = nc3Configs.is_mobile ? toolbarMobile : toolbarPc;
+
       /**
        * tinymce optins
        *
@@ -41,16 +57,7 @@ NetCommonsApp.factory('NetCommonsWysiwyg', function(nc3Configs,
         plugins: 'advlist nc3_textcolor colorpicker table hr titleicons ' +
             'charmap link media nc3Image code nc3Preview searchreplace ' +
             'paste tex file booksearch',
-        toolbar: [
-                  'fontselect fontsizeselect formatselect ' +
-                  '| bold italic underline strikethrough ' +
-                  '| subscript superscript | forecolor backcolor ' +
-                  '| removeformat' +
-                  '| undo redo | alignleft aligncenter alignright ' +
-                  '| bullist numlist | indent outdent blockquote ' +
-                  '| table | hr | titleicons | tex | link unlink' +
-                  '| media booksearch nc3Image file | pastetext code nc3Preview'
-        ],
+        toolbar: toolbar,
 
         font_formats: 'ゴシック=Arial, Roboto, “Droid Sans”, ' +
                       '“游ゴシック”, "Yu Gothic", "YuGothic", ' +
