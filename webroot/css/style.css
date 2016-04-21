@@ -1,3 +1,8 @@
+
+#tinymce {
+    margin: 6px 12px;
+}
+
 #wysiwyg-book-search {
     font-size: 0.9em;
 }
@@ -38,7 +43,7 @@ div.wysiwyg-books {
     white-space: normal;
 }
 .wysiwyg-books .book-title a, .wysiwyg-books .book-title span {
-	font-size: 1.2em;
+    font-size: 1.2em;
     color: #337ab7;
     text-decoration: none;
     white-space: normal;
