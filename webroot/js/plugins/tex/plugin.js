@@ -62,10 +62,11 @@ tinymce.PluginManager.add('tex', function(editor, url) {
       {
         type: 'panel',
         id: 'tex-preview',
+        classes: 'reset',
         flex: 1,
         // TODO プレビューのスタイル(高さが変化しない。)
-        style: 'margin: 20px 0px; padding: 5px;' +
-            ' background-color: #ddd; font-size: 14px;'
+        style: 'margin: 0px; padding: 5px;' +
+            ' background-color: #ddd; font-size: 14px;overflow-y: scroll;'
       }
     ];
   };
