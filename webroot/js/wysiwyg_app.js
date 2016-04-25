@@ -5,6 +5,20 @@
 var NC3_APP = new (function nc3WysiwygApp() {
   var self = this;
   /**
+   * モバイル表示用判定
+   */
+  self.isSpView = false;
+  $(window).on('resize orientationchange', function() {
+    var flg = tinymce.editors[0].settings.nc3Configs.is_mobile;
+    self.isSpView = flg;
+    if (flg) {
+      $('body').addClass('wysiwyg-sp-view');
+    } else {
+      $('body').removeClass('wysiwyg-sp-view');
+    }
+  });
+  $(window).trigger('resize');
+  /**
   * API URL設定
   */
   var __appURLs = (function() {
@@ -52,6 +66,28 @@ var NC3_APP = new (function nc3WysiwygApp() {
     }
     return obj;
   };
+  // 画面の向き取得
+  var currentO, defaultO, timer = false;
+  self.checkOrientation = function() {
+    if ('orientation' in window) {
+      var o = (window.orientation % 180 == 0);
+      if ((o && defaultO) || !(o || defaultO)) {
+        currentO = 'portrait';
+      }
+      else {
+        currentO = 'landscape';
+      }
+    }
+    return currentO;
+  };
+  if ('orientation' in window) {
+    var o1 = (window.innerWidth < window.innerHeight);
+    var o2 = (window.orientation % 180 == 0);
+    defaultO = (o1 && o2) || !(o1 || o2);
+    beforeO = defaultO;
+    self.checkOrientation();
+  }
+
   /////////////////////////////////////////////////
   // httpリクエスト
   /////////////////////////////////////////////////
