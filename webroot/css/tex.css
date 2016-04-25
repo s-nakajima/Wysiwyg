@@ -43,82 +43,82 @@
  * jsから挿入されるstyleタグの中身抜き出し(.mjx-chtml関連)
  * (セレクタ先頭に#tex-previewを付与)
  */
-#tex-preview　.mjx-chtml {display: inline-block; line-height: 0; text-indent: 0; text-align: left; text-transform: none; font-style: normal; font-weight: normal; font-size: 100%; font-size-adjust: none; letter-spacing: normal; word-wrap: normal; word-spacing: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; margin: 0; padding: 1px 0}
-#tex-preview　.MJXc-display {display: block; text-align: center; margin: 1em 0; padding: 0}
-#tex-preview　.mjx-chtml[tabindex]:focus, body :focus .mjx-chtml[tabindex] {display: inline-table}
-#tex-preview　.mjx-math {display: inline-block; border-collapse: separate; border-spacing: 0}
-#tex-preview　.mjx-math * {display: inline-block; text-align: left}
-#tex-preview　.mjx-numerator {display: block; text-align: center}
-#tex-preview　.mjx-denominator {display: block; text-align: center}
-#tex-preview　.MJXc-stacked {height: 0; position: relative}
-#tex-preview　.MJXc-stacked > * {position: absolute}
-#tex-preview　.MJXc-bevelled > * {display: inline-block}
-#tex-preview　.mjx-stack {display: inline-block}
-#tex-preview　.mjx-op {display: block}
-#tex-preview　.mjx-under {display: table-cell}
-#tex-preview　.mjx-over {display: block}
-#tex-preview　.mjx-over > * {padding-left: 0px!important; padding-right: 0px!important}
-#tex-preview　.mjx-under > * {padding-left: 0px!important; padding-right: 0px!important}
-#tex-preview　.mjx-stack > .mjx-sup {display: block}
-#tex-preview　.mjx-stack > .mjx-sub {display: block}
-#tex-preview　.mjx-prestack > .mjx-presup {display: block}
-#tex-preview　.mjx-prestack > .mjx-presub {display: block}
-#tex-preview　.mjx-delim-h > .mjx-char {display: inline-block}
-#tex-preview　.mjx-surd {vertical-align: top}
-#tex-preview　.mjx-mphantom * {visibility: hidden}
-#tex-preview　.mjx-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 2px 3px; font-style: normal; font-size: 90%}
-#tex-preview　.mjx-annotation-xml {line-height: normal}
-#tex-preview　.mjx-menclose > svg {fill: none; stroke: currentColor}
-#tex-preview　.mjx-mtr {display: table-row}
-#tex-preview　.mjx-mlabeledtr {display: table-row}
-#tex-preview　.mjx-mtd {display: table-cell; text-align: center}
-#tex-preview　.mjx-label {display: block}
-#tex-preview　.mjx-box {display: inline-block}
-#tex-preview　.mjx-block {display: block}
-#tex-preview　.mjx-span {display: span}
-#tex-preview　.mjx-char {display: block; white-space: pre}
-#tex-preview　.mjx-itable {display: inline-table}
-#tex-preview　.mjx-row {display: table-row}
-#tex-preview　.mjx-cell {display: table-cell}
-#tex-preview　.mjx-table {display: table; width: 100%}
-#tex-preview　.mjx-line {display: block; height: 0}
-#tex-preview　.mjx-strut {width: 0; padding-top: 1em}
-#tex-preview　.mjx-vsize {width: 0}
-#tex-preview　.MJXc-space1 {margin-left: .167em}
-#tex-preview　.MJXc-space2 {margin-left: .222em}
-#tex-preview　.MJXc-space3 {margin-left: .278em}
-#tex-preview　.mjx-chartest {display: block; visibility: hidden; position: absolute; top: 0; line-height: normal; font-size: 500%}
-#tex-preview　.mjx-chartest .mjx-char {display: inline}
-#tex-preview　.mjx-chartest .mjx-box {padding-top: 1000px}
-#tex-preview　.MJXc-processing {visibility: hidden; position: fixed; width: 0; height: 0; overflow: hidden}
-#tex-preview　.MJXc-processed {display: none}
-#tex-preview　.mjx-test {display: block; font-style: normal; font-weight: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-transform: none; letter-spacing: normal; word-spacing: normal; overflow: hidden; height: 1px}
-#tex-preview　.mjx-ex-box-test {position: absolute; width: 1px; height: 60ex}
-#tex-preview　#MathJax_CHTML_Tooltip {background-color: InfoBackground; color: InfoText; border: 1px solid black; box-shadow: 2px 2px 5px #AAAAAA; -webkit-box-shadow: 2px 2px 5px #AAAAAA; -moz-box-shadow: 2px 2px 5px #AAAAAA; -khtml-box-shadow: 2px 2px 5px #AAAAAA; padding: 3px 4px; z-index: 401; position: absolute; left: 0; top: 0; width: auto; height: auto; display: none}
-#tex-preview　.mjx-chtml .mjx-noError {line-height: 1.2; vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
-#tex-preview　.MJXc-TeX-unknown-R {font-family: STIXGeneral,'Cambria Math','Arial Unicode MS',serif; font-style: normal; font-weight: normal}
-#tex-preview　.MJXc-TeX-unknown-I {font-family: STIXGeneral,'Cambria Math','Arial Unicode MS',serif; font-style: italic; font-weight: normal}
-#tex-preview　.MJXc-TeX-unknown-B {font-family: STIXGeneral,'Cambria Math','Arial Unicode MS',serif; font-style: normal; font-weight: bold}
-#tex-preview　.MJXc-TeX-unknown-BI {font-family: STIXGeneral,'Cambria Math','Arial Unicode MS',serif; font-style: italic; font-weight: bold}
-#tex-preview　.MJXc-TeX-ams-R {font-family: MJXc-TeX-ams-R,MJXc-TeX-ams-Rw}
-#tex-preview　.MJXc-TeX-cal-B {font-family: MJXc-TeX-cal-B,MJXc-TeX-cal-Bx,MJXc-TeX-cal-Bw}
-#tex-preview　.MJXc-TeX-frak-R {font-family: MJXc-TeX-frak-R,MJXc-TeX-frak-Rw}
-#tex-preview　.MJXc-TeX-frak-B {font-family: MJXc-TeX-frak-B,MJXc-TeX-frak-Bx,MJXc-TeX-frak-Bw}
-#tex-preview　.MJXc-TeX-math-BI {font-family: MJXc-TeX-math-BI,MJXc-TeX-math-BIx,MJXc-TeX-math-BIw}
-#tex-preview　.MJXc-TeX-sans-R {font-family: MJXc-TeX-sans-R,MJXc-TeX-sans-Rw}
-#tex-preview　.MJXc-TeX-sans-B {font-family: MJXc-TeX-sans-B,MJXc-TeX-sans-Bx,MJXc-TeX-sans-Bw}
-#tex-preview　.MJXc-TeX-sans-I {font-family: MJXc-TeX-sans-I,MJXc-TeX-sans-Ix,MJXc-TeX-sans-Iw}
-#tex-preview　.MJXc-TeX-script-R {font-family: MJXc-TeX-script-R,MJXc-TeX-script-Rw}
-#tex-preview　.MJXc-TeX-type-R {font-family: MJXc-TeX-type-R,MJXc-TeX-type-Rw}
-#tex-preview　.MJXc-TeX-cal-R {font-family: MJXc-TeX-cal-R,MJXc-TeX-cal-Rw}
-#tex-preview　.MJXc-TeX-main-B {font-family: MJXc-TeX-main-B,MJXc-TeX-main-Bx,MJXc-TeX-main-Bw}
-#tex-preview　.MJXc-TeX-main-I {font-family: MJXc-TeX-main-I,MJXc-TeX-main-Ix,MJXc-TeX-main-Iw}
-#tex-preview　.MJXc-TeX-main-R {font-family: MJXc-TeX-main-R,MJXc-TeX-main-Rw}
-#tex-preview　.MJXc-TeX-math-I {font-family: MJXc-TeX-math-I,MJXc-TeX-math-Ix,MJXc-TeX-math-Iw}
-#tex-preview　.MJXc-TeX-size1-R {font-family: MJXc-TeX-size1-R,MJXc-TeX-size1-Rw}
-#tex-preview　.MJXc-TeX-size2-R {font-family: MJXc-TeX-size2-R,MJXc-TeX-size2-Rw}
-#tex-preview　.MJXc-TeX-size3-R {font-family: MJXc-TeX-size3-R,MJXc-TeX-size3-Rw}
-#tex-preview　.MJXc-TeX-size4-R {font-family: MJXc-TeX-size4-R,MJXc-TeX-size4-Rw}
+#tex-preview .mjx-chtml {display: inline-block; line-height: 0; text-indent: 0; text-align: left; text-transform: none; font-style: normal; font-weight: normal; font-size: 100%; font-size-adjust: none; letter-spacing: normal; word-wrap: normal; word-spacing: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; margin: 0; padding: 1px 0}
+#tex-preview .MJXc-display {display: block; text-align: center; margin: 1em 0; padding: 0}
+#tex-preview .mjx-chtml[tabindex]:focus, body :focus .mjx-chtml[tabindex] {display: inline-table}
+#tex-preview .mjx-math {display: inline-block; border-collapse: separate; border-spacing: 0}
+#tex-preview .mjx-math * {display: inline-block; text-align: left}
+#tex-preview .mjx-numerator {display: block; text-align: center}
+#tex-preview .mjx-denominator {display: block; text-align: center}
+#tex-preview .MJXc-stacked {height: 0; position: relative}
+#tex-preview .MJXc-stacked > * {position: absolute}
+#tex-preview .MJXc-bevelled > * {display: inline-block}
+#tex-preview .mjx-stack {display: inline-block}
+#tex-preview .mjx-op {display: block}
+#tex-preview .mjx-under {display: table-cell}
+#tex-preview .mjx-over {display: block}
+#tex-preview .mjx-over > * {padding-left: 0px!important; padding-right: 0px!important}
+#tex-preview .mjx-under > * {padding-left: 0px!important; padding-right: 0px!important}
+#tex-preview .mjx-stack > .mjx-sup {display: block}
+#tex-preview .mjx-stack > .mjx-sub {display: block}
+#tex-preview .mjx-prestack > .mjx-presup {display: block}
+#tex-preview .mjx-prestack > .mjx-presub {display: block}
+#tex-preview .mjx-delim-h > .mjx-char {display: inline-block}
+#tex-preview .mjx-surd {vertical-align: top}
+#tex-preview .mjx-mphantom * {visibility: hidden}
+#tex-preview .mjx-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 2px 3px; font-style: normal; font-size: 90%}
+#tex-preview .mjx-annotation-xml {line-height: normal}
+#tex-preview .mjx-menclose > svg {fill: none; stroke: currentColor}
+#tex-preview .mjx-mtr {display: table-row}
+#tex-preview .mjx-mlabeledtr {display: table-row}
+#tex-preview .mjx-mtd {display: table-cell; text-align: center}
+#tex-preview .mjx-label {display: block}
+#tex-preview .mjx-box {display: inline-block}
+#tex-preview .mjx-block {display: block}
+#tex-preview .mjx-span {display: span}
+#tex-preview .mjx-char {display: block; white-space: pre}
+#tex-preview .mjx-itable {display: inline-table}
+#tex-preview .mjx-row {display: table-row}
+#tex-preview .mjx-cell {display: table-cell}
+#tex-preview .mjx-table {display: table; width: 100%}
+#tex-preview .mjx-line {display: block; height: 0}
+#tex-preview .mjx-strut {width: 0; padding-top: 1em}
+#tex-preview .mjx-vsize {width: 0}
+#tex-preview .MJXc-space1 {margin-left: .167em}
+#tex-preview .MJXc-space2 {margin-left: .222em}
+#tex-preview .MJXc-space3 {margin-left: .278em}
+#tex-preview .mjx-chartest {display: block; visibility: hidden; position: absolute; top: 0; line-height: normal; font-size: 500%}
+#tex-preview .mjx-chartest .mjx-char {display: inline}
+#tex-preview .mjx-chartest .mjx-box {padding-top: 1000px}
+#tex-preview .MJXc-processing {visibility: hidden; position: fixed; width: 0; height: 0; overflow: hidden}
+#tex-preview .MJXc-processed {display: none}
+#tex-preview .mjx-test {display: block; font-style: normal; font-weight: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-transform: none; letter-spacing: normal; word-spacing: normal; overflow: hidden; height: 1px}
+#tex-preview .mjx-ex-box-test {position: absolute; width: 1px; height: 60ex}
+#tex-preview #MathJax_CHTML_Tooltip {background-color: InfoBackground; color: InfoText; border: 1px solid black; box-shadow: 2px 2px 5px #AAAAAA; -webkit-box-shadow: 2px 2px 5px #AAAAAA; -moz-box-shadow: 2px 2px 5px #AAAAAA; -khtml-box-shadow: 2px 2px 5px #AAAAAA; padding: 3px 4px; z-index: 401; position: absolute; left: 0; top: 0; width: auto; height: auto; display: none}
+#tex-preview .mjx-chtml .mjx-noError {line-height: 1.2; vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+#tex-preview .MJXc-TeX-unknown-R {font-family: STIXGeneral,'Cambria Math','Arial Unicode MS',serif; font-style: normal; font-weight: normal}
+#tex-preview .MJXc-TeX-unknown-I {font-family: STIXGeneral,'Cambria Math','Arial Unicode MS',serif; font-style: italic; font-weight: normal}
+#tex-preview .MJXc-TeX-unknown-B {font-family: STIXGeneral,'Cambria Math','Arial Unicode MS',serif; font-style: normal; font-weight: bold}
+#tex-preview .MJXc-TeX-unknown-BI {font-family: STIXGeneral,'Cambria Math','Arial Unicode MS',serif; font-style: italic; font-weight: bold}
+#tex-preview .MJXc-TeX-ams-R {font-family: MJXc-TeX-ams-R,MJXc-TeX-ams-Rw}
+#tex-preview .MJXc-TeX-cal-B {font-family: MJXc-TeX-cal-B,MJXc-TeX-cal-Bx,MJXc-TeX-cal-Bw}
+#tex-preview .MJXc-TeX-frak-R {font-family: MJXc-TeX-frak-R,MJXc-TeX-frak-Rw}
+#tex-preview .MJXc-TeX-frak-B {font-family: MJXc-TeX-frak-B,MJXc-TeX-frak-Bx,MJXc-TeX-frak-Bw}
+#tex-preview .MJXc-TeX-math-BI {font-family: MJXc-TeX-math-BI,MJXc-TeX-math-BIx,MJXc-TeX-math-BIw}
+#tex-preview .MJXc-TeX-sans-R {font-family: MJXc-TeX-sans-R,MJXc-TeX-sans-Rw}
+#tex-preview .MJXc-TeX-sans-B {font-family: MJXc-TeX-sans-B,MJXc-TeX-sans-Bx,MJXc-TeX-sans-Bw}
+#tex-preview .MJXc-TeX-sans-I {font-family: MJXc-TeX-sans-I,MJXc-TeX-sans-Ix,MJXc-TeX-sans-Iw}
+#tex-preview .MJXc-TeX-script-R {font-family: MJXc-TeX-script-R,MJXc-TeX-script-Rw}
+#tex-preview .MJXc-TeX-type-R {font-family: MJXc-TeX-type-R,MJXc-TeX-type-Rw}
+#tex-preview .MJXc-TeX-cal-R {font-family: MJXc-TeX-cal-R,MJXc-TeX-cal-Rw}
+#tex-preview .MJXc-TeX-main-B {font-family: MJXc-TeX-main-B,MJXc-TeX-main-Bx,MJXc-TeX-main-Bw}
+#tex-preview .MJXc-TeX-main-I {font-family: MJXc-TeX-main-I,MJXc-TeX-main-Ix,MJXc-TeX-main-Iw}
+#tex-preview .MJXc-TeX-main-R {font-family: MJXc-TeX-main-R,MJXc-TeX-main-Rw}
+#tex-preview .MJXc-TeX-math-I {font-family: MJXc-TeX-math-I,MJXc-TeX-math-Ix,MJXc-TeX-math-Iw}
+#tex-preview .MJXc-TeX-size1-R {font-family: MJXc-TeX-size1-R,MJXc-TeX-size1-Rw}
+#tex-preview .MJXc-TeX-size2-R {font-family: MJXc-TeX-size2-R,MJXc-TeX-size2-Rw}
+#tex-preview .MJXc-TeX-size3-R {font-family: MJXc-TeX-size3-R,MJXc-TeX-size3-Rw}
+#tex-preview .MJXc-TeX-size4-R {font-family: MJXc-TeX-size4-R,MJXc-TeX-size4-Rw}
 @font-face {font-family: MJXc-TeX-ams-R; src: local('MathJax_AMS'), local('MathJax_AMS-Regular')}
 @font-face {font-family: MJXc-TeX-ams-Rw; src /*1*/: url('https://cdn.mathjax.org/mathjax/2.6-latest/fonts/HTML-CSS/TeX/eot/MathJax_AMS-Regular.eot'); src /*2*/: url('https://cdn.mathjax.org/mathjax/2.6-latest/fonts/HTML-CSS/TeX/woff/MathJax_AMS-Regular.woff') format('woff'), url('https://cdn.mathjax.org/mathjax/2.6-latest/fonts/HTML-CSS/TeX/otf/MathJax_AMS-Regular.otf') format('opentype')}
 @font-face {font-family: MJXc-TeX-cal-B; src: local('MathJax_Caligraphic Bold'), local('MathJax_Caligraphic-Bold')}
@@ -165,3 +165,16 @@
 @font-face {font-family: MJXc-TeX-size3-Rw; src /*1*/: url('https://cdn.mathjax.org/mathjax/2.6-latest/fonts/HTML-CSS/TeX/eot/MathJax_Size3-Regular.eot'); src /*2*/: url('https://cdn.mathjax.org/mathjax/2.6-latest/fonts/HTML-CSS/TeX/woff/MathJax_Size3-Regular.woff') format('woff'), url('https://cdn.mathjax.org/mathjax/2.6-latest/fonts/HTML-CSS/TeX/otf/MathJax_Size3-Regular.otf') format('opentype')}
 @font-face {font-family: MJXc-TeX-size4-R; src: local('MathJax_Size4'), local('MathJax_Size4-Regular')}
 @font-face {font-family: MJXc-TeX-size4-Rw; src /*1*/: url('https://cdn.mathjax.org/mathjax/2.6-latest/fonts/HTML-CSS/TeX/eot/MathJax_Size4-Regular.eot'); src /*2*/: url('https://cdn.mathjax.org/mathjax/2.6-latest/fonts/HTML-CSS/TeX/woff/MathJax_Size4-Regular.woff') format('woff'), url('https://cdn.mathjax.org/mathjax/2.6-latest/fonts/HTML-CSS/TeX/otf/MathJax_Size4-Regular.otf') format('opentype')}
+
+/** svg用 */
+#tex-preview .MathJax_SVG_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+#tex-preview .MathJax_SVG .MJX-monospace {font-family: monospace}
+#tex-preview .MathJax_SVG .MJX-sans-serif {font-family: sans-serif}
+#tex-preview #MathJax_SVG_Tooltip {background-color: InfoBackground; color: InfoText; border: 1px solid black; box-shadow: 2px 2px 5px #AAAAAA; -webkit-box-shadow: 2px 2px 5px #AAAAAA; -moz-box-shadow: 2px 2px 5px #AAAAAA; -khtml-box-shadow: 2px 2px 5px #AAAAAA; padding: 3px 4px; z-index: 401; position: absolute; left: 0; top: 0; width: auto; height: auto; display: none}
+#tex-preview .MathJax_SVG {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+#tex-preview .MathJax_SVG * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+#tex-preview .mjx-svg-href {fill: blue; stroke: blue}
+#tex-preview .MathJax_SVG_Processing {visibility: hidden; position: absolute; top: 0; left: 0; width: 0; height: 0; overflow: hidden; display: block!important}
+#tex-preview .MathJax_SVG_Processed {display: none!important}
+#tex-preview .MathJax_SVG_ExBox {display: block!important; overflow: hidden; width: 1px; height: 60ex; min-height: 0; max-height: none; padding: 0; border: 0; margin: 0}
+#tex-preview .MathJax_SVG .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
