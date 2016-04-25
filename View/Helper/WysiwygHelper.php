@@ -99,6 +99,9 @@ class WysiwygHelper extends AppHelper {
 			// ファイル・画像アップロードパス
 			'file_upload_path' => $this->NetCommonsHtml->url('/wysiwyg/file/upload'),
 			'image_upload_path' => $this->NetCommonsHtml->url('/wysiwyg/image/upload'),
+
+			// mobile判別
+			'is_mobile' => Configure::read('isMobile'),
 		];
 
 		// constsnts 設定を JavaScriptで利用するための設定に変換する
