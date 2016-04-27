@@ -100,6 +100,9 @@ class WysiwygHelper extends AppHelper {
 			'file_upload_path' => $this->NetCommonsHtml->url('/wysiwyg/file/upload'),
 			'image_upload_path' => $this->NetCommonsHtml->url('/wysiwyg/image/upload'),
 
+			'csrfTokenPath' =>
+				$this->NetCommonsHtml->url('/wysiwyg/file/csrfToken.json'),
+
 			// mobile判別
 			'is_mobile' => Configure::read('isMobile'),
 		];

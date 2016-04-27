@@ -114,11 +114,34 @@ var NC3_APP = new (function nc3WysiwygApp() {
   // API(formDataを使用)
   /////////////////////////////////////////////////
   /**
-  * トークンの確認(TODO)
+  * トークンの確認
+  * success時にアップロードの実行
   */
-  var __checkToken = function() {
+  var url, formData;
+  var __getCsrfToken = function(url, formData, onsuccess, onerr, name, isDEBUG) {
+    var u = url;
+    var fd = formData;
+    var onss = onsuccess;
+    var oner = onerr;
+    var n = name;
 
+    __httpReq(
+        'get',
+        tinymce.editors[0].settings.nc3Configs.csrfTokenPath,
+        {},
+        function(res) {
+          // 取得した csrfToken をフォームデータとして作成する
+          fd.append('data[_Token][key]', res.data._Token.key);
+
+          // アップロードの実行
+          __httpReq('post', u, fd, onss, oner, n);
+        },
+        function(res) {
+        },
+        'getCsrfToken'
+    );
   };
+
   /**
   * 画像のアップロード
   */
@@ -127,15 +150,10 @@ var NC3_APP = new (function nc3WysiwygApp() {
       onsuccess();
       return false;
     }
+
     var url = __appURLs.uploadImage(roomId);
-    __httpReq(
-        'post',
-        url,
-        formData,
-        onsuccess,
-        onerror,
-        'uploadImage'
-    );
+    __getCsrfToken(url, formData, onsuccess, onerr, 'uploadImage', isDEBUG);
+
   };
   /**
   * ファイルのアップロード
@@ -145,15 +163,9 @@ var NC3_APP = new (function nc3WysiwygApp() {
       onsuccess(DUMMY_DATA.upload_file);
       return false;
     }
+
     var url = __appURLs.uploadFile(roomId);
-    __httpReq(
-        'post',
-        url,
-        formData,
-        onsuccess,
-        onerror,
-        'uploadFile'
-    );
+    __getCsrfToken(url, formData, onsuccess, onerr, 'uploadFile', isDEBUG);
   };
   /**
    * 書籍検索(Google books API)
