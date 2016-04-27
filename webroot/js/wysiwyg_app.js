@@ -4,20 +4,7 @@
  */
 var NC3_APP = new (function nc3WysiwygApp() {
   var self = this;
-  /**
-   * モバイル表示用判定
-   */
-  self.isSpView = false;
-  $(window).on('resize orientationchange', function() {
-    var flg = tinymce.editors[0].settings.nc3Configs.is_mobile;
-    self.isSpView = flg;
-    if (flg) {
-      $('body').addClass('wysiwyg-sp-view');
-    } else {
-      $('body').removeClass('wysiwyg-sp-view');
-    }
-  });
-  $(window).trigger('resize');
+
   /**
   * API URL設定
   */

@@ -28,9 +28,12 @@ echo $this->NetCommonsHtml->script(
 	)
 );
 
-echo $this->NetCommonsHtml->css(
-	array(
-		'/components/simplePagination.js/simplePagination.css',
-		'/wysiwyg/css/tex.css',
-	)
-);
+$cssArray = [
+	'/components/simplePagination.js/simplePagination.css',
+	'/wysiwyg/css/tex.css',
+];
+// mobile 時のみ CSSの適用を行う
+if (Configure::read('isMobile')) {
+	$cssArray[] = '/wysiwyg/css/mobile.css';
+}
+echo $this->NetCommonsHtml->css($cssArray);

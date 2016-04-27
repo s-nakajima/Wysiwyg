@@ -80,11 +80,11 @@ tinymce.PluginManager.add('booksearch', function(editor, url) {
   // 結果一覧内イベント処理
   var setResultEvent = function() {
     $(selectors.panelResult)
-    .find(selectors.linkBtn)
-    .on('click', function() {
-          var id = $(this).attr('data-bid');
-          writeItem(id);
-        });
+        .find(selectors.linkBtn)
+        .on('click', function() {
+              var id = $(this).attr('data-bid');
+              writeItem(id);
+            });
   };
 
   // 挿入タイプ別domの構築/wysiwygへの挿入
@@ -123,10 +123,10 @@ tinymce.PluginManager.add('booksearch', function(editor, url) {
       var $el = $item.find('.book-item-img').children().clone(false);
       var url = $el.find('img').attr('data-thumb');
       $el.find('img')
-      .attr('src', url)
-      .attr('width', '128')
-      .attr('height', '164')
-      .removeAttr('data-bthumb');
+          .attr('src', url)
+          .attr('width', '128')
+          .attr('height', '164')
+          .removeAttr('data-bthumb');
       dom = $el.prop('outerHTML');
     }
     // wysiwygへの挿入
