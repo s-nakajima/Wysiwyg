@@ -85,8 +85,8 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
     if (d.src) {
       // formオブジェクト作成
       var files = $('#uploadForm')
-        .find('input[type="file"]')[0]
-        .files[0];
+          .find('input[type="file"]')[0]
+          .files[0];
       var formData = new FormData();
       formData.append('data[Wysiwyg][file]', files);
       formData.append('data[Block][key]',
