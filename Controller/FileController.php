@@ -54,9 +54,8 @@ class FileController extends WysiwygAppController {
 	public function beforeFilter() {
 		parent::beforeFilter();
 
-		// TinyMCE のアップロードフォームに Token埋め込み方法が未解決のため
-		// ひとまずセキュリティ Component から uploadアクションを除外する
-		$this->Security->unlockedActions = array('upload', 'download');
+		// アップロードでは CSRFトークン対応は行うが、フォーム改ざんチェックは行わない
+		$this->Security->validatePost = false;
 	}
 
 /**
@@ -180,5 +179,24 @@ class FileController extends WysiwygAppController {
 			return is_uploaded_file($val['tmp_name']);
 		}
 		return false;
+	}
+
+/**
+ * csrfToken method
+ *
+ * @return void
+ */
+	public function csrfToken() {
+		$security = $this->Components->load('Security');
+		$security->generateToken($this->request);
+
+		$data = array(
+			'_Token' => array(
+				'key' => $this->request->params['_Token']['key']
+			)
+		);
+
+		$this->set(compact('data'));
+		$this->set('_serialize', array('data'));
 	}
 }
