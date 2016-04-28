@@ -17,6 +17,7 @@ echo $this->NetCommonsHtml->script(
 		'/net_commons/js/color_palette_value.js',
 		'/wysiwyg/js/wysiwyg.js',
 		'/wysiwyg/js/wysiwyg_app.js',
+		'/wysiwyg/js/plugins/nc3_colorpicker/plugin.js',
 		'/wysiwyg/js/plugins/tex/plugin.js',
 		'/wysiwyg/js/plugins/tex/iframe.js',
 		'/wysiwyg/js/plugins/file/plugin.js',
