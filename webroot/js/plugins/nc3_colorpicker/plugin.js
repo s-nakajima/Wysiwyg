@@ -134,22 +134,6 @@ tinymce.PluginManager.add('nc3_colorpicker', function(editor) {
     return html;
   }
 
-  function onPanelClick(e) {
-    console.log(this);
-    var buttonCtrl = this.parent(),
-        value;
-
-    value = e.target.getAttribute('data-mce-color');
-    if (value) {
-      if (value == 'transparent') {
-        callback('');
-      } else {
-        callback(value);
-      }
-      win.close();
-    }
-  }
-
   function colorPickerCallback(callback, value) {
     var win = editor.windowManager.open({
       title: 'Color',
@@ -171,6 +155,21 @@ tinymce.PluginManager.add('nc3_colorpicker', function(editor) {
         ]
       }
     });
+
+    function onPanelClick(e) {
+      var buttonCtrl = this.parent(),
+          value;
+
+      value = e.target.getAttribute('data-mce-color');
+      if (value) {
+        if (value == 'transparent') {
+          callback('');
+        } else {
+          callback(value);
+        }
+        win.close();
+      }
+    }
   }
 
   if (!editor.settings.color_picker_callback) {
