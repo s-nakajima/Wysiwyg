@@ -11,12 +11,10 @@ var NC3_APP = new (function nc3WysiwygApp() {
   var __appURLs = (function() {
     return {
       uploadImage: function(roomId) {
-        return tinymce.editors[0].settings.nc3Configs.image_upload_path +
-               '/' + roomId;
+        return tinymce.editors[0].settings.nc3Configs.image_upload_path;
       },
       uploadFile: function(roomId) {
-        return tinymce.editors[0].settings.nc3Configs.file_upload_path +
-               '/' + roomId;
+        return tinymce.editors[0].settings.nc3Configs.file_upload_path;
       },
       searchBooks: function(q) {
         return 'https://www.googleapis.com/books/v1/volumes?q=' + q;
@@ -192,7 +190,7 @@ var DUMMY_DATA = {
     status_code: 200,
     result: true,
     file: {
-      id: 0001,
+      id: '0001',
       original_name: 'ファイル名',
       path: ''
     }
