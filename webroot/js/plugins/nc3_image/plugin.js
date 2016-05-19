@@ -89,14 +89,11 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
           .files[0];
       var formData = new FormData();
       formData.append('data[Wysiwyg][file]', files);
-      formData.append('data[Block][key]',
-          editor.settings.nc3Configs.blockKey);
-      formData.append('data[Block][room_id]',
-          editor.settings.nc3Configs.roomId);
-      formData.append('src', d.src);
-      formData.append('alt', d.alt);
-      formData.append('size', d.size);
-      formData.append('position', d.position);
+      formData.append('data[Block][key]', editor.settings.nc3Configs.blockKey);
+      formData.append('data[Block][room_id]', editor.settings.nc3Configs.roomId);
+      formData.append('data[_Token][fields]', editor.settings.nc3Configs.imageSecure);
+      formData.append('data[_Token][unlocked]', '');
+
       NC3_APP.uploadImage(editor.settings.nc3Configs.roomId, formData,
           function(res) {
             // onsuccess
@@ -168,8 +165,7 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
     {
       name: 'alt',
       type: 'textbox',
-      label: 'Image description',
-      name: 'alt'
+      label: 'Image description'
     },
     // 位置(left, right, center)
     {

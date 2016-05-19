@@ -33,10 +33,10 @@ tinymce.PluginManager.add('file', function(editor, url) {
           var files = $('#uploadForm').find('input[type="file"]')[0].files[0];
           var formData = new FormData();
           formData.append('data[Wysiwyg][file]', files);
-          formData.append('data[Block][key]',
-              editor.settings.nc3Configs.blockKey);
-          formData.append('data[Block][room_id]',
-              editor.settings.nc3Configs.roomId);
+          formData.append('data[Block][key]', editor.settings.nc3Configs.blockKey);
+          formData.append('data[Block][room_id]', editor.settings.nc3Configs.roomId);
+          formData.append('data[_Token][fields]', editor.settings.nc3Configs.fileSecure);
+          formData.append('data[_Token][unlocked]', '');
 
           NC3_APP.uploadFile(editor.settings.nc3Configs.roomId, formData,
               function(res) {
