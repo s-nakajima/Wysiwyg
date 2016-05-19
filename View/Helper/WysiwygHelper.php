@@ -24,9 +24,11 @@ class WysiwygHelper extends AppHelper {
  * @var array
  */
 	public $helpers = array(
+		'Form',
 		'NetCommons.NetCommonsForm',
 		'NetCommons.NetCommonsHtml',
 		'NetCommons.TitleIcon',
+		'NetCommons.Token',
 	);
 
 /**
@@ -64,6 +66,25 @@ class WysiwygHelper extends AppHelper {
  * @return String wysiwyg js
  */
 	public function wysiwygScript() {
+		// file / image  が送信するフィールド（フォーム改ざん防止項目）
+		$fields = [
+			'Block' => [
+				'key' => Current::read('Block.key'),
+				'room_id' => Current::read('Room.id'),
+			],
+			'Wysiwyg' => [
+				'file' => [
+					'error' => [],
+					'name' => [],
+					'size' => [],
+					'tmp_name' => [],
+					'type' => [],
+				]
+			]
+		];
+		$fileUploadPath = $this->NetCommonsHtml->url('/wysiwyg/file/upload');
+		$imageUploadPath = $this->NetCommonsHtml->url('/wysiwyg/image/upload');
+
 		// NetCommonsApp.constant で定義する変数の定義
 		$constants = [
 			// タイトルアイコン用のファイルリスト
@@ -97,11 +118,13 @@ class WysiwygHelper extends AppHelper {
 			),
 
 			// ファイル・画像アップロードパス
-			'file_upload_path' => $this->NetCommonsHtml->url('/wysiwyg/file/upload'),
-			'image_upload_path' => $this->NetCommonsHtml->url('/wysiwyg/image/upload'),
+			'file_upload_path' => $fileUploadPath,
+			'image_upload_path' => $imageUploadPath,
 
 			'csrfTokenPath' =>
-				$this->NetCommonsHtml->url('/wysiwyg/file/csrfToken.json'),
+				$this->NetCommonsHtml->url('/net_commons/net_commons/csrfToken.json'),
+			'fileSecure' => $this->__secure($fileUploadPath, $fields),
+			'imageSecure' => $this->__secure($imageUploadPath, $fields),
 
 			// mobile判別
 			'is_mobile' => Configure::read('isMobile'),
@@ -132,5 +155,30 @@ class WysiwygHelper extends AppHelper {
 	private function __getTitleIconFiles() {
 		$files = json_decode($this->TitleIcon->getIconFiles(false));
 		return array_chunk($files, 8);
+	}
+
+/**
+ * SecurityComponent::secure とほぼ同等の処理の実行
+ * _Token.fields, _Token.unlocked の2つのタグを作る
+ *
+ * @param String $actionUrl image, file のどちらかのアクションurl
+ * @param Array $fields 改ざん防止対象フィールド
+ * @return String
+ */
+	private function __secure($actionUrl, $fields) {
+		// トークンヘルパが読み込める形式に変換
+		$tokenFields = Hash::flatten($fields);
+
+		// hidden項目を設定
+		$hiddenFields = array('Block.key', 'Block.room_id');
+
+		// トークンヘルパーによる作成
+		$tokens = $this->Token->getToken('Wysiwyg',
+			$actionUrl,
+			$tokenFields,
+			$hiddenFields
+		);
+
+		return $tokens['_Token']['fields'];
 	}
 }
