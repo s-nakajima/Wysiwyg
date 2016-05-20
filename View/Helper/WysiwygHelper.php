@@ -179,6 +179,6 @@ class WysiwygHelper extends AppHelper {
 			$hiddenFields
 		);
 
-		return $tokens['_Token']['fields'];
+		return Hash::get($tokens, '_Token.fields', '');
 	}
 }
