@@ -25,7 +25,7 @@ class FileController extends WysiwygAppController {
  * @var array
  */
 	public $components = array(
-		'Security',
+		//'Security',
 		'Files.FileUpload',
 		'Files.Download',
 	);
