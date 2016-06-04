@@ -166,6 +166,8 @@ class WysiwygHelper extends AppHelper {
  * @return String
  */
 	private function __secure($actionUrl, $fields) {
+		$currentData = $this->_View->request->data;
+
 		// トークンヘルパが読み込める形式に変換
 		$tokenFields = Hash::flatten($fields);
 
@@ -173,11 +175,14 @@ class WysiwygHelper extends AppHelper {
 		$hiddenFields = array('Block.key', 'Block.room_id');
 
 		// トークンヘルパーによる作成
+		$this->_View->request->data = $fields;
 		$tokens = $this->Token->getToken('Wysiwyg',
 			$actionUrl,
 			$tokenFields,
 			$hiddenFields
 		);
+
+		$this->_View->request->data = $currentData;
 
 		return Hash::get($tokens, '_Token.fields', '');
 	}
