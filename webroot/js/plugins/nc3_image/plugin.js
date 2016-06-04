@@ -91,6 +91,7 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
       formData.append('data[Wysiwyg][file]', files);
       formData.append('data[Block][key]', editor.settings.nc3Configs.blockKey);
       formData.append('data[Block][room_id]', editor.settings.nc3Configs.roomId);
+      formData.append('data[Room][id]', editor.settings.nc3Configs.roomId);
       formData.append('data[_Token][fields]', editor.settings.nc3Configs.imageSecure);
       formData.append('data[_Token][unlocked]', '');
 

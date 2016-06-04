@@ -68,6 +68,9 @@ class WysiwygHelper extends AppHelper {
 	public function wysiwygScript() {
 		// file / image  が送信するフィールド（フォーム改ざん防止項目）
 		$fields = [
+			'Room' => [
+				'id' => Current::read('Room.id'),
+			],
 			'Block' => [
 				'key' => Current::read('Block.key'),
 				'room_id' => Current::read('Room.id'),
