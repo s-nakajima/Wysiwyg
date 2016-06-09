@@ -35,8 +35,9 @@ class WysiwygBehavior extends ModelBehavior {
  * @return void
  */
 	public function setup(Model $model, $config = array()) {
+		$this->_fields[$model->alias] = array();
 		if (isset($config['fields'])) {
-			$this->_fields = $config['fields'];
+			$this->_fields[$model->alias] = $config['fields'];
 		}
 	}
 
@@ -103,27 +104,29 @@ class WysiwygBehavior extends ModelBehavior {
 					);
 		$uploadFile = ClassRegistry::init('Files.UploadFile');
 
-		foreach ($this->_fields as $field) {
-			// アップロードされたファイル・画像の ID を取得
-			preg_match_all($pattern, $model->data[$model->alias][$field], $matches);
+		foreach ($this->_fields[$model->alias] as $field) {
+			if (isset($model->data[$model->alias][$field])) {
+				// アップロードされたファイル・画像の ID を取得
+				preg_match_all($pattern, $model->data[$model->alias][$field], $matches);
 
-			$fileIds = $matches[1];
+				$fileIds = $matches[1];
 
-			// 更新対象となる Fileデータを取得
-			// $fieIds より検索
-			//
-			$files = $uploadFile->find('all', ['conditions' => ['id' => $fileIds]]);
-
-			foreach ($files as $file) {
-				// content_key または block_key が NULL の時は新規の登録ファイルとなるので
-				// 改めて content_key, block_key をセットする
+				// 更新対象となる Fileデータを取得
+				// $fieIds より検索
 				//
-				if (empty($file['UploadFile']['content_key']) || empty($file['UploadFile']['block_key'])) {
-					$file['UploadFile']['content_key'] = $model->data[$model->alias]['key'];
-					$file['UploadFile']['block_key'] = $model->data['Block']['key'];
+				$files = $uploadFile->find('all', ['conditions' => ['id' => $fileIds]]);
 
-					$uploadFile->create();
-					$uploadFile->save($file);
+				foreach ($files as $file) {
+					// content_key または block_key が NULL の時は新規の登録ファイルとなるので
+					// 改めて content_key, block_key をセットする
+					//
+					if (empty($file['UploadFile']['content_key']) || empty($file['UploadFile']['block_key'])) {
+						$file['UploadFile']['content_key'] = $model->data[$model->alias]['key'];
+						$file['UploadFile']['block_key'] = $model->data['Block']['key'];
+
+						$uploadFile->create();
+						$uploadFile->save($file);
+					}
 				}
 			}
 		}
@@ -139,13 +142,12 @@ class WysiwygBehavior extends ModelBehavior {
  * @return Array $data を置換した内容を返す
  */
 	private function __replaceString(Model $model, $search, $replace, $data) {
+		// 検索対象に / があるとデリミタエラーが発生するので置換する
+		$search = str_replace('/', '\/', $search);
 		// 定義フィールド全てを置換
-		foreach ($this->_fields as $field) {
+		foreach ($this->_fields[$model->alias] as $field) {
 			// 定義フィールドが存在しない場合は無視する
 			if (isset($data[$model->alias][$field])) {
-				// 検索対象に / があるとデリミタエラーが発生するので置換する
-				$search = str_replace('/', '\/', $search);
-
 				$pattern = sprintf('/%s\/(%s)\/([0-9]*)/', $search, self::WYSIWYG_REPLACE_PATH);
 				$replacement = sprintf('%s/\1/\2', $replace);
 
