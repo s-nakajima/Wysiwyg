@@ -55,6 +55,7 @@ tinymce.addI18n('ja',{
   "Cut":"\u5207\u308a\u53d6\u308a",
   "Decrease indent":"\u30a4\u30f3\u30c7\u30f3\u30c8\u3092\u6e1b\u3089\u3059",
   "Default":"\u30c7\u30d5\u30a9\u30eb\u30c8",
+  "Default size":"\u6a19\u6e96\u30b5\u30a4\u30ba",
   "Delete column":"\u5217\u306e\u524a\u9664",
   "Delete row":"\u884c\u306e\u524a\u9664",
   "Delete table":"\u8868\u306e\u524a\u9664",
