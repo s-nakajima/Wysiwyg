@@ -29,7 +29,7 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
   };
   var sizeFormVals = [{
     text: 'Select Size',
-    value: ''
+    value: 'big'
   }, {
     text: 'big',
     value: 'big'
