@@ -33,6 +33,6 @@ echo $this->NetCommonsHtml->script(
 echo $this->Html->scriptStart(array('inline' => false));
 ?>
 $(document).ready(function(){
-	MathJax.Hub.Queue(["Typeset", MathJax.Hub, 'nc-container']);
+	MathJax.Hub.Queue(['Typeset', MathJax.Hub, 'nc-container']);
 });
 <?php echo $this->Html->scriptEnd();
