@@ -8,8 +8,9 @@
         }
     },
     "require": {
-        "netcommons/files":             "dev-master",
-        "netcommons/net-commons":       "dev-master"
+        "netcommons/files":                "dev-master",
+        "netcommons/net-commons":          "dev-master",
+        "josegonzalez/cakephp-purifiable": "dev-master"
     },
     "license": "NetCommons License",
     "authors": [
