@@ -278,7 +278,7 @@ class Purifiable {
  * @return array setting
  */
 	public function getSetting() {
-		if (Current::read('RoomRolePermission.html_not_limited.value')) {
+		if (Current::permission('html_not_limited')) {
 			// HTMLタグ使用権限がある場合
 			$config = $this->__htmlNotLimitedConfig;
 			$customFilters = array();
