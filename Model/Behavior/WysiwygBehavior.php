@@ -1,6 +1,6 @@
 <?php
 /**
- * OriginalKey Behavior
+ * Wysiwyg Behavior
  *
  * @author Noriko Arai <arai@nii.ac.jp>
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
@@ -10,16 +10,17 @@
  */
 
 App::uses('ModelBehavior', 'Model');
+App::uses('Purifiable', 'Wysiwyg.Utility');
 
 /**
- * OriginalKey Behavior
+ * Wysiwyg Behavior
  *
  * @package  NetCommons\NetCommons\Model\Befavior
  * @author Shohei Nakajima <nakajimashouhei@gmail.com>
  */
 class WysiwygBehavior extends ModelBehavior {
 
-	/** wysiwig利用を行うテキストエリア */
+	/** Wysiwygを利用するテキストエリア */
 	protected $_fields = array();
 
 	const REPLACE_BASE_URL = '{{__BASE_URL__}}';
@@ -39,6 +40,12 @@ class WysiwygBehavior extends ModelBehavior {
 		if (isset($config['fields'])) {
 			$this->_fields[$model->alias] = $config['fields'];
 		}
+		$setting = (new Purifiable())->getSetting();
+		$setting = Hash::merge(array(
+			'fields' => $config['fields'],
+			'overwrite' => true,
+		), $setting);
+		$model->Behaviors->load('Purifiable.Purifiable', $setting);
 	}
 
 /**
