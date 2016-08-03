@@ -16,7 +16,7 @@
     "authors": [
         {
             "name": "NetCommons Community",
-            "homepage": "https://github.com/NetCommons3/Wysiwyg/graphs/contributors"
+            "homepage": "http://www.netcommons.org"
         }
     ],
     "type":        "cakephp-plugin",
