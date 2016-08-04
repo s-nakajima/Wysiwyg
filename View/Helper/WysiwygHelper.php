@@ -91,6 +91,9 @@ class WysiwygHelper extends AppHelper {
 		// NetCommonsApp.constant で定義する変数の定義
 		$constants = [
 			// タイトルアイコン用のファイルリスト
+			'NC3_URL' => h(substr(Router::url('/'), 0, -1)),
+
+			// タイトルアイコン用のファイルリスト
 			'title_icon_paths' => $this->__getTitleIconFiles(),
 
 			// 言語情報

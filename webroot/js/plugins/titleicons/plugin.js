@@ -22,7 +22,7 @@ tinymce.PluginManager.add('titleicons', function(editor, url) {
       titleiconsHtml += '<tr>';
 
       tinymce.each(row, function(icon) {
-        var emoticonUrl = icon.path;
+        var emoticonUrl = editor.settings.nc3Configs.NC3_URL + icon.path;
 
         titleiconsHtml += '<td><a href="#" data-mce-url="' + emoticonUrl +
             '" data-mce-alt="' + icon.alt + '" tabindex="-1" ' +
