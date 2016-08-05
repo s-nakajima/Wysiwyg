@@ -25,7 +25,7 @@ class WysiwygBehavior extends ModelBehavior {
 
 	const REPLACE_BASE_URL = '{{__BASE_URL__}}';
 
-	const WYSIWYG_REPLACE_PATH = 'wysiwyg\/.*\/download';
+	const WYSIWYG_REPLACE_PATH = 'wysiwyg\/[a-z]*?\/download';
 
 /**
  * SetUp Attachment behavior
@@ -60,7 +60,7 @@ class WysiwygBehavior extends ModelBehavior {
 	public function afterFind(Model $model, $results, $primary = false) {
 		// $this->_fields で定義された変数の REPLACE_BASE_URL キーワードを置換する
 		//
-		$baseUrl = h(Configure::read('App.fullBaseUrl'));
+		$baseUrl = h(substr(Router::url('/', true), 0, -1));
 
 		foreach ($results as $key => $target) {
 			if (isset($target[$model->alias]['id'])) {
@@ -84,7 +84,7 @@ class WysiwygBehavior extends ModelBehavior {
 		// 保存前にファイル添付／画像挿入を行ったものについては
 		// fullBaseUrl を REPLACE_BASE_URL に変換する
 		//
-		$baseUrl = h(Configure::read('App.fullBaseUrl'));
+		$baseUrl = h(substr(Router::url('/', true), 0, -1));
 		$model->data = $this->__replaceString($model, $baseUrl, self::REPLACE_BASE_URL, $model->data);
 
 		return true;
@@ -105,7 +105,7 @@ class WysiwygBehavior extends ModelBehavior {
  */
 	public function afterSave(Model $model, $created, $options = array()) {
 		$pattern = sprintf(
-						'/%s\/%s\/[0-9]*\/([0-9]*)/',
+						'/%s\/%s\/[0-9]*?\/([0-9]*?)/',
 						self::REPLACE_BASE_URL,
 						self::WYSIWYG_REPLACE_PATH
 					);
@@ -132,7 +132,7 @@ class WysiwygBehavior extends ModelBehavior {
 						$file['UploadFile']['block_key'] = $model->data['Block']['key'];
 
 						$uploadFile->create();
-						$uploadFile->save($file);
+						$uploadFile->save($file, false, false);
 					}
 				}
 			}
