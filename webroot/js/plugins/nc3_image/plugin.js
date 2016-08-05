@@ -48,14 +48,15 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
         fileRdr = new FileReader(),
         thumbEl = $('#thumb-wrap'),
         thumbImg = thumbEl.find('.image-thumb');
+
     if (!e.files.length) {
-      if (0 < thumbImg.size()) {
+      if (0 < thumbImg.length) {
         thumbImg.remove();
         return;
       }
     } else {
       if (file.type.match('image.*')) {
-        if (!(0 < thumbImg.size())) {
+        if (!(0 < thumbImg.length)) {
           thumbEl.append(
               $('<img alt="thumb" class="image-thumb">')
               .height('50px')
@@ -68,7 +69,7 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
         };
         fileRdr.readAsDataURL(file);
       } else {
-        if (0 < thumbImg.size()) {
+        if (0 < thumbImg.length) {
           thumbImg.remove();
           return;
         }
