@@ -85,8 +85,6 @@ class WysiwygHelper extends AppHelper {
 				]
 			]
 		];
-		$fileUploadPath = $this->NetCommonsHtml->url('/wysiwyg/file/upload');
-		$imageUploadPath = $this->NetCommonsHtml->url('/wysiwyg/image/upload');
 
 		// NetCommonsApp.constant で定義する変数の定義
 		$constants = [
@@ -124,13 +122,13 @@ class WysiwygHelper extends AppHelper {
 			),
 
 			// ファイル・画像アップロードパス
-			'file_upload_path' => $fileUploadPath,
-			'image_upload_path' => $imageUploadPath,
+			'file_upload_path' => $this->NetCommonsHtml->url('/wysiwyg/file/upload'),
+			'image_upload_path' => $this->NetCommonsHtml->url('/wysiwyg/image/upload'),
 
 			'csrfTokenPath' =>
 				$this->NetCommonsHtml->url('/net_commons/net_commons/csrfToken.json'),
-			'fileSecure' => $this->__secure($fileUploadPath, $fields),
-			'imageSecure' => $this->__secure($imageUploadPath, $fields),
+			'fileSecure' => $this->__secure('/wysiwyg/file/upload', $fields),
+			'imageSecure' => $this->__secure('/wysiwyg/image/upload', $fields),
 
 			// mobile判別
 			'is_mobile' => Configure::read('isMobile'),
