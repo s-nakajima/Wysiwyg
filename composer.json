@@ -10,7 +10,7 @@
     "require": {
         "netcommons/files":                "@dev",
         "netcommons/net-commons":          "@dev",
-        "josegonzalez/cakephp-purifiable": "dev-master"
+        "josegonzalez/cakephp-purifiable": "@dev"
     },
     "license": "NetCommons License",
     "authors": [
