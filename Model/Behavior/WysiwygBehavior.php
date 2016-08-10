@@ -40,6 +40,12 @@ class WysiwygBehavior extends ModelBehavior {
 		if (isset($config['fields'])) {
 			$this->_fields[$model->alias] = $config['fields'];
 		}
+		$setting = (new Purifiable())->getSetting();
+		$setting = Hash::merge(array(
+			'fields' => $config['fields'],
+			'overwrite' => true,
+		), $setting);
+		$model->Behaviors->load('Purifiable.Purifiable', $setting);
 	}
 
 /**
@@ -63,21 +69,6 @@ class WysiwygBehavior extends ModelBehavior {
 		}
 
 		return $results;
-	}
-
-/**
- * beforeValidate is called before a model is validated, you can use this callback to
- * add behavior validation rules into a models validate array. Returning false
- * will allow you to make the validation fail.
- *
- * @param Model $model Model using this behavior
- * @param array $options Options passed from Model::save().
- * @return mixed False or null will abort the operation. Any other result will continue.
- * @see Model::save()
- */
-	public function beforeValidate(Model $model, $options = array()) {
-		(new Purifiable())->purify($model, $this->_fields);
-		return true;
 	}
 
 /**
