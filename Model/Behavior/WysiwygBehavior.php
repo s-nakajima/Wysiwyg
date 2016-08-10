@@ -10,7 +10,6 @@
  */
 
 App::uses('ModelBehavior', 'Model');
-App::uses('Purifiable', 'Wysiwyg.Utility');
 
 /**
  * Wysiwyg Behavior
@@ -40,12 +39,9 @@ class WysiwygBehavior extends ModelBehavior {
 		if (isset($config['fields'])) {
 			$this->_fields[$model->alias] = $config['fields'];
 		}
-		$setting = (new Purifiable())->getSetting();
-		$setting = Hash::merge(array(
-			'fields' => $config['fields'],
-			'overwrite' => true,
-		), $setting);
-		$model->Behaviors->load('Purifiable.Purifiable', $setting);
+		$model->Behaviors->load('Wysiwyg.Purifiable', array(
+			'fields' => $this->_fields,
+		));
 	}
 
 /**
