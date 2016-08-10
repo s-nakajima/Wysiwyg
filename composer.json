@@ -10,7 +10,7 @@
     "require": {
         "netcommons/files":                "@dev",
         "netcommons/net-commons":          "@dev",
-        "ezyang/htmlpurifier":             "@dev"
+        "ezyang/htmlpurifier":             "~4.8"
     },
     "license": "NetCommons License",
     "authors": [
