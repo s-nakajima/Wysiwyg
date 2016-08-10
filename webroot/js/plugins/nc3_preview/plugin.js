@@ -98,7 +98,7 @@ tinymce.PluginManager.add('nc3Preview', function(editor) {
         }
         // add for Tex
         var body = this.getEl('body');
-        $(body).find('iframe').load(function() {
+        $(body).find('iframe').load('', function() {
           TEX_IFR.init($(this));
         });
       }
