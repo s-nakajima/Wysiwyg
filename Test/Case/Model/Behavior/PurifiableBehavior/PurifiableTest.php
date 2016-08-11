@@ -21,7 +21,7 @@ class PurifiableTest extends NetCommonsCakeTestCase {
  *
  * @var string
  */
-	protected $_modelName = 'FakeModel';
+	private $__modelName = 'FakeModel';
 
 /**
  * fixtures property
@@ -38,15 +38,16 @@ class PurifiableTest extends NetCommonsCakeTestCase {
  * @return void
  */
 	public function testPurifyFail() {
-		$FakeFailModel = ClassRegistry::init($this->_modelName);
+		NetCommonsCakeTestCase::loadTestPlugin($this, 'Wysiwyg', 'TestWysiwyg');
+		$FakeFailModel = ClassRegistry::init('TestWysiwyg.FakeModel');
 		$FakeFailModel->create();
 
 		$data = array();
 		$content = '<a href="#" target="_hoge">anchor</a>';
-		$data[$this->_modelName]['fail'] = $content;
+		$data[$this->__modelName]['fail'] = $content;
 		$result = $FakeFailModel->save($data);
 		// FakeModelにはfailカラムがないため不正なtarget属性値でも除去されない
-		$this->assertEquals($content, $result[$this->_modelName]['fail']);
+		$this->assertEquals($content, $result[$this->__modelName]['fail']);
 	}
 
 /**
@@ -85,11 +86,13 @@ class PurifiableTest extends NetCommonsCakeTestCase {
 
 		try {
 			Current::write('Permission.html_not_limited.value', true);
-			$FakeModel = ClassRegistry::init('FakeModel');
+
+			NetCommonsCakeTestCase::loadTestPlugin($this, 'Wysiwyg', 'TestWysiwyg');
+			$FakeModel = ClassRegistry::init('TestWysiwyg.FakeModel');
 			$FakeModel->create();
 
 			$content = '<a href="#" target="_blank">anchor</a>';
-			$data[$this->_modelName]['content'] = $content;
+			$data[$this->__modelName]['content'] = $content;
 			$FakeModel->save($data);
 		} catch (Exception $e) {
 			$this->assertEquals('Base directory ' . $cachePath . ' does not exist,
@@ -106,11 +109,13 @@ class PurifiableTest extends NetCommonsCakeTestCase {
 		$cachePath = CACHE . 'HTMLPurifier' . DS;
 
 		Current::write('Permission.html_not_limited.value', true);
-		$FakeModel = ClassRegistry::init('FakeModel');
+
+		NetCommonsCakeTestCase::loadTestPlugin($this, 'Wysiwyg', 'TestWysiwyg');
+		$FakeModel = ClassRegistry::init('TestWysiwyg.FakeModel');
 		$FakeModel->create();
 
 		$content = '<a href="#" target="_blank">anchor</a>';
-		$data[$this->_modelName]['content'] = $content;
+		$data[$this->__modelName]['content'] = $content;
 		$FakeModel->save($data);
 		$this->assertFileExists($cachePath);
 	}

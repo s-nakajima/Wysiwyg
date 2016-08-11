@@ -22,7 +22,7 @@ class Html5CssTest extends NetCommonsCakeTestCase {
  *
  * @var string
  */
-	protected $_modelName = 'FakeModel';
+	private $__modelName = 'FakeModel';
 
 /**
  * fixtures property
@@ -40,15 +40,17 @@ class Html5CssTest extends NetCommonsCakeTestCase {
  */
 	private function __assert($content) {
 		Current::write('Permission.html_not_limited.value', false);
-		$FakeModel = ClassRegistry::init('FakeModel');
+
+		NetCommonsCakeTestCase::loadTestPlugin($this, 'Wysiwyg', 'TestWysiwyg');
+		$FakeModel = ClassRegistry::init('TestWysiwyg.FakeModel');
 		$FakeModel->create();
 
 		$data = array();
-		$data[$this->_modelName]['content'] = $content;
+		$data[$this->__modelName]['content'] = $content;
 
 		$result = $FakeModel->save($data);
-		$find = $FakeModel->findById($result[$this->_modelName]['id']);
-		$this->assertEquals($content, $find[$this->_modelName]['content']);
+		$find = $FakeModel->findById($result[$this->__modelName]['id']);
+		$this->assertEquals($content, $find[$this->__modelName]['content']);
 	}
 
 /**
