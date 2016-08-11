@@ -22,7 +22,7 @@ class HtmlNotLimitedTest extends NetCommonsCakeTestCase {
  *
  * @var string
  */
-	protected $_modelName = 'FakeModel';
+	private $__modelName = 'FakeModel';
 
 /**
  * fixtures property
@@ -40,7 +40,8 @@ class HtmlNotLimitedTest extends NetCommonsCakeTestCase {
  */
 	private function __loadBehavior() {
 		Current::write('Permission.html_not_limited.value', true);
-		$FakeModel = ClassRegistry::init('FakeModel');
+		NetCommonsCakeTestCase::loadTestPlugin($this, 'Wysiwyg', 'TestWysiwyg');
+		$FakeModel = ClassRegistry::init('TestWysiwyg.FakeModel');
 		$FakeModel->create();
 		return $FakeModel;
 	}
@@ -52,9 +53,9 @@ class HtmlNotLimitedTest extends NetCommonsCakeTestCase {
 		$FakeModel = $this->__loadBehavior();
 
 		$content = '<a href="#" target="_blank">anchor</a>';
-		$data[$this->_modelName]['content'] = $content;
+		$data[$this->__modelName]['content'] = $content;
 		$result = $FakeModel->save($data);
-		$this->assertEquals($content, $result[$this->_modelName]['content']);
+		$this->assertEquals($content, $result[$this->__modelName]['content']);
 	}
 
 /**
@@ -64,9 +65,9 @@ class HtmlNotLimitedTest extends NetCommonsCakeTestCase {
 		$FakeModel = $this->__loadBehavior();
 
 		$content = '<a href="#" target="_hoge">anchor</a>';
-		$data[$this->_modelName]['content'] = $content;
+		$data[$this->__modelName]['content'] = $content;
 		$result = $FakeModel->save($data);
-		$this->assertEquals('<a href="#">anchor</a>', $result[$this->_modelName]['content']);
+		$this->assertEquals('<a href="#">anchor</a>', $result[$this->__modelName]['content']);
 	}
 
 /**
@@ -76,9 +77,9 @@ class HtmlNotLimitedTest extends NetCommonsCakeTestCase {
 		$FakeModel = $this->__loadBehavior();
 
 		$content = '<a href="#" rel="author">anchor</a>';
-		$data[$this->_modelName]['content'] = $content;
+		$data[$this->__modelName]['content'] = $content;
 		$result = $FakeModel->save($data);
-		$this->assertEquals($content, $result[$this->_modelName]['content']);
+		$this->assertEquals($content, $result[$this->__modelName]['content']);
 	}
 
 /**
@@ -88,9 +89,9 @@ class HtmlNotLimitedTest extends NetCommonsCakeTestCase {
 		$FakeModel = $this->__loadBehavior();
 
 		$content = '<a href="#" rel="hoge">anchor</a>';
-		$data[$this->_modelName]['content'] = $content;
+		$data[$this->__modelName]['content'] = $content;
 		$result = $FakeModel->save($data);
-		$this->assertEquals('<a href="#">anchor</a>', $result[$this->_modelName]['content']);
+		$this->assertEquals('<a href="#">anchor</a>', $result[$this->__modelName]['content']);
 	}
 
 /**
@@ -100,9 +101,9 @@ class HtmlNotLimitedTest extends NetCommonsCakeTestCase {
 		$FakeModel = $this->__loadBehavior();
 
 		$content = '<a href="#" id="anchor">anchor</a>';
-		$data[$this->_modelName]['content'] = $content;
+		$data[$this->__modelName]['content'] = $content;
 		$result = $FakeModel->save($data);
-		$this->assertEquals($content, $result[$this->_modelName]['content']);
+		$this->assertEquals($content, $result[$this->__modelName]['content']);
 	}
 
 /**
@@ -118,9 +119,9 @@ class HtmlNotLimitedTest extends NetCommonsCakeTestCase {
 		$pattern = '<span style="%s">span</span>';
 		foreach ($contents as $content) {
 			$content = sprintf($pattern, $content);
-			$data[$this->_modelName]['content'] = $content;
+			$data[$this->__modelName]['content'] = $content;
 			$result = $FakeModel->save($data);
-			$this->assertEquals($content, $result[$this->_modelName]['content']);
+			$this->assertEquals($content, $result[$this->__modelName]['content']);
 		}
 	}
 
@@ -131,11 +132,11 @@ class HtmlNotLimitedTest extends NetCommonsCakeTestCase {
 		$FakeModel = $this->__loadBehavior();
 
 		$content = '<script type="text/javascript">alert("alert");</script>';
-		$data[$this->_modelName]['content'] = $content;
+		$data[$this->__modelName]['content'] = $content;
 		$result = $FakeModel->save($data);
 		$this->assertEquals('<script type="text/javascript"><!--//--><![CDATA[//><!--
 alert("alert");
-//--><!]]></script>', $result[$this->_modelName]['content']);
+//--><!]]></script>', $result[$this->__modelName]['content']);
 	}
 
 /**
@@ -145,9 +146,9 @@ alert("alert");
 		$FakeModel = $this->__loadBehavior();
 
 		$content = '<iframe src="http://www.youtube.com/embed/PCwL3-hkKrg" width="560" height="314"></iframe>';
-		$data[$this->_modelName]['content'] = $content;
+		$data[$this->__modelName]['content'] = $content;
 		$result = $FakeModel->save($data);
-		$this->assertEquals($content, $result[$this->_modelName]['content']);
+		$this->assertEquals($content, $result[$this->__modelName]['content']);
 	}
 
 /**
@@ -157,9 +158,9 @@ alert("alert");
 		$FakeModel = $this->__loadBehavior();
 
 		$content = '<iframe src="http://www.example.com/" width="560" height="314"></iframe>';
-		$data[$this->_modelName]['content'] = $content;
+		$data[$this->__modelName]['content'] = $content;
 		$result = $FakeModel->save($data);
-		$this->assertEquals($content, $result[$this->_modelName]['content']);
+		$this->assertEquals($content, $result[$this->__modelName]['content']);
 	}
 
 /**
@@ -169,8 +170,8 @@ alert("alert");
 		$FakeModel = $this->__loadBehavior();
 
 		$content = '<!-- コメント --><p>コメント</p>';
-		$data[$this->_modelName]['content'] = $content;
+		$data[$this->__modelName]['content'] = $content;
 		$result = $FakeModel->save($data);
-		$this->assertEquals($content, $result[$this->_modelName]['content']);
+		$this->assertEquals($content, $result[$this->__modelName]['content']);
 	}
 }
