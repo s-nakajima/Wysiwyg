@@ -39,6 +39,9 @@ tinymce.PluginManager.add('file', function(editor, url) {
           formData.append('data[_Token][fields]', editor.settings.nc3Configs.fileSecure);
           formData.append('data[_Token][unlocked]', '');
 
+          var loading = $('#loading');
+          loading.removeClass('ng-hide');
+
           NC3_APP.uploadFile(editor.settings.nc3Configs.roomId, formData,
               function(res) {
                 // onsuccess
@@ -56,9 +59,11 @@ tinymce.PluginManager.add('file', function(editor, url) {
                   // dialog close
                   top.tinymce.activeEditor.windowManager.close();
                 } // if
+                loading.addClass('ng-hide');
               },
               function(res) {
                 // onerror
+                loading.addClass('ng-hide');
               },
               editor.settings.isDEBUG); // uploadfile()
         } // if(src)
