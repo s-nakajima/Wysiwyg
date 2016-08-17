@@ -48,7 +48,7 @@ class WysiwygHelper extends AppHelper {
 			'type' => 'textarea',
 			'ui-tinymce' => 'tinymce.options',
 			'ng-model' => $ngModel[0],
-			'rows' => 5,
+			'rows' => 10,
 		);
 		$attributes = Hash::merge($defaultAttributes, $attributes);
 
