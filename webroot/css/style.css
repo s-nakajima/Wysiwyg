@@ -155,3 +155,10 @@ div.wysiwyg-books {
 .wysiwyg-clearfix {
     min-height: 1px;
 }
+
+/**
+ * メディア
+ */
+.mce-object-iframe iframe {
+	max-width: 100%;
+}
