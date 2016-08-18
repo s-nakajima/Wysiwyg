@@ -92,7 +92,11 @@ NetCommonsApp.factory('NetCommonsWysiwyg',
 
           // 言語設定
           language: nc3Configs.lang,
-          language_url: nc3Configs.lang_js
+          language_url: nc3Configs.lang_js,
+
+          // 許可するタグの設定
+          extended_valid_elements: nc3Configs.extended_valid_elements,
+          cleanup: nc3Configs.cleanup
         };
 
         /**

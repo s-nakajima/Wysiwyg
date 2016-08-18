@@ -134,8 +134,13 @@ class WysiwygHelper extends AppHelper {
 			'is_mobile' => Configure::read('isMobile'),
 		];
 
-		// constsnts 設定を JavaScriptで利用するための設定に変換する
-		//
+		// 許可するタグの設定
+		if (Current::permission('html_not_limited')) {
+			$constants['extended_valid_elements'] = 'script[src|title|type]';
+			$constants['cleanup'] = false;
+		}
+
+		// constants 設定を JavaScriptで利用するための設定に変換する
 		$this->NetCommonsHtml->scriptStart(array('inline' => false));
 		echo "NetCommonsApp.service('nc3Configs', function() {";
 			foreach ($constants as $key => $value) {
