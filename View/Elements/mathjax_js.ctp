@@ -12,9 +12,15 @@
 echo $this->Html->scriptStart(array('inline' => false, 'type' => 'text/x-mathjax-config'));
 ?>
 MathJax.Hub.Config({
-	skipStartupTypeset: true
+	skipStartupTypeset: true,
+	tex2jax: {
+		inlineMath: [['$$','$$'], ['\\\\(','\\\\)']],
+		displayMath: [['\\\\[','\\\\]']]
+	},
+	asciimath2jax: {
+		delimiters: [['$$','$$']]
+	}
 });
-
 <?php
 echo $this->Html->scriptEnd();
 
