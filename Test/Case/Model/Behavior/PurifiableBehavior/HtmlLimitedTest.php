@@ -139,7 +139,7 @@ class HtmlLimitedTest extends NetCommonsCakeTestCase {
 		$content = '<iframe src="http://www.example.com/" width="560" height="314"></iframe>';
 		$data[$this->__modelName]['content'] = $content;
 		$result = $FakeModel->save($data);
-		$this->assertEquals('', $result[$this->__modelName]['content']);
+		$this->assertEquals('<iframe width="560" height="314"></iframe>', $result[$this->__modelName]['content']);
 	}
 
 /**

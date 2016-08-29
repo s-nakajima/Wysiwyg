@@ -44,10 +44,6 @@ class PurifiableBehavior extends ModelBehavior {
 			'Core' => array(
 				'Encoding' => 'UTF-8'
 			),
-			'AutoFormat' => array(
-				'RemoveSpansWithoutAttributes' => true,
-				'RemoveEmpty' => true
-			),
 		),
 		'customFilters' => array(
 		)
