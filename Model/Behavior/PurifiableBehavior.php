@@ -310,7 +310,7 @@ class PurifiableBehavior extends ModelBehavior {
 			),
 		);
 
-		if (Current::permission('html_not_limited') && ! Hash::get($config, 'forcePurify', false)) {
+		if (Current::permission('html_not_limited')) {
 			// HTMLタグ使用権限がある場合
 			$purifyConfig = $this->__htmlNotLimitedConfig;
 			$customFilters = array();
