@@ -9,6 +9,7 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 
+App::uses('Current', 'NetCommons.Utility');
 App::uses('UserRole', 'UserRoles.Model');
 App::uses('HTMLPurifier_Filter_Comment', 'Wysiwyg.Utility/Filter');
 
