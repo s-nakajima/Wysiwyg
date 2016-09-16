@@ -11,7 +11,7 @@
 // wysiwyg呼び出し
 echo $this->NetCommonsHtml->script(
 	array(
-		'/components/tinymce-dist/tinymce.min.js',
+		'/components/tinymce/tinymce.min.js',
 		'/components/angular-ui-tinymce/src/tinymce.js',
 		'/components/simplePagination.js/jquery.simplePagination.js',
 		'/net_commons/js/color_palette_value.js',
