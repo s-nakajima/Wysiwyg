@@ -136,6 +136,7 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
     $el.attr('alt', d.alt_edit);
     $el.attr('data-size', d.size_edit);
     $el.attr('src', imgSrc);
+    $el.attr('data-mce-src', imgSrc);
     $el.attr('data-position', d.position_edit);
     $el.attr('class', ''); // クラス初期化
     $el.attr('class', vals.img_elm_class + ' ' +
