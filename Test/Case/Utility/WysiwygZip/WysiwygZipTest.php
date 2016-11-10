@@ -94,12 +94,12 @@ class WysiwygZipTest extends NetCommonsCakeTestCase {
  * @return void
  */
 	public function testCreateWysiwygZipWithWrongRoom() {
-		Current::$current['Room']['id'] = 4;
+		Current::$current['Room']['id'] = '5';
 		$wZip = new WysiwygZip();
 		$this->setExpectedException('InternalErrorException');
 		$wZip->createWysiwygZip(
 			'wysiwyg zip create test2 <img src="logo.gif" />logo is important for design.' .
-			'<img src="/wysiwyg/image/download/1/4" />');
+			'<img src="/wysiwyg/image/download/2/5" />');
 	}
 /**
  * test create
@@ -107,12 +107,12 @@ class WysiwygZipTest extends NetCommonsCakeTestCase {
  * @return void
  */
 	public function testCreateWysiwygZipWithWrongBlock() {
-		Current::$current['Room']['id'] = 1;
+		Current::$current['Room']['id'] = '2';
 		$wZip = new WysiwygZip();
 		$this->setExpectedException('InternalErrorException');
 		$wZip->createWysiwygZip(
 			'wysiwyg zip create test3 logo is important for design.' .
-			'<img src="/wysiwyg/image/download/1/13" />');
+			'<img src="/wysiwyg/image/download/2/13" />');
 	}
 /**
  * test create
@@ -120,14 +120,14 @@ class WysiwygZipTest extends NetCommonsCakeTestCase {
  * @return void
  */
 	public function testCreateWysiwygZipWithImg() {
-		Current::$current['Room']['id'] = 1;
+		Current::$current['Room']['id'] = '2';
 		Current::$current['Language']['id'] = 2;
 		$dir = new Folder($this->__testPath);
 		$dir->create('12');
 		copy(APP . 'Plugin/Wysiwyg/Test/Fixture/michel2.gif', $this->__testPath . '/12/michel2.gif');
 
 		$fileName = 'document.txt';
-		$content = 'wysiwyg zip create test3 logo is important for design.<img src="/wysiwyg/image/download/1/12" />';
+		$content = 'wysiwyg zip create test3 logo is important for design.<img src="/wysiwyg/image/download/2/12" />';
 
 		$wZip = new WysiwygZip();
 		$zipFilePath = $wZip->createWysiwygZip($content);
@@ -156,10 +156,10 @@ class WysiwygZipTest extends NetCommonsCakeTestCase {
  * @return void
  */
 	public function testGetWysiwygZip() {
-		Current::$current['Room']['id'] = 1;
+		Current::$current['Room']['id'] = '2';
 		$wZip = new WysiwygZip();
 		$content = $wZip->getFromWysiwygZip(APP . 'Plugin/Wysiwyg/Test/Fixture/test_wysiwyg.zip');
 		$this->assertTextContains('create test3 logo is', $content);
-		$this->assertTextContains('/wysiwyg/image/download/1/14', $content);
+		$this->assertTextContains('/wysiwyg/image/download/2/14', $content);
 	}
 }
