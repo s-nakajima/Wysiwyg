@@ -17,7 +17,7 @@ App::uses('WysiwygAppController', 'Wysiwyg.Controller');
  * @author Satoru Majima <neo.otokomae@gmail.com>
  * @package NetCommons\Wysiwyg\Controller
  */
-class FileController extends WysiwygAppController {
+class WysiwygFileController extends WysiwygAppController {
 
 /**
  * use component
@@ -100,7 +100,7 @@ class FileController extends WysiwygAppController {
 			$url = NetCommonsUrl::actionUrl(
 				array(
 					'plugin' => 'wysiwyg',
-					'controller' => strtolower($this->name),
+					'controller' => Inflector::underscore($this->name),
 					'action' => 'download',
 					$uploadFile['UploadFile']['room_id'],
 					$uploadFile['UploadFile']['id']
@@ -139,8 +139,8 @@ class FileController extends WysiwygAppController {
  */
 	public function download($roomId, $id) {
 		$options = [
-				'field' => 'Wysiwyg.file',
-				'download' => true,
+			'field' => 'Wysiwyg.file',
+			'download' => true,
 		];
 		return $this->Download->doDownloadByUploadFileId($id, $options);
 	}
@@ -155,6 +155,10 @@ class FileController extends WysiwygAppController {
 	protected function _getUploadFileModel() {
 		// UploadFileモデルを取得
 		$file = ClassRegistry::init('Files.UploadFile');
+
+		$thumbnailSizes = $file->actsAs['Upload.Upload']['real_file_name']['thumbnailSizes'];
+		$thumbnailSizes['biggest'] = '1200ml';
+		$file->uploadSettings('real_file_name', 'thumbnailSizes', $thumbnailSizes);
 
 		// validateルールの設定
 		$file->validate = $this->_validate;

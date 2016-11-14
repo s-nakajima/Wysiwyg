@@ -28,16 +28,19 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
     right: 'pull-right'
   };
   var sizeFormVals = [{
-    text: 'Default size',
+    text: 'Default size(800px)',
     value: 'big'
   }, {
-    text: 'medium',
+    text: 'biggest(1200px)',
+    value: 'biggest'
+  }, {
+    text: 'medium(400px)',
     value: 'medium'
   }, {
-    text: 'small',
+    text: 'small(200px)',
     value: 'small'
   }, {
-    text: 'thumb',
+    text: 'thumb(80px)',
     value: 'thumb'
   }];
 

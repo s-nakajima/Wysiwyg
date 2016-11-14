@@ -9,7 +9,7 @@
  * @copyright Copyright 2014, NetCommons Project
  */
 
-App::uses('FileController', 'Wysiwyg.Controller');
+App::uses('WysiwygFileController', 'Wysiwyg.Controller');
 
 /**
  * Image Controller
@@ -17,7 +17,7 @@ App::uses('FileController', 'Wysiwyg.Controller');
  * @author Satoru Majima <neo.otokomae@gmail.com>
  * @package NetCommons\Wysiwyg\Controller
  */
-class ImageController extends FileController {
+class WysiwygImageController extends WysiwygFileController {
 
 /**
  * uploadFileモデル用の validation設定
@@ -42,7 +42,7 @@ class ImageController extends FileController {
  */
 	public function download($roomId, $id, $size = '') {
 		$options = [
-				'field' => 'Wysiwyg.file',
+			'field' => 'Wysiwyg.file',
 		];
 
 		// サイズ指定があるときにサイズ指定を行う。
@@ -66,6 +66,8 @@ class ImageController extends FileController {
  */
 	protected function _getThumbnailSizes() {
 		$file = ClassRegistry::init('Files.UploadFile');
-		return $file->actsAs['Upload.Upload']['real_file_name']['thumbnailSizes'];
+		$thumbnailSizes = $file->actsAs['Upload.Upload']['real_file_name']['thumbnailSizes'];
+		$thumbnailSizes['biggest'] = '1200ml';
+		return $thumbnailSizes;
 	}
 }
