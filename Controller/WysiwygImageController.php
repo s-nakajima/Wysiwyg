@@ -66,6 +66,8 @@ class WysiwygImageController extends WysiwygFileController {
  */
 	protected function _getThumbnailSizes() {
 		$file = ClassRegistry::init('Files.UploadFile');
-		return $file->actsAs['Upload.Upload']['real_file_name']['thumbnailSizes'];
+		$thumbnailSizes = $file->actsAs['Upload.Upload']['real_file_name']['thumbnailSizes'];
+		$thumbnailSizes['biggest'] = '1200ml';
+		return $thumbnailSizes;
 	}
 }

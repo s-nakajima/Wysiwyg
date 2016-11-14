@@ -156,6 +156,10 @@ class WysiwygFileController extends WysiwygAppController {
 		// UploadFileモデルを取得
 		$file = ClassRegistry::init('Files.UploadFile');
 
+		$thumbnailSizes = $file->actsAs['Upload.Upload']['real_file_name']['thumbnailSizes'];
+		$thumbnailSizes['biggest'] = '1200ml';
+		$file->uploadSettings('real_file_name', 'thumbnailSizes', $thumbnailSizes);
+
 		// validateルールの設定
 		$file->validate = $this->_validate;
 
