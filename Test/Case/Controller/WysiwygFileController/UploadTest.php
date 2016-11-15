@@ -196,12 +196,6 @@ class WysiwygFileControllerUploadTest extends WysiwygControllerTestCase {
 		$this->controller->FileUpload
 			->expects($this->exactly(0))->method('getTemporaryUploadFile');
 
-		$data = array(
-			'UploadFile' => array(
-				'block_key' => 'block_1',
-				'room_id' => '2',
-			)
-		);
 		$this->controller->UploadFile
 			->expects($this->exactly(0))->method('registByFile');
 
