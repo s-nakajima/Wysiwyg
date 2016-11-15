@@ -24,7 +24,7 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
   // 画像の位置のformValueと挿入時クラス
   var positionClass = {
     center: 'center-block',
-    left: '',
+    left: 'pull-left',
     right: 'pull-right'
   };
   var sizeFormVals = [{
@@ -106,12 +106,16 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
               var imgSrc = (d.size) ?
                            (res.file.path + '/' + d.size) :
                            (res.file.path);
+              var imgClass = 'img-responsive ' + vals.img_elm_class;
+              if (positionClass[d.position]) {
+                imgClass = imgClass + ' ' + positionClass[d.position];
+              }
               editor.selection.collapse(true);
               editor.execCommand('mceInsertContent', false,
                   editor.dom.createHTML('img', {
                     src: imgSrc,
                     alt: d.alt,
-                    class: 'img-responsive ' + vals.img_elm_class + ' ' + positionClass[d.position],
+                    class: imgClass,
                     'data-size': d.size,
                     'data-position': d.position,
                     'data-imgid': res.file.id
@@ -142,8 +146,11 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
     $el.attr('data-mce-src', imgSrc);
     $el.attr('data-position', d.position_edit);
     $el.attr('class', ''); // クラス初期化
-    $el.attr('class', vals.img_elm_class + ' ' +
-        positionClass[d.position_edit]);
+    var imgClass = 'img-responsive ' + vals.img_elm_class;
+    if (positionClass[d.position_edit]) {
+      imgClass = imgClass + ' ' + positionClass[d.position_edit];
+    }
+    $el.attr('class', imgClass);
     // dialog close
     top.tinymce.activeEditor.windowManager.close();
 
@@ -261,7 +268,7 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
         editor.dom.hasClass(selectedNode, vals.img_elm_class) == true;
     if (isTarget) {
       var re_src = editor.dom.getAttrib(selectedNode, 'src');
-      re_src = re_src.replace(/(\/big|\/medium|\/small|\/thumb)$/, '');
+      re_src = re_src.replace(/(\/biggest|\/big|\/medium|\/small|\/thumb)$/, '');
       data.src = re_src;
       data.alt = editor.dom.getAttrib(selectedNode, 'alt');
       data.w = editor.dom.getAttrib(selectedNode, 'width');
