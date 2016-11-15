@@ -23,8 +23,8 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
   }];
   // 画像の位置のformValueと挿入時クラス
   var positionClass = {
-    center: 'center-block',
-    left: '',
+    center: 'nc3-inline',
+    left: 'pull-left',
     right: 'pull-right'
   };
   var sizeFormVals = [{
