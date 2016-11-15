@@ -202,12 +202,6 @@ class WysiwygFileControllerUploadTest extends WysiwygControllerTestCase {
 				'room_id' => '2',
 			)
 		);
-		$file = Hash::merge($data, array(
-			'UploadFile' => array(
-				'id' => '1',
-				'original_name' => 'dummy'
-			)
-		));
 		$this->controller->UploadFile
 			->expects($this->exactly(0))->method('registByFile');
 
@@ -251,12 +245,6 @@ class WysiwygFileControllerUploadTest extends WysiwygControllerTestCase {
 				'room_id' => '2',
 			)
 		);
-		$file = Hash::merge($data, array(
-			'UploadFile' => array(
-				'id' => '1',
-				'original_name' => 'dummy'
-			)
-		));
 		$this->controller->UploadFile
 			->expects($this->once())->method('registByFile')
 			->with($fileObj, 'wysiwyg', null, 'Wysiwyg.file', $data)
