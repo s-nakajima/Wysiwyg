@@ -122,7 +122,6 @@ class WysiwygViewElementsWysiwygJsTest extends WysiwygControllerTestCase {
 			$pattern = '/' . preg_quote($expected, '/') . '/';
 			$this->assertRegExp($pattern, $this->view);
 		}
-
 	}
 
 }
