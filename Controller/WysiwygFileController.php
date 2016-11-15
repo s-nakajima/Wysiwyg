@@ -47,15 +47,6 @@ class WysiwygFileController extends WysiwygAppController {
 	protected $_validate = [];
 
 /**
- * beforeFilter
- *
- * @return void
- */
-	public function beforeFilter() {
-		parent::beforeFilter();
-	}
-
-/**
  * upload action
  *
  * file: data[Wysiwyg][file]
