@@ -96,9 +96,9 @@ class WysiwygHelper extends AppHelper {
 
 			// 言語情報
 			'lang' => Current::read('Language.code'),
-			'lang_js' => $this->NetCommonsHtml->url(
-				'/wysiwyg/js/langs/' . Current::read('Language.code') . '.js'
-			),
+			//'lang_js' => $this->NetCommonsHtml->url(
+			//	'/wysiwyg/js/langs/' . Current::read('Language.code') . '.js'
+			//),
 
 			// wysiwyg で利用するスタイルシート
 			'content_css' => [
@@ -133,6 +133,14 @@ class WysiwygHelper extends AppHelper {
 			// mobile判別
 			'is_mobile' => Configure::read('isMobile'),
 		];
+
+		$langPath = App::pluginPath('Wysiwyg') . WEBROOT_DIR . DS . 'js' . DS . 'langs' . DS .
+				Current::read('Language.code') . '.js';
+		if (file_exists($langPath)) {
+			$constants['lang_js'] = $this->NetCommonsHtml->url(
+				'/wysiwyg/js/langs/' . Current::read('Language.code') . '.js'
+			);
+		}
 
 		// 許可するタグの設定
 		if (Current::permission('html_not_limited')) {
