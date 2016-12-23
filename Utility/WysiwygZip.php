@@ -164,9 +164,8 @@ class WysiwygZip {
 					if ($uploadFile['block_key']) {
 						// block_keyによるガード
 						$Block = ClassRegistry::init('Blocks.Block');
-						$uploadFileBlock = $Block->findByKeyAndLanguageId(
-							$uploadFile['block_key'],
-							Current::read('Language.id')
+						$uploadFileBlock = $Block->findByKey(
+							$uploadFile['block_key']
 						);
 						if ($Block->isVisible($uploadFileBlock) === false) {
 							CakeLog::error('Can not find wysiwyg file ' . $uploadId);
