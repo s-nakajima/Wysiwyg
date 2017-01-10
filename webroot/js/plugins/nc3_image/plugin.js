@@ -153,7 +153,6 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
     $el.attr('class', imgClass);
     // dialog close
     top.tinymce.activeEditor.windowManager.close();
-
   };
 
   // ダイアログ内要素(新規用タブ)
