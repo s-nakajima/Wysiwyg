@@ -10,7 +10,12 @@
 
 Router::connect(
 	'/wysiwyg/file/:action/*',
-	array('plugin' => 'wysiwyg', 'controller' => 'wysiwyg_file')
+	array('plugin' => 'wysiwyg', 'controller' => 'wysiwyg_file', 'size' => '')
+);
+
+Router::connect(
+	'/wysiwyg/wysiwyg_file/:action/*',
+	array('plugin' => 'wysiwyg', 'controller' => 'wysiwyg_file', 'size' => '')
 );
 
 Router::connect(
