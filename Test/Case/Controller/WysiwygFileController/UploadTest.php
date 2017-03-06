@@ -182,7 +182,7 @@ class WysiwygFileControllerUploadTest extends WysiwygControllerTestCase {
 		$this->assertEquals(array_keys($this->vars['file']), ['id', 'original_name', 'path']);
 		$this->assertEquals($this->vars['file']['id'], '1');
 		$this->assertEquals($this->vars['file']['original_name'], 'dummy');
-		$this->assertTextContains('/wysiwyg/file/download/2/1', $this->vars['file']['path']);
+		$this->assertTextContains('/wysiwyg/wysiwyg_file/download/2/1', $this->vars['file']['path']);
 	}
 
 /**
