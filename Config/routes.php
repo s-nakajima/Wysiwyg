@@ -14,6 +14,11 @@ Router::connect(
 );
 
 Router::connect(
+	'/wysiwyg/wysiwyg_file/:action/*',
+	array('plugin' => 'wysiwyg', 'controller' => 'wysiwyg_file', 'size' => '')
+);
+
+Router::connect(
 	'/wysiwyg/image/:action/*',
 	array('plugin' => 'wysiwyg', 'controller' => 'wysiwyg_image')
 );
