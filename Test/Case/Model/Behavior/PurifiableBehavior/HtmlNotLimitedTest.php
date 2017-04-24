@@ -56,11 +56,11 @@ class HtmlNotLimitedTest extends NetCommonsCakeTestCase {
 		$data[$this->__modelName]['content'] = $content;
 		$result = $FakeModel->save($data);
 
-		// ezyang/htmlpurifier 4.9.2 からrel属性が追加されるようになったので、assertRegExpで評価
+		// ezyang/htmlpurifier 4.9.2 からrel属性が追加されるようになったので、期待値を修正
 		// @see https://github.com/ezyang/htmlpurifier/commit/8e4cacf0a76458d6203f53113c47b49c6edc2dc5#diff-43adc2ea2ce8b37d29a16504aa8414b3
-		$pattern = '/<a href="#" target="_blank"( rel="noopener")?>anchor<\/a>/';
+		$expected = '<a href="#" target="_blank" rel="noopener">anchor</a>';
 
-		$this->assertRegExp($pattern, $result[$this->__modelName]['content']);
+		$this->assertEquals($expected, $result[$this->__modelName]['content']);
 	}
 
 /**
