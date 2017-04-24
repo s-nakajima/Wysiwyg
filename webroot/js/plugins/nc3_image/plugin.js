@@ -319,6 +319,7 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
   // windowへのボタン登録
   editor.addButton('nc3Image', {
     icon: 'image',
+    tooltip: 'Insert/edit image',
     id: 'image-btn',
     stateSelector: '.' + vals.img_elm_class,
     onclick: showDialog
