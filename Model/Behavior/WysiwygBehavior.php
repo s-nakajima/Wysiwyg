@@ -24,7 +24,7 @@ class WysiwygBehavior extends ModelBehavior {
 
 	const REPLACE_BASE_URL = '{{__BASE_URL__}}';
 
-	const WYSIWYG_REPLACE_PATH = 'wysiwyg\/[a-z]*?\/download';
+	const WYSIWYG_REPLACE_PATH = 'wysiwyg\/[a-z_]*?\/download';
 
 /**
  * SetUp Attachment behavior
