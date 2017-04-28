@@ -76,7 +76,7 @@ class WysiwygFileControllerDownloadTest extends WysiwygControllerTestCase {
 		)));
 		$this->controller->Download
 			->expects($this->once())->method('doDownloadByUploadFileId')
-			->with('1', ['field' => 'Wysiwyg.file', 'download' => true])
+			->with('1', ['field' => 'Wysiwyg.file', 'download' => true, 'size' => ''])
 			->will($this->returnValue('true'));
 
 		//テスト実行
