@@ -144,6 +144,7 @@ class WysiwygFileController extends WysiwygAppController {
 		$options = [
 			'field' => 'Wysiwyg.file',
 			'download' => true,
+			'size' => ''
 		];
 		return $this->Download->doDownloadByUploadFileId($id, $options);
 	}
