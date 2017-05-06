@@ -6,7 +6,8 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
   //　セレクタなど
   var vals = {
     dispThumArea: 'image-thumb',
-    img_elm_class: 'nc3-img'
+    img_elm_class: 'nc3-img',
+    img_elm_block_class: 'nc3-img-block'
   };
   var positionFormVals = [{
     text: 'Select Position',
@@ -107,6 +108,9 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
                            (res.file.path + '/' + d.size) :
                            (res.file.path);
               var imgClass = 'img-responsive ' + vals.img_elm_class;
+              if (d.size === 'biggest' || d.size === 'big') {
+                imgClass = imgClass + ' ' + vals.img_elm_block_class;
+              }
               if (positionClass[d.position]) {
                 imgClass = imgClass + ' ' + positionClass[d.position];
               }
@@ -147,6 +151,9 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
     $el.attr('data-position', d.position_edit);
     $el.attr('class', ''); // クラス初期化
     var imgClass = 'img-responsive ' + vals.img_elm_class;
+    if (d.size_edit === 'biggest' || d.size_edit === 'big') {
+      imgClass = imgClass + ' ' + vals.img_elm_block_class;
+    }
     if (positionClass[d.position_edit]) {
       imgClass = imgClass + ' ' + positionClass[d.position_edit];
     }
