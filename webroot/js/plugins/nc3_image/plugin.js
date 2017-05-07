@@ -119,6 +119,7 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
                   editor.dom.createHTML('img', {
                     src: imgSrc,
                     alt: d.alt,
+                    title: d.alt,
                     class: imgClass,
                     'data-size': d.size,
                     'data-position': d.position,
@@ -145,6 +146,7 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
     // domの更新
     $el = $(selectedNode);
     $el.attr('alt', d.alt_edit);
+    $el.attr('title', d.alt_edit);
     $el.attr('data-size', d.size_edit);
     $el.attr('src', imgSrc);
     $el.attr('data-mce-src', imgSrc);
