@@ -77,7 +77,12 @@ class WysiwygImageControllerDownloadTest extends WysiwygControllerTestCase {
 	public function dataProvider() {
 		return array(
 			array('size' => '', 'exception' => null),
-
+			array('size' => 'big', 'exception' => null),
+			array('size' => 'medium', 'exception' => null),
+			array('size' => 'small', 'exception' => null),
+			array('size' => 'thumb', 'exception' => null),
+			array('size' => 'biggest', 'exception' => null),
+			array('size' => 'aaaa', 'exception' => 'NotFoundException'),
 		);
 	}
 
