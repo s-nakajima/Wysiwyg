@@ -24,8 +24,22 @@ class WysiwygImageDownloadController extends Controller {
  * @var array
  */
 	public $components = array(
+		'NetCommons.NetCommons',
 		'Files.Download',
 	);
+
+/**
+ * beforeRender
+ *
+ * @return void
+ */
+	public function beforeRender() {
+		// WysiwygImageControllerDownloadTest::testDownloadGet 用の処理
+		// @see https://github.com/NetCommons3/NetCommons/blob/3.1.2/Controller/NetCommonsAppController.php#L241
+		// @see https://github.com/NetCommons3/NetCommons/blob/3.1.2/Controller/Component/NetCommonsComponent.php#L58
+		App::uses('NetCommonsAppController', 'NetCommons.Controller');
+		$this->NetCommons->renderJson();
+	}
 
 /**
  * download action
@@ -39,11 +53,7 @@ class WysiwygImageDownloadController extends Controller {
 	public function download($roomId, $id, $size = '') {
 		/* @var $Room AppModel */
 		// シンプルにしたかったためAppModelを利用。インスタンス生成時少し速かった。
-		$settings = [
-			'table' => 'rooms',
-			'alias' => 'Room',
-		];
-		$Room = new AppModel($settings);
+		$Room = ClassRegistry::init('Room');
 		$params = [
 			'belongsTo' => [
 				'TrackableCreator',
@@ -110,6 +120,7 @@ class WysiwygImageDownloadController extends Controller {
 			Current::setCurrent($room);
 		}
 
+		App::uses('Room', 'Rooms.Model');
 		ClassRegistry::removeObject('Room');
 		ClassRegistry::removeObject('Space');
 		ClassRegistry::removeObject('RolesRoomsUser');
