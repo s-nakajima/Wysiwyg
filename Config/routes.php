@@ -9,6 +9,11 @@
  */
 
 Router::connect(
+	'/wysiwyg/image/download/*',
+	array('plugin' => 'wysiwyg', 'controller' => 'wysiwyg_image_download', 'action' => 'download')
+);
+
+Router::connect(
 	'/wysiwyg/file/:action/*',
 	array('plugin' => 'wysiwyg', 'controller' => 'wysiwyg_file')
 );
