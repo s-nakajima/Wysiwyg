@@ -30,44 +30,4 @@ class WysiwygImageController extends WysiwygFileController {
 			'message' => 'File is not a image'
 		]
 	];
-
-/**
- * download action
- *
- * @param Int $roomId Room id
- * @param Int $id File id
- * @param String $size 画像のサイズ(big, midiul, small, thumb の4つから)
- * @throws NotFoundException
- * @return void
- */
-	public function download($roomId, $id, $size = '') {
-		$options = [
-			'field' => 'Wysiwyg.file',
-		];
-
-		// サイズ指定があるときにサイズ指定を行う。
-		// 指定がなければオリジナルサイズ
-		//
-		if (!empty($size)) {
-			// 指定したサイズが UploadFileモデル指定以外のサイズの時は 404 Not Found.
-			if (array_key_exists($size, $this->_getThumbnailSizes()) === false) {
-				throw new NotFoundException();
-			}
-			$options['size'] = $size;
-		}
-
-		return $this->Download->doDownloadByUploadFileId($id, $options);
-	}
-
-/**
- * ファイルモデルの画像サイズリストを取得する
- *
- * @return array
- */
-	protected function _getThumbnailSizes() {
-		$file = ClassRegistry::init('Files.UploadFile');
-		$thumbnailSizes = $file->actsAs['Upload.Upload']['real_file_name']['thumbnailSizes'];
-		$thumbnailSizes['biggest'] = '1200ml';
-		return $thumbnailSizes;
-	}
 }
