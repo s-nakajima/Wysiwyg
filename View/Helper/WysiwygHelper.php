@@ -148,6 +148,8 @@ class WysiwygHelper extends AppHelper {
 			$constants['cleanup'] = false;
 		}
 
+		$constants['debug'] = Configure::read('debug');
+
 		// constants 設定を JavaScriptで利用するための設定に変換する
 		$this->NetCommonsHtml->scriptStart(array('inline' => false));
 		echo "NetCommonsApp.service('nc3Configs', function() {";

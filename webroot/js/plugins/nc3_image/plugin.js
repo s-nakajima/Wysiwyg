@@ -96,6 +96,9 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
       formData.append('data[Room][id]', editor.settings.nc3Configs.roomId);
       formData.append('data[_Token][fields]', editor.settings.nc3Configs.imageSecure);
       formData.append('data[_Token][unlocked]', '');
+      if (editor.settings.nc3Configs.debug !== '0') {
+        formData.append('data[_Token][debug]', editor.settings.nc3Configs.debug);
+      }
 
       var loading = $('#loading');
       loading.removeClass('ng-hide');
