@@ -90,10 +90,8 @@ class WysiwygHelper extends AppHelper {
 		$constants = [
 			// タイトルアイコン用のファイルリスト
 			'NC3_URL' => h(substr(Router::url('/'), 0, -1)),
-
 			// タイトルアイコン用のファイルリスト
 			'title_icon_paths' => $this->__getTitleIconFiles(),
-
 			// 言語情報
 			'lang' => Current::read('Language.code'),
 			//'lang_js' => $this->NetCommonsHtml->url(
@@ -106,34 +104,28 @@ class WysiwygHelper extends AppHelper {
 				$this->NetCommonsHtml->url('/components/bootstrap/dist/css/bootstrap.css'),
 				$this->NetCommonsHtml->url('/wysiwyg/css/style.css'),
 			],
-
 			// ファイル／画像プラグインアップロード時に必要なデータの用意
 			'blockKey' => Current::read('Block.key'),
 			'roomId' => Current::read('Room.id'),
-
 			// 独自ツールバーアイコン
 			'book_icon' => $this->NetCommonsHtml->url('/wysiwyg/img/title_icons/book.svg'),
 			'fileup_icon' => $this->NetCommonsHtml->url('/wysiwyg/img/title_icons/fileup.svg'),
 			'tex_icon' => $this->NetCommonsHtml->url('/wysiwyg/img/title_icons/tex.svg'),
-
 			// MathJax JSのリンク
 			'mathjax_js' => $this->NetCommonsHtml->url(
 				'/components/MathJax/MathJax.js?config=TeX-MML-AM_CHTML'
 			),
-
 			// ファイル・画像アップロードパス
 			'file_upload_path' => $this->NetCommonsHtml->url('/wysiwyg/file/upload'),
 			'image_upload_path' => $this->NetCommonsHtml->url('/wysiwyg/image/upload'),
-
 			'csrfTokenPath' =>
 				$this->NetCommonsHtml->url('/net_commons/net_commons/csrfToken.json'),
 			'fileSecure' => $this->__secure('/wysiwyg/file/upload', $fields),
 			'imageSecure' => $this->__secure('/wysiwyg/image/upload', $fields),
-
 			// mobile判別
 			'is_mobile' => Configure::read('isMobile'),
 		];
-
+		// 言語ファイルJS
 		$langPath = App::pluginPath('Wysiwyg') . WEBROOT_DIR . DS . 'js' . DS . 'langs' . DS .
 				Current::read('Language.code') . '.js';
 		if (file_exists($langPath)) {
@@ -141,12 +133,13 @@ class WysiwygHelper extends AppHelper {
 				'/wysiwyg/js/langs/' . Current::read('Language.code') . '.js'
 			);
 		}
-
 		// 許可するタグの設定
 		if (Current::permission('html_not_limited')) {
 			$constants['extended_valid_elements'] = 'script[src|title|type]';
 			$constants['cleanup'] = false;
 		}
+		//デバッグ情報
+		$constants['debug'] = Configure::read('debug');
 
 		// constants 設定を JavaScriptで利用するための設定に変換する
 		$this->NetCommonsHtml->scriptStart(array('inline' => false));
