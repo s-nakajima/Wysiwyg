@@ -126,7 +126,7 @@ class WysiwygBehavior extends ModelBehavior {
 					if (empty($file['UploadFile']['content_key']) || empty($file['UploadFile']['block_key'])) {
 						$file['UploadFile']['content_key'] = $model->data[$model->alias]['key'];
 						$file['UploadFile']['block_key'] = $model->data['Block']['key'];
-//CakeLog::debug(var_export($file, true));
+
 						$uploadFile->create();
 						$uploadFile->save($file, false, false);
 					}
