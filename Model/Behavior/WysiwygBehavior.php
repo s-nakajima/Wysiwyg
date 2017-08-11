@@ -60,7 +60,7 @@ class WysiwygBehavior extends ModelBehavior {
 
 		foreach ($results as $key => $target) {
 			if (isset($target[$model->alias]['id'])) {
-				$results[$key] = $this->__replaceString($model, self::REPLACE_BASE_URL, $baseUrl, $target);
+				$results[$key] = $this->__replacePath($model, self::REPLACE_BASE_URL, $baseUrl, $target);
 			}
 		}
 
@@ -81,7 +81,7 @@ class WysiwygBehavior extends ModelBehavior {
 		// fullBaseUrl を REPLACE_BASE_URL に変換する
 		//
 		$baseUrl = h(substr(Router::url('/', true), 0, -1));
-		$model->data = $this->__replaceString($model, $baseUrl, self::REPLACE_BASE_URL, $model->data);
+		$model->data = $this->__replacePath($model, $baseUrl, self::REPLACE_BASE_URL, $model->data);
 
 		return true;
 	}
@@ -100,39 +100,83 @@ class WysiwygBehavior extends ModelBehavior {
  * @see Model::save()
  */
 	public function afterSave(Model $model, $created, $options = array()) {
-		$pattern = sprintf(
-						'/%s\/%s\/[0-9]*?\/([0-9]*?)/',
-						self::REPLACE_BASE_URL,
-						self::WYSIWYG_REPLACE_PATH
-					);
-		$uploadFile = ClassRegistry::init('Files.UploadFile');
-
 		foreach ($this->_fields[$model->alias] as $field) {
 			if (isset($model->data[$model->alias][$field])) {
-				// アップロードされたファイル・画像の ID を取得
-				preg_match_all($pattern, $model->data[$model->alias][$field], $matches);
-
-				$fileIds = $matches[1];
-
-				// 更新対象となる Fileデータを取得
-				// $fieIds より検索
-				//
-				$files = $uploadFile->find('all', ['conditions' => ['id' => $fileIds]]);
-
-				foreach ($files as $file) {
-					// content_key または block_key が NULL の時は新規の登録ファイルとなるので
-					// 改めて content_key, block_key をセットする
-					//
-					if (empty($file['UploadFile']['content_key']) || empty($file['UploadFile']['block_key'])) {
-						$file['UploadFile']['content_key'] = $model->data[$model->alias]['key'];
-						$file['UploadFile']['block_key'] = $model->data['Block']['key'];
-
-						$uploadFile->create();
-						$uploadFile->save($file, false, false);
-					}
-				}
+				// content_key または block_key が NULL の時は新規の登録ファイルとなるので
+				// 改めて content_key, block_key をセットする
+				$this->updateUploadFile(
+					$model,
+					$model->data[$model->alias][$field],
+					[
+						'content_key' => Hash::get($model->data, $model->alias . '.key'),
+						'block_key' => Hash::get($model->data, 'Block.key')
+					]
+				);
 			}
 		}
+	}
+
+/**
+ * UploadFileデータの更新処理
+ *
+ * Wysiwyg に登録したファイル・画像には、content_key, block_key が未定義のため
+ * 登録されていない場合がある。
+ * それらのファイルデータに対して、登録を実行する。
+ *
+ * また、カレンダーのような公開対象でルームIDを可変にできるようなものは、新規のファイルに対して、
+ * room_idも更新する必要がある。
+ *
+ * @param Model $model このビヘイビアメソッドで使用されるモデル
+ * @param string $content コンテンツデータ
+ * @param array $update 更新するデータ
+ * @param bool $doReplaceUrl {{__BASE_URL__}}に変換するかどうか
+ * @return bool
+ * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
+ */
+	public function updateUploadFile(Model $model, $content, $update, $doReplaceUrl = false) {
+		if ($doReplaceUrl) {
+			$baseUrl = h(substr(Router::url('/', true), 0, -1));
+			$content = $this->__replaceContent($baseUrl, self::REPLACE_BASE_URL, $content);
+		}
+		$update = array_merge(
+			['content_key' => null, 'block_key' => null, 'room_id' => null],
+			$update
+		);
+		$pattern = sprintf(
+			'/%s\/%s\/[0-9]*?\/([0-9]*)?/', self::REPLACE_BASE_URL, self::WYSIWYG_REPLACE_PATH
+		);
+
+		$uploadFile = ClassRegistry::init('Files.UploadFile');
+
+		// アップロードされたファイル・画像の ID を取得
+		$matches = [];
+		preg_match_all($pattern, $content, $matches);
+
+		$fileIds = $matches[1];
+
+		// 更新対象となる Fileデータを取得
+		// $fieIds より検索
+		$files = $uploadFile->find('all', ['conditions' => ['id' => $fileIds]]);
+
+		foreach ($files as $file) {
+			// content_key または block_key が NULL の時は新規の登録ファイルとなるので
+			// 改めて content_key, block_key をセットする
+			if (empty($file['UploadFile']['content_key']) || empty($file['UploadFile']['block_key'])) {
+				if ($update['content_key']) {
+					$file['UploadFile']['content_key'] = $update['content_key'];
+				}
+				if ($update['block_key']) {
+					$file['UploadFile']['block_key'] = $update['block_key'];
+				}
+				if ($update['room_id']) {
+					$file['UploadFile']['room_id'] = $update['room_id'];
+				}
+				$uploadFile->create();
+				$uploadFile->save($file, false, false);
+			}
+		}
+
+		return true;
 	}
 
 /**
@@ -144,21 +188,40 @@ class WysiwygBehavior extends ModelBehavior {
  * @param Array $data 置換対象データ
  * @return Array $data を置換した内容を返す
  */
-	private function __replaceString(Model $model, $search, $replace, $data) {
-		// 検索対象に / があるとデリミタエラーが発生するので置換する
-		$search = str_replace('/', '\/', $search);
+	private function __replacePath(Model $model, $search, $replace, $data) {
 		// 定義フィールド全てを置換
 		foreach ($this->_fields[$model->alias] as $field) {
 			// 定義フィールドが存在しない場合は無視する
 			if (isset($data[$model->alias][$field])) {
-				$pattern = sprintf('/%s\/(%s)\/([0-9]*)/', $search, self::WYSIWYG_REPLACE_PATH);
-				$replacement = sprintf('%s/\1/\2', $replace);
-
-				$data[$model->alias][$field] =
-					preg_replace($pattern, $replacement, $data[$model->alias][$field]);
+				$data[$model->alias][$field] = $this->__replaceContent(
+					$search, $replace, $data[$model->alias][$field]
+				);
 			}
 		}
 
 		return $data;
+	}
+
+/**
+ * Wysiwygフィールド内の「ファイル／画像」のパスの変換処理
+ *
+ * @param String $search 検索する文字列
+ * @param String $replace 置換する文字列
+ * @param string $content 置換対象文字列
+ * @return string 置換した内容を返す
+ */
+	private function __replaceContent($search, $replace, $content) {
+		// 検索対象に / があるとデリミタエラーが発生するので置換する
+		$search = str_replace('/', '\/', $search);
+
+		// 定義フィールドが存在しない場合は無視する
+		if ($content) {
+			$pattern = sprintf('/%s\/(%s)\/([0-9]*)/', $search, self::WYSIWYG_REPLACE_PATH);
+			$replacement = sprintf('%s/\1/\2', $replace);
+
+			$content = preg_replace($pattern, $replacement, $content);
+		}
+
+		return $content;
 	}
 }
