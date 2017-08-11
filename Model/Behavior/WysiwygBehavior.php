@@ -101,7 +101,7 @@ class WysiwygBehavior extends ModelBehavior {
  */
 	public function afterSave(Model $model, $created, $options = array()) {
 		$pattern = sprintf(
-						'/%s\/%s\/[0-9]*?\/([0-9]*?)/',
+						'/%s\/%s\/[0-9]*?\/([0-9]*)?/',
 						self::REPLACE_BASE_URL,
 						self::WYSIWYG_REPLACE_PATH
 					);
@@ -122,7 +122,6 @@ class WysiwygBehavior extends ModelBehavior {
 				foreach ($files as $file) {
 					// content_key または block_key が NULL の時は新規の登録ファイルとなるので
 					// 改めて content_key, block_key をセットする
-					//
 					if (empty($file['UploadFile']['content_key']) || empty($file['UploadFile']['block_key'])) {
 						$file['UploadFile']['content_key'] = $model->data[$model->alias]['key'];
 						$file['UploadFile']['block_key'] = $model->data['Block']['key'];
