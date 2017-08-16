@@ -20,7 +20,7 @@ App::uses('NetCommonsHelperTestCase', 'NetCommons.TestSuite');
  * @package NetCommons\Wysiwyg\TestSuite
  * @codeCoverageIgnore
  */
-class WysiwygHelperTestCase extends NetCommonsHelperTestCase {
+abstract class WysiwygHelperTestCase extends NetCommonsHelperTestCase {
 
 /**
  * Fixtures
