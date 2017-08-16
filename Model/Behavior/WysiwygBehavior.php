@@ -54,6 +54,17 @@ class WysiwygBehavior extends ModelBehavior {
  * @SuppressWarnings(PHPMD.BooleanArgumentFlag)
  */
 	public function afterFind(Model $model, $results, $primary = false) {
+		return $this->convertBaseUrl($model, $results);
+	}
+
+/**
+ * {{__BASE_URL}}を変換する
+ *
+ * @param Model $model Model using this behavior
+ * @param mixed $results 変換対象のデータ
+ * @return mixed 変換した結果
+ */
+	public function convertBaseUrl(Model $model, $results) {
 		// $this->_fields で定義された変数の REPLACE_BASE_URL キーワードを置換する
 		//
 		$baseUrl = h(substr(Router::url('/', true), 0, -1));
