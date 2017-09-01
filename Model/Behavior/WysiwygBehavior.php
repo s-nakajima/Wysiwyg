@@ -170,9 +170,9 @@ class WysiwygBehavior extends ModelBehavior {
 		$files = $uploadFile->find('all', ['conditions' => ['id' => $fileIds]]);
 
 		foreach ($files as $file) {
-			// content_key または block_key が NULL の時は新規の登録ファイルとなるので
-			// 改めて content_key, block_key をセットする
-			if (empty($file['UploadFile']['content_key']) || empty($file['UploadFile']['block_key'])) {
+			// 指定されたUPDATE情報と現在情報が食い違う場合は
+			// 改めて 情報をセットしなおす
+			if ($this->__hasDiffFileData($file['UploadFile'], $update)) {
 				if ($update['content_key']) {
 					$file['UploadFile']['content_key'] = $update['content_key'];
 				}
@@ -188,6 +188,43 @@ class WysiwygBehavior extends ModelBehavior {
 		}
 
 		return true;
+	}
+
+/**
+ * 違いがあるかチェックする
+ *
+ * @param array $original 元のファイルデータ
+ * @param array $specified 今回更新を指定されているデータ
+ * @return bool
+ */
+	private function __hasDiffFileData($original, $specified) {
+		var_dump($original);
+		var_dump($specified);
+		$specified = array_filter($specified);
+		foreach ($specified as $key => $spec) {
+			if ($original[$key] != $spec) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+/**
+ * コンテンツにUploadFileのアクセスパスが記載されている場合、
+ * 対象のルームIDにマッチするようにアクセスパスを修正する
+ *
+ * @param Model $model このビヘイビアメソッドで使用されるモデル
+ * @param string $content コンテンツデータ
+ * @param int $roomId このデータが保存されるコンテンツ
+ * @return mixed
+ */
+	public function consistentContent($model, $content, $roomId) {
+		$pattern = sprintf(
+			'/%s\/(%s)\/[0-9]*?\/([0-9]*)?/', self::REPLACE_BASE_URL, self::WYSIWYG_REPLACE_PATH
+		);
+		$replace = sprintf('%s/\1/%d/\2', self::REPLACE_BASE_URL, $roomId);
+		$content = preg_replace($pattern, $replace, $content);
+		return $content;
 	}
 
 /**
