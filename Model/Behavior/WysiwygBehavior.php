@@ -198,8 +198,6 @@ class WysiwygBehavior extends ModelBehavior {
  * @return bool
  */
 	private function __hasDiffFileData($original, $specified) {
-		var_dump($original);
-		var_dump($specified);
 		$specified = array_filter($specified);
 		foreach ($specified as $key => $spec) {
 			if ($original[$key] != $spec) {
