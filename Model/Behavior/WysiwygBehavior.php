@@ -170,9 +170,9 @@ class WysiwygBehavior extends ModelBehavior {
 		$files = $uploadFile->find('all', ['conditions' => ['id' => $fileIds]]);
 
 		foreach ($files as $file) {
-			// content_key または block_key が NULL の時は新規の登録ファイルとなるので
-			// 改めて content_key, block_key をセットする
-			if (empty($file['UploadFile']['content_key']) || empty($file['UploadFile']['block_key'])) {
+			// 指定されたUPDATE情報と現在情報が食い違う場合は
+			// 改めて 情報をセットしなおす
+			if ($this->__hasDiffFileData($file['UploadFile'], $update)) {
 				if ($update['content_key']) {
 					$file['UploadFile']['content_key'] = $update['content_key'];
 				}
@@ -188,6 +188,55 @@ class WysiwygBehavior extends ModelBehavior {
 		}
 
 		return true;
+	}
+
+/**
+ * 違いがあるかチェックする
+ *
+ * @param array $original 元のファイルデータ
+ * @param array $specified 今回更新を指定されているデータ
+ * @return bool
+ */
+	private function __hasDiffFileData($original, $specified) {
+		// 新規の場合は無条件で指定データで更新しなくてはならない
+		if (empty($original['content_key']) || empty($original['block_key'])) {
+			return true;
+		}
+
+		// uploadFileに既にデータが設定されており、
+		// かつ、今回の更新データのcontent_keyがuploadFileのそれと異なる場合は、コピペの可能性高い
+		if ($original['content_key'] != Hash::get($specified, 'content_key', '')) {
+			// 元データのroom_idを変えてはいけない
+			return false;
+		}
+
+		// 更新の場合でルームIDなどを変更するのはcontent_keyが一致している場合のみ
+		// かつ、指定されているデータが元のuploadFileと異なる場合に限ります
+		$specified = array_filter($specified);
+		foreach ($specified as $key => $spec) {
+			if ($original[$key] != $spec) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+/**
+ * コンテンツにUploadFileのアクセスパスが記載されている場合、
+ * 対象のルームIDにマッチするようにアクセスパスを修正する
+ *
+ * @param Model $model このビヘイビアメソッドで使用されるモデル
+ * @param string $content コンテンツデータ
+ * @param int $roomId このデータが保存されるコンテンツ
+ * @return mixed
+ */
+	public function consistentContent($model, $content, $roomId) {
+		$pattern = sprintf(
+			'/%s\/(%s)\/[0-9]*?\/([0-9]*)?/', self::REPLACE_BASE_URL, self::WYSIWYG_REPLACE_PATH
+		);
+		$replace = sprintf('%s/\1/%d/\2', self::REPLACE_BASE_URL, $roomId);
+		$content = preg_replace($pattern, $replace, $content);
+		return $content;
 	}
 
 /**

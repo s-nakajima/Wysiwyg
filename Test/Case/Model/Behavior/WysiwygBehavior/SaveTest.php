@@ -71,7 +71,7 @@ class WysiwygBehaviorSaveTest extends WysiwygModelTestCase {
 			'TestWysiwygBehaviorSaveModel' => [
 				'id' => '1',
 				'key' => 'wysiwyg_test_key',
-				'content' => 'Wysiwyg Test <img class="img-responsive nc3-img nc3-img-block" title="" src="{{__BASE_URL__}}/wysiwyg/image/download/1/1/big" alt="" /> Wysiwyg Test <a href="{{__BASE_URL__}}/wysiwyg/file/download/1/2">wysiwyg.doc</a> Wysiwyg Test <a href="{{__BASE_URL__}}/wysiwyg/file/download/1/3">wysiwyg.xls</a> Wysiwyg Test',
+				'content' => 'Wysiwyg Test <img class="img-responsive nc3-img nc3-img-block" title="" src="{{__BASE_URL__}}/wysiwyg/image/download/1/1/big" alt="" /> Wysiwyg Test <a href="{{__BASE_URL__}}/wysiwyg/file/download/1/2">wysiwyg.doc</a> Wysiwyg Test <a href="{{__BASE_URL__}}/wysiwyg/file/download/1/3">wysiwyg.xls</a> Wysiwyg Test <a href="{{__BASE_URL__}}/wysiwyg/file/download/1/4">wysiwyg.xls</a> Wysiwyg Test <a href="{{__BASE_URL__}}/wysiwyg/file/download/1/5">wysiwyg.xls</a> Wysiwyg Test',
 			],
 			'Block' => [
 				'key' => 'block_key_1',
@@ -114,6 +114,26 @@ class WysiwygBehaviorSaveTest extends WysiwygModelTestCase {
 					'content_key' => 'wysiwyg_test_key',
 					'field_name' => 'Wysiwyg.file',
 					'room_id' => '2',
+					'block_key' => 'block_key_1',
+				],
+			],
+			3 => [
+				'UploadFile' => [
+					'id' => '4',
+					'plugin_key' => 'test_wysiwyg',
+					'content_key' => 'wysiwyg_test_key',
+					'field_name' => 'Wysiwyg.file',
+					'room_id' => '1',
+					'block_key' => 'block_key_1',
+				],
+			],
+			4 => [
+				'UploadFile' => [
+					'id' => '5',
+					'plugin_key' => 'test_wysiwyg',
+					'content_key' => 'wysiwyg_test_key',
+					'field_name' => 'Wysiwyg.file',
+					'room_id' => '3',
 					'block_key' => 'block_key_1',
 				],
 			],
