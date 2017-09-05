@@ -49,7 +49,7 @@ class TestWysiwygBehaviorSaveModelFixture extends CakeTestFixture {
 		array(
 			'id' => '1',
 			'key' => 'wysiwyg_test_key',
-			'content' => 'Wysiwyg Test <img class="img-responsive nc3-img nc3-img-block" title="" src="{{__BASE_URL__}}/wysiwyg/image/download/1/1/big" alt="" /> Wysiwyg Test <a href="{{__BASE_URL__}}/wysiwyg/file/download/1/2">wysiwyg.doc</a> Wysiwyg Test <a href="{{__BASE_URL__}}/wysiwyg/file/download/1/3">wysiwyg.xls</a> Wysiwyg Test',
+			'content' => 'Wysiwyg Test <img class="img-responsive nc3-img nc3-img-block" title="" src="{{__BASE_URL__}}/wysiwyg/image/download/1/1/big" alt="" /> Wysiwyg Test <a href="{{__BASE_URL__}}/wysiwyg/file/download/1/2">wysiwyg.doc</a> Wysiwyg Test <a href="{{__BASE_URL__}}/wysiwyg/file/download/1/3">wysiwyg.xls</a> Wysiwyg Test <a href="{{__BASE_URL__}}/wysiwyg/file/download/1/4">wysiwyg.xls</a> Wysiwyg Test <a href="{{__BASE_URL__}}/wysiwyg/file/download/1/5">wysiwyg.xls</a> Wysiwyg Test',
 		),
 	);
 

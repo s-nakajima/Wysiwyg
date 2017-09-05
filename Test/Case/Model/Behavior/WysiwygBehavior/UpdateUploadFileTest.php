@@ -83,6 +83,12 @@ class WysiwygBehaviorUpdateUploadFileTest extends WysiwygModelTestCase {
 					'room_id' => '3',
 				],
 			],
+			3 => [
+				'UploadFile' => [
+					'id' => '4',
+					'room_id' => '3',
+				],
+			],
 		];
 
 		return $result;
@@ -110,6 +116,7 @@ class WysiwygBehaviorUpdateUploadFileTest extends WysiwygModelTestCase {
 			'fields' => ['id', 'plugin_key', 'content_key', 'field_name', 'room_id', 'block_key'],
 			'order' => 'id'
 		]);
+
 		$expected = Hash::merge([
 			0 => [
 				'UploadFile' => [
@@ -138,6 +145,26 @@ class WysiwygBehaviorUpdateUploadFileTest extends WysiwygModelTestCase {
 					'content_key' => 'wysiwyg_test_key',
 					'field_name' => 'Wysiwyg.file',
 					'room_id' => '2',
+					'block_key' => 'block_key_1',
+				],
+			],
+			3 => [
+				'UploadFile' => [
+					'id' => '4',
+					'plugin_key' => 'test_wysiwyg',
+					'content_key' => 'wysiwyg_test_key',
+					'field_name' => 'Wysiwyg.file',
+					'room_id' => '3',
+					'block_key' => 'block_key_1',
+				],
+			],
+			4 => [
+				'UploadFile' => [
+					'id' => '5',
+					'plugin_key' => 'test_wysiwyg',
+					'content_key' => 'wysiwyg_test_key',
+					'field_name' => 'Wysiwyg.file',
+					'room_id' => '3',
 					'block_key' => 'block_key_1',
 				],
 			],

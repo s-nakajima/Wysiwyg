@@ -198,6 +198,20 @@ class WysiwygBehavior extends ModelBehavior {
  * @return bool
  */
 	private function __hasDiffFileData($original, $specified) {
+		// 新規の場合は無条件で指定データで更新しなくてはならない
+		if (empty($original['content_key']) || empty($original['block_key'])) {
+			return true;
+		}
+
+		// uploadFileに既にデータが設定されており、
+		// かつ、今回の更新データのcontent_keyがuploadFileのそれと異なる場合は、コピペの可能性高い
+		if ($original['content_key'] != Hash::get($specified, 'content_key', '')) {
+			// 元データのroom_idを変えてはいけない
+			return false;
+		}
+
+		// 更新の場合でルームIDなどを変更するのはcontent_keyが一致している場合のみ
+		// かつ、指定されているデータが元のuploadFileと異なる場合に限ります
 		$specified = array_filter($specified);
 		foreach ($specified as $key => $spec) {
 			if ($original[$key] != $spec) {
