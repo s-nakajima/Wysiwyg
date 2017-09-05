@@ -100,7 +100,7 @@ class UploadFile4wysiwygFixture extends UploadFileFixture {
 			'size' => 1,
 			'download_count' => 1,
 			'total_download_count' => 1,
-			'room_id' => '3',
+			'room_id' => '1',
 			'block_key' => 'block_key_4',
 		),
 		array(

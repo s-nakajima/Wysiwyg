@@ -123,7 +123,7 @@ class WysiwygBehaviorSaveTest extends WysiwygModelTestCase {
 					'plugin_key' => 'test_wysiwyg',
 					'content_key' => 'wysiwyg_test_key',
 					'field_name' => 'Wysiwyg.file',
-					'room_id' => '3',
+					'room_id' => '1',
 					'block_key' => 'block_key_1',
 				],
 			],
