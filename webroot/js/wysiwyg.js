@@ -55,7 +55,7 @@ NetCommonsApp.factory('NetCommonsWysiwyg',
         var options = {
           mode: 'exact',
           menubar: false,
-          plugins: 'advlist nc3_textcolor nc3_colorpicker table hr titleicons ' +
+          plugins: 'lists advlist nc3_textcolor nc3_colorpicker table hr titleicons ' +
               'charmap link media nc3Image code nc3Preview searchreplace ' +
               'paste tex file booksearch',
           toolbar: toolbar,
