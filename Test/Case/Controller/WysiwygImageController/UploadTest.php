@@ -95,6 +95,9 @@ class WysiwygImageControllerUploadTest extends WysiwygControllerTestCase {
 			'Wysiwyg.Wysiwyg' => array('isUploadedFile'),
 		)));
 
+		//ログイン
+		TestAuthGeneral::login($this);
+
 		$this->controller->UploadFile = $this->getMockForModel(
 			'Files.UploadFile',
 			array('registByFile', 'uploadSettings'),

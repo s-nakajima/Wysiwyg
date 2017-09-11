@@ -74,6 +74,10 @@ class WysiwygFileControllerDownloadTest extends WysiwygControllerTestCase {
 		$this->generateNc(Inflector::camelize($this->_controller), array('components' => array(
 			'Files.Download' => array('doDownloadByUploadFileId')
 		)));
+
+		//ログイン
+		TestAuthGeneral::login($this);
+
 		$this->controller->Download
 			->expects($this->once())->method('doDownloadByUploadFileId')
 			->with('1', ['field' => 'Wysiwyg.file', 'download' => true, 'size' => ''])
