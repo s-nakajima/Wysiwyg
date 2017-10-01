@@ -96,7 +96,42 @@ NetCommonsApp.factory('NetCommonsWysiwyg',
 
           // 許可するタグの設定
           extended_valid_elements: nc3Configs.extended_valid_elements,
-          cleanup: nc3Configs.cleanup
+          cleanup: nc3Configs.cleanup,
+
+          // テーブル関連
+          // テーブル配置の属性
+          table_default_attributes: {
+            class: 'table table-bordered table-hover table-responsive'
+          },
+          // テーブルのclassリスト
+          table_class_list: [
+            {title: 'None', value: ''},
+            {title: 'table-bordered', value: 'table table-bordered table-hover table-responsive'},
+            {title: 'table-bordered(border-top only)', value: 'table table-hover table-responsive'},
+            {title: 'table-striped', value: 'table table-striped table-hover table-responsive'}
+            // なぜか色きかない
+            //{title: 'table-inverse', value: 'table table-inverse table-hover table-responsive'}
+          ],
+          // なぜか色きかない
+          // table_cell_class_list: [
+          //   {title: 'None', value: ''},
+          //   {title: 'table-active', value: 'table-active'},
+          //   {title: 'table-success', value: 'table-success'},
+          //   {title: 'table-info', value: 'table-info'},
+          //   {title: 'table-warning', value: 'table-warning'},
+          //   {title: 'table-danger', value: 'table-danger'}
+          // ],
+          // table_row_class_list: [
+          //   {title: 'None', value: ''},
+          //   {title: 'table-active', value: 'table-active'},
+          //   {title: 'table-success', value: 'table-success'},
+          //   {title: 'table-info', value: 'table-info'},
+          //   {title: 'table-warning', value: 'table-warning'},
+          //   {title: 'table-danger', value: 'table-danger'}
+          // ],
+          // テーブルのドラッグ＆ドロップリサイズ無効（レスポンシブ効かなくなるため）
+          table_resize_bars: false,
+          object_resizing: 'img'
         };
 
         /**
