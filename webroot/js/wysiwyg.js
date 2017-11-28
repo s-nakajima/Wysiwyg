@@ -78,6 +78,7 @@ NetCommonsApp.factory('NetCommonsWysiwyg',
 
           paste_as_text: true,
           convert_urls: false,
+          resize: 'both',
           content_css: nc3Configs.content_css,
 
           nc3Configs: nc3Configs,
