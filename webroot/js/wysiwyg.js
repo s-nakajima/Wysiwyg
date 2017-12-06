@@ -153,7 +153,10 @@ NetCommonsApp.factory('NetCommonsWysiwyg',
           /**
            * new method
            */
-          new: function() {
+          new: function(extendOptions) {
+            if (extendOptions) {
+              variables['options'] = angular.extend(variables['options'], extendOptions);
+            }
             return angular.extend(variables, functions);
           }
         };
