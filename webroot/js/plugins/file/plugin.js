@@ -54,7 +54,7 @@ tinymce.PluginManager.add('file', function(editor, url) {
                       editor.dom.createHTML('a',
                           {
                             href: res.file.path,
-                            target: '_brank'
+                            target: '_blank'
                           },
                           res.file.original_name
                       )
