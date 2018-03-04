@@ -75,6 +75,7 @@ NetCommonsApp.factory('NetCommonsWysiwyg',
                         '"ＭＳ Ｐ明朝", "MS PMincho", serif;' +
                         'MS Pゴシック= "MS PGothic", Osaka, Arial, sans-serif;' +
                         'MS P明朝= "ＭＳ Ｐ明朝", "MS PMincho", serif;',
+          fontsize_formats: '8pt 10pt 11pt 12pt 14pt 18pt 24pt 36pt',
 
           paste_as_text: true,
           convert_urls: false,
