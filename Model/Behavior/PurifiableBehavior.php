@@ -279,6 +279,9 @@ class PurifiableBehavior extends ModelBehavior {
 						'|allowtransparency|frameborder|border|bordercolor|allowfullscreen],' .
 					'col[span],' .
 					'colgroup[span],' .
+					'dl[compact],' .
+					'dt,' .
+					'dd,' .
 					// HTML5から採用--ここから
 					'rb,' .
 					'ruby,' .
