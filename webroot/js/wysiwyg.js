@@ -35,14 +35,14 @@ NetCommonsApp.factory('NetCommonsWysiwyg',
           'fontselect fontsizeselect formatselect ' +
               '| bold italic underline strikethrough ' +
               '| subscript superscript | forecolor backcolor ' +
-              '| removeformat' +
+              '| removeformat ' +
               '| undo redo | alignleft aligncenter alignright ' +
               '| bullist numlist | indent outdent blockquote ' +
-              '| table | hr | titleicons | tex | link unlink' +
-              '| media booksearch nc3Image file | pastetext code nc3Preview'
+              '| table | hr | titleicons | tex | link unlink ' +
+              '| media booksearch nc3Image file | pastetext code nc3Preview '
         ];
         var toolbarMobile = [
-          'styleselect forecolor backcolor titleicons nc3Image mybutton'
+          'styleselect forecolor backcolor titleicons nc3Image mybutton '
         ];
 
         var toolbar = nc3Configs.is_mobile ? toolbarMobile : toolbarPc;
