@@ -147,7 +147,7 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
   };
   // submit時動作(update)
   var onSubmitFormUpdate = function(d, selectedNode) {
-    var imgSrc = (d.size_edit) ? (d.src_edit + '/' + d.size_edit) : (d.src);
+    var imgSrc = (d.size_edit) ? (d.src_edit + '/' + d.size_edit) : (d.src_edit);
 
     // domの更新
     $el = $(selectedNode);
