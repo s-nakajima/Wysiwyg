@@ -157,6 +157,7 @@ tinymce.addI18n('ja',{
   "Numbered list":"\u756a\u53f7\u4ed8\u304d\u7b87\u6761\u66f8\u304d",
   "Ok":"OK",
   "Orientation":"\u5411\u304d",
+  "original":"\u539f\u5bf8\u5927",
   "Page break":"\u30da\u30fc\u30b8\u533a\u5207\u308a",
   "Paragraph":"\u6bb5\u843d",
   "Paste as text":"\u30c6\u30ad\u30b9\u30c8\u3068\u3057\u3066\u8cbc\u308a\u4ed8\u3051",

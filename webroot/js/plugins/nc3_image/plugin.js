@@ -32,6 +32,9 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
     text: 'Default size(800px)',
     value: 'big'
   }, {
+      text: 'original',
+      value: ''
+  }, {
     text: 'biggest(1200px)',
     value: 'biggest'
   }, {
