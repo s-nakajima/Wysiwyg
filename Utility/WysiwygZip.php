@@ -27,7 +27,10 @@ class WysiwygZip {
  *
  * @var string
  */
-	const	WYSIWYG_FILE_KEY_PATTERN = '/(.*?)\/wysiwyg\/(?:image|file)\/download\/(\d*?)\/(\d*?)"(.*)/';
+	const WYSIWYG_FILE_KEY_PATTERN =
+		'/(.*?)\/wysiwyg\/(?:image|file)\/download\/(\d*?)\/(\d*?)(?:\/|")(.*?)>/';
+	const WYSIWYG_FILE_IMPORT_KEY_PATTERN =
+		'/(?:src|href)="(.*?)\/wysiwyg\/(?:image|file)\/download\/(\d*?)\/(\d*?)(?:\/|")(.*?)>/';
 
 /**
  * Constructor
@@ -77,19 +80,20 @@ class WysiwygZip {
 		// imgタグやリンクａタグを１行ずつに分解する
 		$tmpStr = str_replace('<img', "\n<img", $data);
 		$tmpStr = str_replace('<a', "\n<a", $tmpStr);
+		$tmpStr = str_replace('>', ">\n", $tmpStr);
 		$tmpStrArr = explode("\n", $tmpStr);
 
 		$retStr = '';
 		// 1行ずつ処理
 		foreach ($tmpStrArr as $line) {
 			// wysiwyg行があるか？
-			$matchCount = preg_match(self::WYSIWYG_FILE_KEY_PATTERN, $line, $matches);
+			$matchCount = preg_match(self::WYSIWYG_FILE_IMPORT_KEY_PATTERN, $line, $matches);
 			// ある
 			if ($matchCount > 0) {
 				// その中に書かれているwysiwygで設定されたファイルのリスト（uploadId)を得る
 				$uploadId = $matches[3];
 				// imageなのかfileなのか
-				if (preg_match('/^<img/', $matches[1])) {
+				if (preg_match('/^<img/', $line)) {
 					$type = 'image';
 				} else {
 					$type = 'file';
@@ -117,12 +121,22 @@ class WysiwygZip {
 				}
 
 				// wysiwygのパス情報を新ルームIDと新UPLOADIDに差し替える
-				$line = sprintf('%s/wysiwyg/%s/download/%d/%d%s',
-					$matches[1],
-					$type,
-					$roomId,
-					$uploadedFile['UploadFile']['id'],
-					$matches[4]);
+				if ($type == 'image') {
+					$line = sprintf('<img src="%s/wysiwyg/%s/download/%d/%d/%s>',
+						//$matches[1],
+						Router::fullBaseUrl(),
+						$type,
+						$roomId,
+						$uploadedFile['UploadFile']['id'],
+						$matches[4]);
+				} else {
+					$line = sprintf('<a href="%s/wysiwyg/%s/download/%d/%d">',
+						//$matches[1],
+						Router::fullBaseUrl(),
+						$type,
+						$roomId,
+						$uploadedFile['UploadFile']['id']);
+				}
 			}
 			// wysiwygテキスト再構築
 			$retStr .= $line;
