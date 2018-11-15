@@ -58,7 +58,9 @@ class HtmlNotLimitedTest extends NetCommonsCakeTestCase {
 
 		// ezyang/htmlpurifier 4.9.2 からrel属性が追加されるようになったので、期待値を修正
 		// @see https://github.com/ezyang/htmlpurifier/commit/8e4cacf0a76458d6203f53113c47b49c6edc2dc5#diff-43adc2ea2ce8b37d29a16504aa8414b3
-		$expected = '<a href="#" target="_blank" rel="noopener">anchor</a>';
+		//$expected = '<a href="#" target="_blank" rel="noopener">anchor</a>';
+		// HtmlNotLimitedであれば、htmlpurifierのチェックは通さない
+		$expected = $content;
 
 		$this->assertEquals($expected, $result[$this->__modelName]['content']);
 	}
@@ -72,7 +74,11 @@ class HtmlNotLimitedTest extends NetCommonsCakeTestCase {
 		$content = '<a href="#" target="_hoge">anchor</a>';
 		$data[$this->__modelName]['content'] = $content;
 		$result = $FakeModel->save($data);
-		$this->assertEquals('<a href="#">anchor</a>', $result[$this->__modelName]['content']);
+		// HtmlNotLimitedであれば、htmlpurifierのチェックは通さない
+		$expected = $content;
+
+		//$this->assertEquals('<a href="#">anchor</a>', $result[$this->__modelName]['content']);
+		$this->assertEquals($expected, $result[$this->__modelName]['content']);
 	}
 
 /**
@@ -96,7 +102,11 @@ class HtmlNotLimitedTest extends NetCommonsCakeTestCase {
 		$content = '<a href="#" rel="hoge">anchor</a>';
 		$data[$this->__modelName]['content'] = $content;
 		$result = $FakeModel->save($data);
-		$this->assertEquals('<a href="#">anchor</a>', $result[$this->__modelName]['content']);
+		// HtmlNotLimitedであれば、htmlpurifierのチェックは通さない
+		$expected = $content;
+
+		//$this->assertEquals('<a href="#">anchor</a>', $result[$this->__modelName]['content']);
+		$this->assertEquals($expected, $result[$this->__modelName]['content']);
 	}
 
 /**
@@ -139,9 +149,13 @@ class HtmlNotLimitedTest extends NetCommonsCakeTestCase {
 		$content = '<script type="text/javascript">alert("alert");</script>';
 		$data[$this->__modelName]['content'] = $content;
 		$result = $FakeModel->save($data);
-		$this->assertEquals('<script type="text/javascript"><!--//--><![CDATA[//><!--
-alert("alert");
-//--><!]]></script>', $result[$this->__modelName]['content']);
+		// HtmlNotLimitedであれば、htmlpurifierのチェックは通さない
+		$expected = $content;
+
+		//		$this->assertEquals('<script type="text/javascript"><!--//--><![CDATA[//><!--
+		//alert("alert");
+		////--><!]]></script>', $result[$this->__modelName]['content']);
+		$this->assertEquals($expected, $result[$this->__modelName]['content']);
 	}
 
 /**
