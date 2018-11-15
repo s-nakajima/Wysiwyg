@@ -342,7 +342,9 @@ class PurifiableBehavior extends ModelBehavior {
  * @see Model::save()
  */
 	public function beforeValidate(Model $model, $options = array()) {
-		$this->purify($model, $this->__settings['fields']);
+		if (!Current::permission('html_not_limited')) {
+			$this->purify($model, $this->__settings['fields']);
+		}
 		return true;
 	}
 
