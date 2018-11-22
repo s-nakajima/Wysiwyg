@@ -342,9 +342,7 @@ class PurifiableBehavior extends ModelBehavior {
  * @see Model::save()
  */
 	public function beforeValidate(Model $model, $options = array()) {
-		if (!Current::permission('html_not_limited')) {
-			$this->purify($model, $this->__settings['fields']);
-		}
+		$this->purify($model, $this->__settings['fields']);
 		return true;
 	}
 
@@ -374,6 +372,10 @@ class PurifiableBehavior extends ModelBehavior {
  * @return bool
  */
 	public function clean(Model $model, $fieldValue) {
+		if (!Current::permission('html_not_limited')) {
+			return $fieldValue;
+		}
+
 		//the next few lines allow the config __settings to be cached
 		$config = HTMLPurifier_Config::createDefault();
 		foreach ($this->__settings['config'] as $namespace => $values) {
