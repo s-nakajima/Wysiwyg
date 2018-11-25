@@ -372,6 +372,17 @@ class PurifiableBehavior extends ModelBehavior {
  * @return bool
  */
 	public function clean(Model $model, $fieldValue) {
+		// ルームでスプリクトを許可されてる権限だったら、PurifiableBehaviorのチェックは通さない
+		// W3Cに準拠してないタグの拡張属性が消えるため。
+		//
+		// 例）
+		// ・bootstrapのbuttonタグの拡張属性(data-toggle data-target).
+		// ・bootstrapのimgタグの拡張属性(data-size data-position data-imgid). <- Wysiwygで画像追加時 にセットされる <img class="" title="" src="" alt="" data-size="big" data-position="" data-imgid="9" />
+		// ・Chromeのvideoタグの拡張属性(controlsList). <- ダウンロードボタン非表示の時につかう。<video controlsList="nodownload">
+		if (Current::permission('html_not_limited')) {
+			return $fieldValue;
+		}
+
 		//the next few lines allow the config __settings to be cached
 		$config = HTMLPurifier_Config::createDefault();
 		foreach ($this->__settings['config'] as $namespace => $values) {
