@@ -193,20 +193,4 @@ class HtmlNotLimitedTest extends NetCommonsCakeTestCase {
 		$result = $FakeModel->save($data);
 		$this->assertEquals($content, $result[$this->__modelName]['content']);
 	}
-
-/**
- * 指定のdata-size data-position data-imgid属性が除去されないこと
- */
-	public function testSaveImg() {
-		$FakeModel = $this->__loadBehavior();
-
-		$content = '<img class="img-responsive nc3-img nc3-img-block" title="" src="{{__BASE_URL__}}/wysiwyg/image/download/1/9/big" alt="" data-size="big" data-position="" data-imgid="9" />';
-
-		$data[$this->__modelName]['content'] = $content;
-		$result = $FakeModel->save($data);
-		// HtmlNotLimitedであれば、htmlpurifierのチェックは通さないので、期待値は入力値と同じ。
-		$expected = $content;
-
-		$this->assertEquals($expected, $result[$this->__modelName]['content']);
-	}
 }
