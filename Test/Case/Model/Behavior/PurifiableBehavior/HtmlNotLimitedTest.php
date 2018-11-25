@@ -200,7 +200,7 @@ class HtmlNotLimitedTest extends NetCommonsCakeTestCase {
 	public function testSaveImg() {
 		$FakeModel = $this->__loadBehavior();
 
-		$content = '<img class="img-responsive nc3-img nc3-img-block" title="" src="http://127.0.0.1:9094/wysiwyg/image/download/1/9/big" alt="" data-size="big" data-position="" data-imgid="9" />';
+		$content = '<img class="img-responsive nc3-img nc3-img-block" title="" src="{{__BASE_URL__}}/wysiwyg/image/download/1/9/big" alt="" data-size="big" data-position="" data-imgid="9" />';
 
 		$data[$this->__modelName]['content'] = $content;
 		$result = $FakeModel->save($data);

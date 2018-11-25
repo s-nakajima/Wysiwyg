@@ -379,7 +379,7 @@ class PurifiableBehavior extends ModelBehavior {
 		// ・bootstrapのbuttonタグの拡張属性(data-toggle data-target).
 		// ・bootstrapのimgタグの拡張属性(data-size data-position data-imgid). <- Wysiwygで画像追加時 にセットされる <img class="" title="" src="" alt="" data-size="big" data-position="" data-imgid="9" />
 		// ・Chromeのvideoタグの拡張属性(controlsList). <- ダウンロードボタン非表示の時につかう。<video controlsList="nodownload">
-		if (!Current::permission('html_not_limited')) {
+		if (Current::permission('html_not_limited')) {
 			return $fieldValue;
 		}
 
