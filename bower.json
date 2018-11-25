@@ -10,7 +10,7 @@
   ],
   "license": "NetCommons License",
   "dependencies": {
-	  "MathJax": ">=2.6",
+	  "MathJax": "components/MathJax#>=2.6",
 	  "jquery.simplePagination": "*"
   }
 }
