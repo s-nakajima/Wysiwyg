@@ -47,7 +47,7 @@ class WysiwygZipTest extends NetCommonsCakeTestCase {
  */
 	public function setUp() {
 		parent::setUp();
-		$this->__testPath = APP . 'webroot/files/upload_file/test';
+		$this->__testPath = APP . 'Uploads/files/upload_file/test';
 		new Folder($this->__testPath, true, 0755);
 	}
 /**

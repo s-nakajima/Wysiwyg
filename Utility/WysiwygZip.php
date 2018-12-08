@@ -187,7 +187,7 @@ class WysiwygZip {
 						}
 					}
 					// そのファイルをZIPに含める
-					$path = WWW_ROOT . trim($uploadFile['path'], '/') . '/' .
+					$path = UPLOADS_ROOT . trim($uploadFile['path'], '/') . '/' .
 						$uploadId . '/' . $uploadFile['real_file_name'];
 
 					$zip->addFile($path, $uploadId . '.' . $uploadFile['extension']);
