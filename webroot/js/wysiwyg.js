@@ -98,6 +98,7 @@ NetCommonsApp.factory('NetCommonsWysiwyg',
 
           // 許可するタグの設定
           extended_valid_elements: nc3Configs.extended_valid_elements,
+          valid_children: nc3Configs.valid_children,
           cleanup: nc3Configs.cleanup,
 
           // テーブル関連
