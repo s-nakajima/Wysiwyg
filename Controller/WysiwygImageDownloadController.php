@@ -29,6 +29,29 @@ class WysiwygImageDownloadController extends Controller {
 	);
 
 /**
+ * beforeFilter
+ *
+ * @return void
+ * @codeCoverageIgnore
+ */
+	public function beforeFilter() {
+		//テストの時間測定用
+		$this->startTime = microtime(true);
+	}
+
+/**
+ * Called after the controller action is run and rendered.
+ *
+ * @return void
+ * @link http://book.cakephp.org/2.0/ja/controllers.html#request-life-cycle-callbacks
+ * @codeCoverageIgnore
+ */
+	public function afterFilter() {
+		//テストの時間測定用
+		$this->endTime = microtime(true);
+	}
+
+/**
  * beforeRender
  *
  * @return void
