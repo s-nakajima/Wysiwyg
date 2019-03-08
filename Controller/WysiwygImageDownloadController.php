@@ -51,47 +51,15 @@ class WysiwygImageDownloadController extends Controller {
  * @return void
  */
 	public function download($roomId, $id, $size = '') {
-		/* @var $Room AppModel */
 		// シンプルにしたかったためAppModelを利用。インスタンス生成時少し速かった。
+		/* @var $Room AppModel */
 		$Room = ClassRegistry::init('Room');
-		$params = [
-			'belongsTo' => [
-				'TrackableCreator',
-				'TrackableUpdater',
-			]
-		];
-		$Room->unbindModel($params);
-		$Room->Behaviors->unload('Trackable');
-
-		$params = [
-			'hasOne' => [
-				'Space' => [
-					'className' => 'Space',
-					'foreignKey' => false,
-					'conditions' => [
-						'Space.id = Room.space_id',
-					],
-					'fields' => ['type']
-				],
-				'RolesRoomsUser' => [
-					'className' => 'RolesRoomsUser',
-					'conditions' => [
-						'RolesRoomsUser.user_id' => AuthComponent::user('id'),
-					],
-					'fields' => ['id']
-				],
-				'RoomRolePermissions' => [
-					'className' => 'RoomRolePermissions',
-					'foreignKey' => false,
-					'conditions' => [
-						'RoomRolePermissions.roles_room_id = RolesRoomsUser.roles_room_id',
-						'RoomRolePermissions.permission' => 'block_editable',
-					],
-					'fields' => ['value']
-				]
-			],
-		];
-		$Room->bindModel($params);
+		/* @var $Space AppModel */
+		$Space = ClassRegistry::init('Space');
+		/* @var $RolesRoomsUser AppModel */
+		$RolesRoomsUser = ClassRegistry::init('RolesRoomsUser');
+		/* @var $RoomRolePermissions AppModel */
+		$RoomRolePerms = ClassRegistry::init('RoomRolePermissions');
 
 		$query = [
 			'fields' => [
@@ -109,8 +77,36 @@ class WysiwygImageDownloadController extends Controller {
 			'conditions' => [
 				'Room.id' => $roomId
 			],
-			'recursive' => 0,
+			'recursive' => -1,
 			'callbacks' => false,
+			'joins' => [
+				[
+					'table' => $Space->table,
+					'alias' => $Space->alias,
+					'type' => 'INNER',
+					'conditions' => [
+						'Space.id = Room.space_id',
+					],
+				],
+				[
+					'table' => $RolesRoomsUser->table,
+					'alias' => $RolesRoomsUser->alias,
+					'type' => 'LEFT',
+					'conditions' => [
+						'RolesRoomsUser.room_id = Room.id',
+						'RolesRoomsUser.user_id' => AuthComponent::user('id'),
+					],
+				],
+				[
+					'table' => $RoomRolePerms->table,
+					'alias' => $RoomRolePerms->alias,
+					'type' => 'LEFT',
+					'conditions' => [
+						'RoomRolePermissions.roles_room_id = RolesRoomsUser.roles_room_id',
+						'RoomRolePermissions.permission' => 'block_editable',
+					],
+				],
+			],
 		];
 		$room = $Room->find('first', $query);
 		if (!$room) {
@@ -122,8 +118,7 @@ class WysiwygImageDownloadController extends Controller {
 		// @see https://github.com/NetCommons3/Files/blob/3.1.2/Controller/Component/DownloadComponent.php#L109-L127
 		App::uses('Space', 'Rooms.Model');
 		if ($room['Space']['type'] === Space::PUBLIC_SPACE_ID ||
-			isset($room['RolesRoomsUser']['id'])
-		) {
+				isset($room['RolesRoomsUser']['id'])) {
 			// RoomRolePermissions データ は、keyが違う
 			// @see https://github.com/NetCommons3/NetCommons/blob/3.1.2/Utility/CurrentFrame.php#L317
 			// @see https://github.com/NetCommons3/NetCommons/blob/3.1.2/Utility/CurrentBase.php#L332-L338
