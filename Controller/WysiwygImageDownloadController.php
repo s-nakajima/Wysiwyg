@@ -94,6 +94,18 @@ class WysiwygImageDownloadController extends Controller {
 		$Room->bindModel($params);
 
 		$query = [
+			'fields' => [
+				'Room.id',
+				//'Room.space_id',
+				//'Space.id',
+				'Space.type',
+				'RolesRoomsUser.id',
+				//'RolesRoomsUser.user_id',
+				//'RolesRoomsUser.roles_room_id',
+				//'RoomRolePermissions.roles_room_id',
+				//'RoomRolePermissions.permission',
+				'RoomRolePermissions.value',
+			],
 			'conditions' => [
 				'Room.id' => $roomId
 			],
@@ -117,7 +129,13 @@ class WysiwygImageDownloadController extends Controller {
 			// @see https://github.com/NetCommons3/NetCommons/blob/3.1.2/Utility/CurrentBase.php#L332-L338
 			$room['Permission']['block_editable'] = $room['RoomRolePermissions'];
 			unset($room['RoomRolePermissions']);
+
 			Current::setCurrent($room);
+			Current::writePermission(
+				$room['Room']['id'],
+				'block_editable',
+				$room['Permission']['block_editable']['value']
+			);
 		}
 
 		App::uses('Room', 'Rooms.Model');
