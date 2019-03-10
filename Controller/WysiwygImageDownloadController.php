@@ -29,6 +29,29 @@ class WysiwygImageDownloadController extends Controller {
 	);
 
 /**
+ * beforeFilter
+ *
+ * @return void
+ * @codeCoverageIgnore
+ */
+	public function beforeFilter() {
+		//テストの時間測定用
+		$this->startTime = microtime(true);
+	}
+
+/**
+ * Called after the controller action is run and rendered.
+ *
+ * @return void
+ * @link http://book.cakephp.org/2.0/ja/controllers.html#request-life-cycle-callbacks
+ * @codeCoverageIgnore
+ */
+	public function afterFilter() {
+		//テストの時間測定用
+		$this->endTime = microtime(true);
+	}
+
+/**
  * beforeRender
  *
  * @return void
@@ -51,54 +74,62 @@ class WysiwygImageDownloadController extends Controller {
  * @return void
  */
 	public function download($roomId, $id, $size = '') {
-		/* @var $Room AppModel */
 		// シンプルにしたかったためAppModelを利用。インスタンス生成時少し速かった。
+		/* @var $Room AppModel */
 		$Room = ClassRegistry::init('Room');
-		$params = [
-			'belongsTo' => [
-				'TrackableCreator',
-				'TrackableUpdater',
-			]
-		];
-		$Room->unbindModel($params);
-		$Room->Behaviors->unload('Trackable');
+		/* @var $Space AppModel */
+		$Space = ClassRegistry::init('Space');
+		/* @var $RolesRoomsUser AppModel */
+		$RolesRoomsUser = ClassRegistry::init('RolesRoomsUser');
+		/* @var $RoomRolePermissions AppModel */
+		$RoomRolePerms = ClassRegistry::init('RoomRolePermissions');
 
-		$params = [
-			'hasOne' => [
-				'Space' => [
-					'className' => 'Space',
-					'foreignKey' => false,
+		$query = [
+			'fields' => [
+				'Room.id',
+				//'Room.space_id',
+				//'Space.id',
+				'Space.type',
+				'RolesRoomsUser.id',
+				//'RolesRoomsUser.user_id',
+				//'RolesRoomsUser.roles_room_id',
+				//'RoomRolePermissions.roles_room_id',
+				//'RoomRolePermissions.permission',
+				'RoomRolePermissions.value',
+			],
+			'conditions' => [
+				'Room.id' => $roomId
+			],
+			'recursive' => -1,
+			'callbacks' => false,
+			'joins' => [
+				[
+					'table' => $Space->table,
+					'alias' => $Space->alias,
+					'type' => 'INNER',
 					'conditions' => [
 						'Space.id = Room.space_id',
 					],
-					'fields' => ['type']
 				],
-				'RolesRoomsUser' => [
-					'className' => 'RolesRoomsUser',
+				[
+					'table' => $RolesRoomsUser->table,
+					'alias' => $RolesRoomsUser->alias,
+					'type' => 'LEFT',
 					'conditions' => [
+						'RolesRoomsUser.room_id = Room.id',
 						'RolesRoomsUser.user_id' => AuthComponent::user('id'),
 					],
-					'fields' => ['id']
 				],
-				'RoomRolePermissions' => [
-					'className' => 'RoomRolePermissions',
-					'foreignKey' => false,
+				[
+					'table' => $RoomRolePerms->table,
+					'alias' => $RoomRolePerms->alias,
+					'type' => 'LEFT',
 					'conditions' => [
 						'RoomRolePermissions.roles_room_id = RolesRoomsUser.roles_room_id',
 						'RoomRolePermissions.permission' => 'block_editable',
 					],
-					'fields' => ['value']
-				]
+				],
 			],
-		];
-		$Room->bindModel($params);
-
-		$query = [
-			'conditions' => [
-				'Room.id' => $roomId
-			],
-			'recursive' => 0,
-			'callbacks' => false,
 		];
 		$room = $Room->find('first', $query);
 		if (!$room) {
@@ -110,14 +141,19 @@ class WysiwygImageDownloadController extends Controller {
 		// @see https://github.com/NetCommons3/Files/blob/3.1.2/Controller/Component/DownloadComponent.php#L109-L127
 		App::uses('Space', 'Rooms.Model');
 		if ($room['Space']['type'] === Space::PUBLIC_SPACE_ID ||
-			isset($room['RolesRoomsUser']['id'])
-		) {
+				isset($room['RolesRoomsUser']['id'])) {
 			// RoomRolePermissions データ は、keyが違う
 			// @see https://github.com/NetCommons3/NetCommons/blob/3.1.2/Utility/CurrentFrame.php#L317
 			// @see https://github.com/NetCommons3/NetCommons/blob/3.1.2/Utility/CurrentBase.php#L332-L338
 			$room['Permission']['block_editable'] = $room['RoomRolePermissions'];
 			unset($room['RoomRolePermissions']);
+
 			Current::setCurrent($room);
+			Current::writePermission(
+				$room['Room']['id'],
+				'block_editable',
+				$room['Permission']['block_editable']['value']
+			);
 		}
 
 		App::uses('Room', 'Rooms.Model');
