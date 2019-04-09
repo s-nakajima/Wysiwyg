@@ -79,12 +79,23 @@ class PurifiableBehavior extends ModelBehavior {
 	protected $__cachePath = '';
 
 /**
+ * キャッシュディレクトリのmode
+ *
+ * @var int
+ */
+	protected $__cacheDirMode = 0775;
+
+/**
  * コンストラクタ
  */
 	public function __construct() {
 		$this->__cachePath = CACHE . 'HTMLPurifier' . DS;
 		if (! file_exists($this->__cachePath)) {
-			mkdir($this->__cachePath);
+			//mkdirがumaskに依存して、ディレクトリが作成されてしまうため、
+			//グループにapache権限を与えてるときに書き込みができなくなることがある。
+			$old = umask(0);
+			mkdir($this->__cachePath, $this->__cacheDirMode);
+			umask($old);
 		}
 	}
 
