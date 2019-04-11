@@ -39,7 +39,8 @@ class HtmlLimitedTest extends NetCommonsCakeTestCase {
  * @return bool|null|object
  */
 	private function __loadBehavior() {
-		Current::write('Permission.html_not_limited.value', false);
+		Current::write('Room.id', '2');
+		Current::writePermission('2', 'html_not_limited', false);
 		NetCommonsCakeTestCase::loadTestPlugin($this, 'Wysiwyg', 'TestWysiwyg');
 		$FakeModel = ClassRegistry::init('TestWysiwyg.FakeModel');
 		$FakeModel->create();
@@ -153,5 +154,17 @@ class HtmlLimitedTest extends NetCommonsCakeTestCase {
 		$data[$this->__modelName]['content'] = $content;
 		$result = $FakeModel->save($data);
 		$this->assertEquals('<p>コメント</p>', $result[$this->__modelName]['content']);
+	}
+
+/**
+ * languageが除去されないこと（html_not_limited=false）
+ */
+	public function testSaveHtmlLimitedLanguage() {
+		$FakeModel = $this->__loadBehavior();
+
+		$content = '<div id="div" language="dummy">div</div>';
+		$data[$this->__modelName]['content'] = $content;
+		$result = $FakeModel->save($data);
+		$this->assertEquals($content, $result[$this->__modelName]['content']);
 	}
 }
