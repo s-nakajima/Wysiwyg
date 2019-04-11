@@ -39,7 +39,8 @@ class HtmlNotLimited2Test extends NetCommonsCakeTestCase {
  * @return bool|null|object
  */
 	private function __loadBehavior() {
-		Current::write('Permission.html_not_limited.value', true);
+		Current::write('Room.id', '2');
+		Current::writePermission('2', 'html_not_limited', true);
 		NetCommonsCakeTestCase::loadTestPlugin($this, 'Wysiwyg', 'TestWysiwyg');
 		// PurifiableBehaviorのテストケースだが、呼び出しているのは、TestWysiwyg.FakeModelに指定されたWysiwygBehavior。
 		// WysiwygBehaviorからPurifiableBehaviorは呼び出されていて、結果としてテストできている。

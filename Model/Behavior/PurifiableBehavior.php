@@ -505,10 +505,17 @@ class PurifiableBehavior extends ModelBehavior {
 
 			// 全要素で使用する属性を設定
 			$def->addElement('*', 'Block', 'Flow', 'Common');
-			$def->info_global_attr = array(
-				'class' => true, 'id' => true, 'title' => true, 'cite' => true, 'background' => true,
-				'style' => true, 'align' => true, 'dir' => true, 'lang' => true, 'language' => true,
-			);
+			$def->info_global_attr = [];
+			$def->info_global_attr['class'] = new HTMLPurifier_AttrDef_Text();
+			$def->info_global_attr['id'] = new HTMLPurifier_AttrDef_Text();
+			$def->info_global_attr['title'] = new HTMLPurifier_AttrDef_Text();
+			$def->info_global_attr['cite'] = new HTMLPurifier_AttrDef_Text();
+			$def->info_global_attr['background'] = new HTMLPurifier_AttrDef_Text();
+			$def->info_global_attr['style'] = new HTMLPurifier_AttrDef_Text();
+			$def->info_global_attr['align'] = new HTMLPurifier_AttrDef_Text();
+			$def->info_global_attr['dir'] = new HTMLPurifier_AttrDef_Text();
+			$def->info_global_attr['lang'] = new HTMLPurifier_AttrDef_Text();
+			$def->info_global_attr['language'] = new HTMLPurifier_AttrDef_Text();
 
 			if ($def->manager) {
 				$def->manager->addModule('Ruby');

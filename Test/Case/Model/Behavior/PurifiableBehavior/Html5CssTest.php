@@ -39,7 +39,8 @@ class Html5CssTest extends NetCommonsCakeTestCase {
  * @param string $content
  */
 	private function __assert($content) {
-		Current::write('Permission.html_not_limited.value', false);
+		Current::write('Room.id', '2');
+		Current::writePermission('2', 'html_not_limited', false);
 
 		NetCommonsCakeTestCase::loadTestPlugin($this, 'Wysiwyg', 'TestWysiwyg');
 		$FakeModel = ClassRegistry::init('TestWysiwyg.FakeModel');

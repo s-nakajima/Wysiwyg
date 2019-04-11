@@ -39,7 +39,8 @@ class Html5TagTest extends NetCommonsCakeTestCase {
  * @param string $content
  */
 	private function __assert($content) {
-		Current::write('Permission.html_not_limited.value', true);
+		Current::write('Room.id', '2');
+		Current::writePermission('2', 'html_not_limited', true);
 
 		NetCommonsCakeTestCase::loadTestPlugin($this, 'Wysiwyg', 'TestWysiwyg');
 		$FakeModel = ClassRegistry::init('TestWysiwyg.FakeModel');
