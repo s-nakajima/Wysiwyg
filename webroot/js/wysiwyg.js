@@ -38,7 +38,7 @@ NetCommonsApp.factory('NetCommonsWysiwyg',
               '| removeformat ' +
               '| undo redo | alignleft aligncenter alignright ' +
               '| bullist numlist | indent outdent blockquote ' +
-              '| table | hr | titleicons | tex | link unlink ' +
+              '| table | hr | titleicons | link unlink ' +
               '| media booksearch nc3Image file | pastetext code nc3Preview'
         ];
         var toolbarMobile = [
