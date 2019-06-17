@@ -76,6 +76,7 @@ class WysiwygFileController extends WysiwygAppController {
 		$uploadFile = false;
 		if ($this->Wysiwyg->isUploadedFile($this->data['Wysiwyg'])) {
 			// FileUploadコンポーネントからアップロードファイル情報の取得
+			/** @var TemporaryUploadFile $file */
 			$file = $this->FileUpload->getTemporaryUploadFile('Wysiwyg.file');
 
 			// uploadFile登録に必要な data（block_key）を作成する。
@@ -86,6 +87,21 @@ class WysiwygFileController extends WysiwygAppController {
 				]
 			];
 			$uploadFile = $this->UploadFile->registByFile($file, 'wysiwyg', null, 'Wysiwyg.file', $data);
+			if ($uploadFile) {
+				// 　元ファイル削除
+				$folderPath = UPLOADS_ROOT . $uploadFile['UploadFile']['path'] . DS . $uploadFile['UploadFile']['id'] . DS;
+				$originFilePath = $folderPath . $uploadFile['UploadFile']['real_file_name'];
+				unlink($originFilePath);
+
+				//  origin_resizeからprefix削除
+				$originResizePath = $folderPath . 'origin_resize_' . $uploadFile['UploadFile']['real_file_name'];
+				rename($originResizePath, $originFilePath);
+
+				//  uploadFileのsize更新
+				$stat = stat($originFilePath);
+				$uploadFile['UploadFile']['size'] = $stat['size'];
+				$uploadFile = $this->UploadFile->save($uploadFile, ['callbacks' => false, 'validate' => false]);
+			}
 		}
 
 		// 戻り値として生成する値を返す
@@ -167,6 +183,7 @@ class WysiwygFileController extends WysiwygAppController {
 
 		$thumbnailSizes = $this->UploadFile->actsAs['Upload.Upload']['real_file_name']['thumbnailSizes'];
 		$thumbnailSizes['biggest'] = '1200ml';
+		$thumbnailSizes['origin_resize'] = '1200ml';
 		$this->UploadFile->uploadSettings('real_file_name', 'thumbnailSizes', $thumbnailSizes);
 
 		// validateルールの設定
