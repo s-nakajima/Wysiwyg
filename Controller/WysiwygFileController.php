@@ -54,6 +54,8 @@ class WysiwygFileController extends WysiwygAppController {
  * block_key: data[Block][key]
  * としてそれぞれ POSTされるものとして作成。
  *
+ * HACK: コントローラが仕事をやりすぎてる
+ *
  * @return void
  */
 	public function upload() {
@@ -88,19 +90,7 @@ class WysiwygFileController extends WysiwygAppController {
 			];
 			$uploadFile = $this->UploadFile->registByFile($file, 'wysiwyg', null, 'Wysiwyg.file', $data);
 			if ($uploadFile) {
-				// 　元ファイル削除
-				$folderPath = UPLOADS_ROOT . $uploadFile['UploadFile']['path'] . DS . $uploadFile['UploadFile']['id'] . DS;
-				$originFilePath = $folderPath . $uploadFile['UploadFile']['real_file_name'];
-				unlink($originFilePath);
-
-				//  origin_resizeからprefix削除
-				$originResizePath = $folderPath . 'origin_resize_' . $uploadFile['UploadFile']['real_file_name'];
-				rename($originResizePath, $originFilePath);
-
-				//  uploadFileのsize更新
-				$stat = stat($originFilePath);
-				$uploadFile['UploadFile']['size'] = $stat['size'];
-				$uploadFile = $this->UploadFile->save($uploadFile, ['callbacks' => false, 'validate' => false]);
+				$uploadFile = $this->__overwriteOriginFile($uploadFile);
 			}
 		}
 
@@ -110,7 +100,6 @@ class WysiwygFileController extends WysiwygAppController {
 		// $result: 結果の OK/NG
 		// ＄statusCode: responseとしても返す
 		//
-		$file = [];
 		$message = '';
 		if ($uploadFile) {
 			$statusCode = 200;	// Status 200(OK)
@@ -134,6 +123,7 @@ class WysiwygFileController extends WysiwygAppController {
 				'path' => $url,
 			];
 		} else {
+			$file = [];
 			$statusCode = 400;	// Status 400(Bad request)
 			$result = false;
 			if ($this->UploadFile->validationErrors) {
@@ -183,10 +173,38 @@ class WysiwygFileController extends WysiwygAppController {
 
 		$thumbnailSizes = $this->UploadFile->actsAs['Upload.Upload']['real_file_name']['thumbnailSizes'];
 		$thumbnailSizes['biggest'] = '1200ml';
+		// 元ファイルをリサイズする大きさ
 		$thumbnailSizes['origin_resize'] = '1200ml';
 		$this->UploadFile->uploadSettings('real_file_name', 'thumbnailSizes', $thumbnailSizes);
 
 		// validateルールの設定
 		$this->UploadFile->validate = $this->_validate;
+	}
+
+/**
+ * 元ファイルをリサイズしたファイルで上書き
+ *
+ * @param array $uploadFile UploadFileデータ
+ * @return array|false UploadFile::save()の結果
+ * @throws Exception
+ */
+	private function __overwriteOriginFile(array $uploadFile) {
+		// 元ファイル削除
+		$folderPath = UPLOADS_ROOT . $uploadFile['UploadFile']['path'] . DS . $uploadFile['UploadFile']['id'] . DS;
+		$originFilePath = $folderPath . $uploadFile['UploadFile']['real_file_name'];
+		unlink($originFilePath);
+
+		//  origin_resizeからprefix削除
+		$originResizePath = $folderPath . 'origin_resize_' . $uploadFile['UploadFile']['real_file_name'];
+		rename($originResizePath, $originFilePath);
+
+		//  uploadFileのsize更新
+		$stat = stat($originFilePath);
+		$uploadFile['UploadFile']['size'] = $stat['size'];
+		$uploadFile = $this->UploadFile->save(
+			$uploadFile,
+			['callbacks' => false, 'validate' => false]
+		);
+		return $uploadFile;
 	}
 }
