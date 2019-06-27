@@ -109,7 +109,8 @@ class WysiwygImageControllerUploadTest extends WysiwygControllerTestCase {
 			'medium' => '400ml',
 			'small' => '200ml',
 			'thumb' => '80x80',
-			'biggest' => '1200ml'
+			'biggest' => '1200ml',
+			'origin_resize' => '1200ml',
 		);
 		$this->controller->UploadFile
 			->expects($this->once())->method('uploadSettings')
