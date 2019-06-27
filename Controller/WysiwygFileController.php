@@ -186,7 +186,7 @@ class WysiwygFileController extends WysiwygAppController {
  *
  * @param array $uploadFile UploadFileデータ
  * @return array|false UploadFile::save()の結果
- * @throws Exception
+ * @throws InternalErrorException
  */
 	private function __overwriteOriginFile(array $uploadFile) {
 		// 元ファイル削除
@@ -201,10 +201,14 @@ class WysiwygFileController extends WysiwygAppController {
 		//  uploadFileのsize更新
 		$stat = stat($originFilePath);
 		$uploadFile['UploadFile']['size'] = $stat['size'];
-		$uploadFile = $this->UploadFile->save(
-			$uploadFile,
-			['callbacks' => false, 'validate' => false]
-		);
+		try {
+			$uploadFile = $this->UploadFile->save(
+				$uploadFile,
+				['callbacks' => false, 'validate' => false]
+			);
+		} catch (Exception $e) {
+			throw new InternalErrorException('Failed Update UploadFile.size');
+		}
 		return $uploadFile;
 	}
 }
