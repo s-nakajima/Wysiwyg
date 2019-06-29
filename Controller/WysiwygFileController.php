@@ -90,7 +90,7 @@ class WysiwygFileController extends WysiwygAppController {
 			];
 			$uploadFile = $this->UploadFile->registByFile($file, 'wysiwyg', null, 'Wysiwyg.file', $data);
 			if ($uploadFile) {
-				$uploadFile = $this->__overwriteOriginFile($uploadFile);
+				$uploadFile = $this->Wysiwyg->overwriteOriginFile($uploadFile, 'origin_resize_');
 			}
 		}
 
@@ -179,36 +179,5 @@ class WysiwygFileController extends WysiwygAppController {
 
 		// validateルールの設定
 		$this->UploadFile->validate = $this->_validate;
-	}
-
-/**
- * 元ファイルをリサイズしたファイルで上書き
- *
- * @param array $uploadFile UploadFileデータ
- * @return array|false UploadFile::save()の結果
- * @throws InternalErrorException
- */
-	private function __overwriteOriginFile(array $uploadFile) {
-		// 元ファイル削除
-		$folderPath = UPLOADS_ROOT . $uploadFile['UploadFile']['path'] . DS . $uploadFile['UploadFile']['id'] . DS;
-		$originFilePath = $folderPath . $uploadFile['UploadFile']['real_file_name'];
-		unlink($originFilePath);
-
-		//  origin_resizeからprefix削除
-		$originResizePath = $folderPath . 'origin_resize_' . $uploadFile['UploadFile']['real_file_name'];
-		rename($originResizePath, $originFilePath);
-
-		//  uploadFileのsize更新
-		$stat = stat($originFilePath);
-		$uploadFile['UploadFile']['size'] = $stat['size'];
-		try {
-			$uploadFile = $this->UploadFile->save(
-				$uploadFile,
-				['callbacks' => false, 'validate' => false]
-			);
-		} catch (Exception $e) {
-			throw new InternalErrorException('Failed Update UploadFile.size');
-		}
-		return $uploadFile;
 	}
 }

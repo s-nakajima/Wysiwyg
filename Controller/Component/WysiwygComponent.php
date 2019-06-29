@@ -23,17 +23,50 @@ class WysiwygComponent extends Component {
  * requestの中でファイルのアップロードエラーがあるかどうかを調べる
  * ※Unitテストで使用するため、別ファイルに出す。
  *
- * @param Array $params 調べるリクエストデータ
+ * @param array $params 調べるリクエストデータ
  * @return bool
  * @codeCoverageIgnore
  */
 	public function isUploadedFile($params) {
 		$val = array_shift($params);
-		if (isset($val['error']) && $val['error'] == 0 ||
-				!empty( $val['tmp_name']) && $val['tmp_name'] != 'none') {
+		if ((isset($val['error']) && $val['error'] == 0) ||
+			(!empty( $val['tmp_name']) && $val['tmp_name'] !== 'none')) {
 			return is_uploaded_file($val['tmp_name']);
 		}
 		return false;
+	}
+
+/**
+ * 元ファイルをリサイズしたファイルで上書き
+ *
+ * @param array $uploadFile UploadFileデータ
+ * @param string $overwriteFilePrefix リサイズされた画像のprefix このprefixのついたファイルを元画像あつかいにする。
+ * @return array|false UploadFile::save()の結果
+ * @throws InternalErrorException
+ */
+	public function overwriteOriginFile(array $uploadFile, $overwriteFilePrefix) {
+		$uploadFileModel = ClassRegistry::init('Files.UploadFile');
+		// 元ファイル削除
+		$originFilePath = $uploadFileModel->getRealFilePath($uploadFile);
+		unlink($originFilePath);
+
+		//  origin_resizeからprefix削除
+		$originResizePath = substr($originFilePath, 0, -1 * strlen($uploadFile['UploadFile']['real_file_name'])) .
+			$overwriteFilePrefix . $uploadFile['UploadFile']['real_file_name'];
+		rename($originResizePath, $originFilePath);
+
+		//  uploadFileのsize更新
+		$stat = stat($originFilePath);
+		$uploadFile['UploadFile']['size'] = $stat['size'];
+		try {
+			$uploadFile = $uploadFileModel->save(
+				$uploadFile,
+				['callbacks' => false, 'validate' => false]
+			);
+		} catch (Exception $e) {
+			throw new InternalErrorException('Failed Update UploadFile.size');
+		}
+		return $uploadFile;
 	}
 
 }
