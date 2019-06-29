@@ -70,7 +70,7 @@ class WysiwygImageControllerUploadTest extends WysiwygControllerTestCase {
 	public function testUploadOnFailure() {
 		//テスト実行
 		$this->_testGetAction(
-			array('action' => 'upload'), null, null, 'view'
+			array('action' => 'upload', '1'), null, null, 'view'
 		);
 
 		//チェック
@@ -92,7 +92,7 @@ class WysiwygImageControllerUploadTest extends WysiwygControllerTestCase {
 	private function __data() {
 		$this->generateNc(Inflector::camelize($this->_controller), array('components' => array(
 			'Files.FileUpload' => array('getTemporaryUploadFile'),
-			'Wysiwyg.Wysiwyg' => array('isUploadedFile'),
+			'Wysiwyg.Wysiwyg' => array('isUploadedFile', 'overwriteOriginFile'),
 		)));
 
 		//ログイン
@@ -109,7 +109,8 @@ class WysiwygImageControllerUploadTest extends WysiwygControllerTestCase {
 			'medium' => '400ml',
 			'small' => '200ml',
 			'thumb' => '80x80',
-			'biggest' => '1200ml'
+			'biggest' => '1200ml',
+			'origin_resize' => '1200ml',
 		);
 		$this->controller->UploadFile
 			->expects($this->once())->method('uploadSettings')
@@ -164,6 +165,10 @@ class WysiwygImageControllerUploadTest extends WysiwygControllerTestCase {
 		$this->controller->Wysiwyg
 			->expects($this->once())->method('isUploadedFile')
 			->will($this->returnValue(true));
+		$this->controller->Wysiwyg
+			->expects($this->once())->method('overwriteOriginFile')
+			->with($file, 'origin_resize_')
+			->will($this->returnValue($file));
 
 		//テスト実行
 		$this->_testPostAction('post', $post, array('action' => 'upload'), null, 'view');

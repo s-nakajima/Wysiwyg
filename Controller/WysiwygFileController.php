@@ -54,6 +54,8 @@ class WysiwygFileController extends WysiwygAppController {
  * block_key: data[Block][key]
  * としてそれぞれ POSTされるものとして作成。
  *
+ * HACK: コントローラが仕事をやりすぎてる
+ *
  * @return void
  */
 	public function upload() {
@@ -76,6 +78,7 @@ class WysiwygFileController extends WysiwygAppController {
 		$uploadFile = false;
 		if ($this->Wysiwyg->isUploadedFile($this->data['Wysiwyg'])) {
 			// FileUploadコンポーネントからアップロードファイル情報の取得
+			/** @var TemporaryUploadFile $file */
 			$file = $this->FileUpload->getTemporaryUploadFile('Wysiwyg.file');
 
 			// uploadFile登録に必要な data（block_key）を作成する。
@@ -86,6 +89,9 @@ class WysiwygFileController extends WysiwygAppController {
 				]
 			];
 			$uploadFile = $this->UploadFile->registByFile($file, 'wysiwyg', null, 'Wysiwyg.file', $data);
+			if ($uploadFile) {
+				$uploadFile = $this->Wysiwyg->overwriteOriginFile($uploadFile, 'origin_resize_');
+			}
 		}
 
 		// 戻り値として生成する値を返す
@@ -94,7 +100,6 @@ class WysiwygFileController extends WysiwygAppController {
 		// $result: 結果の OK/NG
 		// ＄statusCode: responseとしても返す
 		//
-		$file = [];
 		$message = '';
 		if ($uploadFile) {
 			$statusCode = 200;	// Status 200(OK)
@@ -118,6 +123,7 @@ class WysiwygFileController extends WysiwygAppController {
 				'path' => $url,
 			];
 		} else {
+			$file = [];
 			$statusCode = 400;	// Status 400(Bad request)
 			$result = false;
 			if ($this->UploadFile->validationErrors) {
@@ -167,6 +173,8 @@ class WysiwygFileController extends WysiwygAppController {
 
 		$thumbnailSizes = $this->UploadFile->actsAs['Upload.Upload']['real_file_name']['thumbnailSizes'];
 		$thumbnailSizes['biggest'] = '1200ml';
+		// 元ファイルをリサイズする大きさ
+		$thumbnailSizes['origin_resize'] = '1200ml';
 		$this->UploadFile->uploadSettings('real_file_name', 'thumbnailSizes', $thumbnailSizes);
 
 		// validateルールの設定
