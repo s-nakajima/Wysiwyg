@@ -48,11 +48,17 @@ class WysiwygComponent extends Component {
 		$uploadFileModel = ClassRegistry::init('Files.UploadFile');
 		// 元ファイル削除
 		$originFilePath = $uploadFileModel->getRealFilePath($uploadFile);
-		unlink($originFilePath);
 
 		//  origin_resizeからprefix削除
 		$originResizePath = substr($originFilePath, 0, -1 * strlen($uploadFile['UploadFile']['real_file_name'])) .
 			$overwriteFilePrefix . $uploadFile['UploadFile']['real_file_name'];
+
+		if (! file_exists($originResizePath)) {
+			//リネームするファイルが泣けr場、そのままuploadFileを返す。
+			return $uploadFile;
+		}
+
+		unlink($originFilePath);
 		rename($originResizePath, $originFilePath);
 
 		//  uploadFileのsize更新
