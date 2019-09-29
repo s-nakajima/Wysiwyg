@@ -18,6 +18,7 @@ App::uses('HTMLPurifier_Filter_Comment', 'Wysiwyg.Utility/Filter');
  *
  * @author Ryohei Ohga <ohga.ryohei@gmail.com>
  * @package NetCommons\Wysiwyg\Utility
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 class PurifiableBehavior extends ModelBehavior {
 

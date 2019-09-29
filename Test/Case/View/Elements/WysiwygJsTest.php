@@ -84,7 +84,7 @@ class WysiwygViewElementsWysiwygJsTest extends WysiwygControllerTestCase {
 
 		$this->__assert();
 
-		$pattern = '/' . preg_quote('/wysiwyg/css/mobile.css', '/') . '/';
+		$pattern = '/' . preg_quote('/mobile.css', '/') . '/';
 		$this->assertRegExp($pattern, $this->view);
 
 		Configure::delete('isMobile');
@@ -102,21 +102,21 @@ class WysiwygViewElementsWysiwygJsTest extends WysiwygControllerTestCase {
 			'/components/tinymce/tinymce.min.js',
 			'/components/angular-ui-tinymce/src/tinymce.js',
 			'/components/simplePagination.js/jquery.simplePagination.js',
-			'/net_commons/js/color_palette_value.js',
-			'/wysiwyg/js/wysiwyg.js',
-			'/wysiwyg/js/wysiwyg_app.js',
-			'/wysiwyg/js/plugins/nc3_colorpicker/plugin.js',
-			'/wysiwyg/js/plugins/tex/plugin.js',
-			'/wysiwyg/js/plugins/tex/iframe.js',
-			'/wysiwyg/js/plugins/file/plugin.js',
-			'/wysiwyg/js/plugins/nc3_image/plugin.js',
-			'/wysiwyg/js/plugins/nc3_preview/plugin.js',
-			'/wysiwyg/js/plugins/titleicons/plugin.js',
-			'/wysiwyg/js/plugins/nc3_textcolor/plugin.js',
-			'/wysiwyg/js/plugins/booksearch/plugin.js',
+			'/color_palette_value.js',
+			'/wysiwyg.js',
+			'/wysiwyg_app.js',
+			'/nc3_colorpicker/plugin.js',
+			'/plugins/tex/plugin.js',
+			'/plugins/tex/iframe.js',
+			'/plugins/file/plugin.js',
+			'/plugins/nc3_image/plugin.js',
+			'/plugins/nc3_preview/plugin.js',
+			'/plugins/titleicons/plugin.js',
+			'/plugins/nc3_textcolor/plugin.js',
+			'/plugins/booksearch/plugin.js',
 			//CSS
 			'/components/simplePagination.js/simplePagination.css',
-			'/wysiwyg/css/tex.css',
+			'/tex.css',
 		);
 		foreach ($expecteds as $expected) {
 			$pattern = '/' . preg_quote($expected, '/') . '/';

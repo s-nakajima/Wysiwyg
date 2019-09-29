@@ -76,7 +76,9 @@ class WysiwygHelperWysiwygTest extends WysiwygHelperTestCase {
 
 		$pattern = preg_quote('NetCommonsApp.service(\'nc3Configs\', function() {', '/') .
 				'.*?' .
-				preg_quote('this.is_mobile = \'\';this.lang_js = \'/wysiwyg/js/langs/ja.js\';this.debug = \'', '/') .
+				preg_quote('this.is_mobile = \'\';this.lang_js = \'', '/') .
+				'[a-z\/]+' .
+				preg_quote('/langs/ja.js\';this.debug = \'', '/') .
 				'[0-2]' .
 				preg_quote('\';});', '/');
 		$this->assertRegExp('/' . $pattern . '/', $script);
