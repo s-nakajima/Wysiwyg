@@ -87,19 +87,11 @@ class WysiwygImageDownloadController extends Controller {
 		$query = [
 			'fields' => [
 				'Room.id',
-				//'Room.space_id',
-				//'Space.id',
 				'Space.type',
 				'RolesRoomsUser.id',
-				//'RolesRoomsUser.user_id',
-				//'RolesRoomsUser.roles_room_id',
-				//'RoomRolePermissions.roles_room_id',
-				//'RoomRolePermissions.permission',
 				'RoomRolePermissions.value',
 			],
-			'conditions' => [
-				'Room.id' => $roomId
-			],
+			'conditions' => ['Room.id' => $roomId],
 			'recursive' => -1,
 			'callbacks' => false,
 			'joins' => [
@@ -162,13 +154,10 @@ class WysiwygImageDownloadController extends Controller {
 		ClassRegistry::removeObject('RolesRoomsUser');
 		ClassRegistry::removeObject('RoomRolePermissions');
 
-		$options = [
-			'field' => 'Wysiwyg.file',
-		];
+		$options = ['field' => 'Wysiwyg.file'];
 
 		// サイズ指定があるときにサイズ指定を行う。
 		// 指定がなければオリジナルサイズ
-		//
 		if (!empty($size)) {
 			// 指定したサイズが UploadFileモデル指定以外のサイズの時は 404 Not Found.
 			if (array_key_exists($size, $this->_getThumbnailSizes()) === false) {
