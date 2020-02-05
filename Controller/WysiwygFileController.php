@@ -41,13 +41,6 @@ class WysiwygFileController extends WysiwygAppController {
 	);
 
 /**
- * uploadFileモデル用の validation設定
- *
- * @var array
- */
-	protected $_validate = [];
-
-/**
  * upload action
  *
  * file: data[Wysiwyg][file]
@@ -55,6 +48,7 @@ class WysiwygFileController extends WysiwygAppController {
  * としてそれぞれ POSTされるものとして作成。
  *
  * @return void
+ * @throws Exception
  */
 	public function upload() {
 		// JSONを返す
@@ -85,7 +79,14 @@ class WysiwygFileController extends WysiwygAppController {
 					'room_id' => $this->data['Block']['room_id'],
 				]
 			];
-			$uploadFile = $this->UploadFile->registByFile($file, 'wysiwyg', null, 'Wysiwyg.file', $data);
+			try {
+				$uploadFile = $this->UploadFile->registByFile($file, 'wysiwyg', null, 'Wysiwyg.file', $data);
+			} catch (InternalErrorException $e) {
+				if (!$this->UploadFile->validationErrors) {
+					throw $e;
+				}
+				$uploadFile = false;
+			}
 		}
 
 		// 戻り値として生成する値を返す
@@ -121,7 +122,7 @@ class WysiwygFileController extends WysiwygAppController {
 			$statusCode = 400;	// Status 400(Bad request)
 			$result = false;
 			if ($this->UploadFile->validationErrors) {
-				$message = $this->UploadFile->validationErrors['real_file_name'];
+				$message = implode("\n", $this->UploadFile->validationErrors['real_file_name']);
 			} else {
 				$message = 'File is required.';
 			}
@@ -170,6 +171,16 @@ class WysiwygFileController extends WysiwygAppController {
 		$this->UploadFile->uploadSettings('real_file_name', 'thumbnailSizes', $thumbnailSizes);
 
 		// validateルールの設定
-		$this->UploadFile->validate = $this->_validate;
+		$this->UploadFile->validate = $this->_getUploadFileValidate();
 	}
+
+/**
+ * uploadFileモデル用の validation設定
+ *
+ * @return  array
+ */
+	protected function _getUploadFileValidate() {
+		return [];
+	}
+
 }
