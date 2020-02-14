@@ -66,6 +66,7 @@ tinymce.PluginManager.add('file', function(editor, url) {
               },
               function(res) {
                 // onerror
+                alert(res.responseJSON.message);
                 loading.addClass('ng-hide');
               },
               editor.settings.isDEBUG); // uploadfile()

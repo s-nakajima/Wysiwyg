@@ -22,12 +22,14 @@ class WysiwygImageController extends WysiwygFileController {
 /**
  * uploadFileモデル用の validation設定
  *
- * @var array
+ * @return  array
  */
-	protected $_validate = [
-		'real_file_name' => [
-			'rule' => ['isValidMimeType', ['image/gif', 'image/png', 'image/jpg', 'image/jpeg']],
-			'message' => 'File is not a image'
-		]
-	];
+	protected function _getUploadFileValidate() {
+		return [
+			'real_file_name' => [
+				'rule' => ['isValidMimeType', ['image/gif', 'image/png', 'image/jpg', 'image/jpeg']],
+				'message' => __d('files', 'It is upload disabled file format')
+			]
+		];
+	}
 }
