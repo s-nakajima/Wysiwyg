@@ -152,7 +152,23 @@ class WysiwygFileController extends WysiwygAppController {
 			'download' => true,
 			'size' => ''
 		];
-		return $this->Download->doDownloadByUploadFileId($id, $options);
+
+		// ファイル情報取得 plugin_keyとコンテンツID、フィールドの情報が必要
+		$UploadFile = ClassRegistry::init('Files.UploadFile');
+
+		$file = $UploadFile->findById($id);
+		$response = $this->Download->doDownloadByUploadFile($file, $options);
+
+		$inlineExts = ['wav', 'pdf'];
+		if (isset($file['UploadFile']['extension']) &&
+				in_array($file['UploadFile']['extension'], $inlineExts)) {
+			$downloadFileName = $file['UploadFile']['original_name'];
+			$content = 'inline;';
+			$content .= 'filename*=UTF-8\'\'' . rawurlencode($downloadFileName);
+			$response->header('Content-Disposition', $content);
+		}
+
+		return $response;
 	}
 
 /**
