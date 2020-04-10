@@ -267,7 +267,7 @@ class WysiwygFileControllerUploadTest extends WysiwygControllerTestCase {
 		));
 		$this->assertEquals($this->vars['statusCode'], 400);
 		$this->assertEquals($this->vars['result'], false);
-		$this->assertEquals($this->vars['message'], ['validation error message']);
+		$this->assertEquals($this->vars['message'], 'validation error message');
 		$this->assertEquals(array_keys($this->vars['file']), []);
 	}
 

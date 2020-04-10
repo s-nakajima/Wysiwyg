@@ -139,6 +139,7 @@ tinymce.PluginManager.add('nc3Image', function(editor, url) {
           },
           function(res) {
             // onerror
+            alert(res.responseJSON.message);
             loading.addClass('ng-hide');
           },
           editor.settings.isDEBUG

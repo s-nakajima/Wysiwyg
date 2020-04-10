@@ -92,7 +92,9 @@ var NC3_APP = new (function nc3WysiwygApp() {
       $.Deferred().resolve();
 
     }).fail(function(data, textStatus, errorThrown) {
-      $.isFunction(onerror) && onsuccess(onerror);
+      // $.isFunction(onerror) && onsuccess(onerror);
+      var obj = JsonParse(data);
+      $.isFunction(onerror) && onerror(obj);
     });
   };
   /////////////////////////////////////////////////
