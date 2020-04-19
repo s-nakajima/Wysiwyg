@@ -10,6 +10,7 @@
  */
 
 App::uses('Current', 'NetCommons.Utility');
+App::uses('NetCommonsUrl', 'NetCommons.Utility');
 App::uses('UserRole', 'UserRoles.Model');
 App::uses('HTMLPurifier_Filter_Comment', 'Wysiwyg.Utility/Filter');
 
@@ -162,7 +163,11 @@ class PurifiableBehavior extends ModelBehavior {
 				'Trusted' => true,
 			),
 			'URI' => array(
-				'SafeIframeRegexp' => '%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/)%',
+				'SafeIframeRegexp' => '%(' .
+					'^(https?:)?//(www\.youtube(?:-nocookie)?\.com/)' .
+					'|' .
+					'^' . preg_quote(NetCommonsUrl::actionUrl('/videos/videos/embed/', true), '%') .
+				')%',
 			),
 			'Output' => array(
 				'FlashCompat' => true,
