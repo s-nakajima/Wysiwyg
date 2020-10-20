@@ -121,18 +121,23 @@ class WysiwygZip {
 				}
 
 				// wysiwygのパス情報を新ルームIDと新UPLOADIDに差し替える
+				// %s と wysiwyg のワードがくっついてしまっていやらしいが、
+				// ここで”／”を区切りで入れると
+				// Routerが返す文字列が”／”付けて返してくるので、セパレータ入が重複する
 				if ($type == 'image') {
-					$line = sprintf('<img src="%s/wysiwyg/%s/download/%d/%d/%s>',
+					$line = sprintf(
+						'<img class="img-responsive nc3-img" src="%swysiwyg/%s/download/%d/%d/%s>',
 						//$matches[1],
-						Router::fullBaseUrl(),
+						Router::url('/', true),
 						$type,
 						$roomId,
 						$uploadedFile['UploadFile']['id'],
 						$matches[4]);
 				} else {
-					$line = sprintf('<a href="%s/wysiwyg/%s/download/%d/%d">',
+					$line = sprintf(
+						'<a href="%swysiwyg/%s/download/%d/%d target="_blank" rel="noopener noreferrer"">',
 						//$matches[1],
-						Router::fullBaseUrl(),
+						Router::url('/', true),
 						$type,
 						$roomId,
 						$uploadedFile['UploadFile']['id']);
