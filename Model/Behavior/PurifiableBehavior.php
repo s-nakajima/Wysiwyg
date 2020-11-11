@@ -605,6 +605,32 @@ class PurifiableBehavior extends ModelBehavior {
 					new HTMLPurifier_AttrDef_CSS_URI(),
 				)
 			);
+
+			$def->info['list-style-type'] = new HTMLPurifier_AttrDef_Enum(
+				array(
+					'none',
+					'disc',
+					'circle',
+					'square',
+					'lower-roman',
+					'upper-roman',
+					'lower-greek',
+					'decimal',
+					'decimal-leading-zero',
+					'lower-latin',
+					'lower-alpha',
+					'upper-latin',
+					'upper-alpha',
+					'cjk-ideographic',
+					'hiragana',
+					'katakana',
+					'hiragana-iroha',
+					'katakana-iroha',
+					'hebrew',
+					'armenian',
+					'georgian',
+				)
+			);
 		}
 	}
 }
