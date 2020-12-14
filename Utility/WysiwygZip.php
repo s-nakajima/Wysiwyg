@@ -71,7 +71,7 @@ class WysiwygZip {
 		// uploadFile登録に必要な data（block_key）を作成する。
 		$uploadBlockKey = [
 			'UploadFile' => [
-				'block_key' => Current::read('Block.key'),
+				'block_key' => '', // この時はまだSave決定じゃないからわざとNULL
 				'room_id' => Current::read('Block.room_id'),
 			]
 		];
