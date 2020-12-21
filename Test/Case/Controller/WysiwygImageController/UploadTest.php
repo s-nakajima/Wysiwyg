@@ -117,7 +117,7 @@ class WysiwygImageControllerUploadTest extends WysiwygControllerTestCase {
 
 		$data = array(
 			'Block' => array(
-				'key' => 'block_1',
+				//'key' => 'block_1',
 				'room_id' => '2'
 			),
 			'Room' => array(
@@ -146,7 +146,7 @@ class WysiwygImageControllerUploadTest extends WysiwygControllerTestCase {
 
 		$data = array(
 			'UploadFile' => array(
-				'block_key' => 'block_1',
+				//'block_key' => 'block_1',
 				'room_id' => '2',
 			)
 		);
@@ -234,7 +234,7 @@ class WysiwygImageControllerUploadTest extends WysiwygControllerTestCase {
 
 		$data = array(
 			'UploadFile' => array(
-				'block_key' => 'block_1',
+				//'block_key' => 'block_1',
 				'room_id' => '2',
 			)
 		);

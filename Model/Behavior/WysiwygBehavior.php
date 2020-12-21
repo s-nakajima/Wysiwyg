@@ -220,6 +220,12 @@ class WysiwygBehavior extends ModelBehavior {
 					$file['UploadFile']['room_id'] = $update['room_id'];
 				}
 				$uploadFile->create();
+
+				// UploadFilesテーブルから取得したレコードを
+				// そのままsaveで使っているため、modified(更新日時)も使い回してしまう
+				// modifiedも使い回すと、本来レコードの更新がかかっているのに、見かけ上は更新がかかっていないことになってしまう
+				// そのため、modifiedはsaveの対象から削除して、新しいmodifiedが入るようにする
+				unset($file['UploadFile']['modified']);
 				$uploadFile->save($file, false, false);
 			}
 		}
