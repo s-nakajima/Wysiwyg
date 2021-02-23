@@ -10,6 +10,8 @@
  */
 
 App::uses('ModelBehavior', 'Model');
+App::uses('AngularParser', 'NetCommons.Lib');
+App::uses('Validation', 'Utility');
 
 /**
  * Wysiwyg Behavior
@@ -25,6 +27,8 @@ class WysiwygBehavior extends ModelBehavior {
 	const REPLACE_BASE_URL = '{{__BASE_URL__}}';
 
 	const WYSIWYG_REPLACE_PATH = 'wysiwyg\/[a-z_]*?\/download';
+
+	const MAX_LENGTH = 65535;
 
 /**
  * SetUp Attachment behavior
@@ -71,11 +75,43 @@ class WysiwygBehavior extends ModelBehavior {
 
 		foreach ($results as $key => $target) {
 			if (isset($target[$model->alias]['id'])) {
-				$results[$key] = $this->__replacePath($model, self::REPLACE_BASE_URL, $baseUrl, $target);
+				$results[$key] =
+					$this->__replacePath($model, self::REPLACE_BASE_URL, $baseUrl, $target, true);
 			}
 		}
 
 		return $results;
+	}
+
+/**
+ * beforeValidate is called before a model is validated, you can use this callback to
+ * add behavior validation rules into a models validate array. Returning false
+ * will allow you to make the validation fail.
+ *
+ * @param Model $model Model using this behavior
+ * @param array $options Options passed from Model::save().
+ * @return mixed False or null will abort the operation. Any other result will continue.
+ * @see Model::save()
+ */
+	public function beforeValidate(Model $model, $options = array()) {
+		$baseUrl = h(substr(Router::url('/', true), 0, -1));
+
+		foreach ($this->_fields[$model->alias] as $field) {
+			if (!empty($model->data[$model->alias][$field])) {
+				$content = $this->__replaceContent(
+					$baseUrl, self::REPLACE_BASE_URL, $model->data[$model->alias][$field]
+				);
+				if (! \Validation::maxLengthBytes($content, self::MAX_LENGTH + 1)) {
+					$model->invalidate(
+						$field,
+						__d('net_commons',
+							'Please choose with less than %s characters string.', self::MAX_LENGTH)
+					);
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 
 /**
@@ -92,7 +128,8 @@ class WysiwygBehavior extends ModelBehavior {
 		// fullBaseUrl を REPLACE_BASE_URL に変換する
 		//
 		$baseUrl = h(substr(Router::url('/', true), 0, -1));
-		$model->data = $this->__replacePath($model, $baseUrl, self::REPLACE_BASE_URL, $model->data);
+		$model->data =
+			$this->__replacePath($model, $baseUrl, self::REPLACE_BASE_URL, $model->data, false);
 
 		return true;
 	}
@@ -183,6 +220,12 @@ class WysiwygBehavior extends ModelBehavior {
 					$file['UploadFile']['room_id'] = $update['room_id'];
 				}
 				$uploadFile->create();
+
+				// UploadFilesテーブルから取得したレコードを
+				// そのままsaveで使っているため、modified(更新日時)も使い回してしまう
+				// modifiedも使い回すと、本来レコードの更新がかかっているのに、見かけ上は更新がかかっていないことになってしまう
+				// そのため、modifiedはsaveの対象から削除して、新しいmodifiedが入るようにする
+				unset($file['UploadFile']['modified']);
 				$uploadFile->save($file, false, false);
 			}
 		}
@@ -246,9 +289,10 @@ class WysiwygBehavior extends ModelBehavior {
  * @param String $search 検索する文字列
  * @param String $replace 置換する文字列
  * @param Array $data 置換対象データ
+ * @param bool $angularParse Angularのパースをするか否か
  * @return Array $data を置換した内容を返す
  */
-	private function __replacePath(Model $model, $search, $replace, $data) {
+	private function __replacePath(Model $model, $search, $replace, $data, $angularParse) {
 		// 定義フィールド全てを置換
 		foreach ($this->_fields[$model->alias] as $field) {
 			// 定義フィールドが存在しない場合は無視する
@@ -256,6 +300,14 @@ class WysiwygBehavior extends ModelBehavior {
 				$data[$model->alias][$field] = $this->__replaceContent(
 					$search, $replace, $data[$model->alias][$field]
 				);
+				if ($angularParse) {
+					//下記のISSUEの修正前は、
+					//65536以上の文字が既に登録しようとして欠けたデータが登録されてしまう。
+					//その際、「{{__BASE_URL__}}」の途中で切れてしまっているとAngularでエラーになるため、
+					//パースする
+					//@see https://github.com/NetCommons3/NetCommons3/issues/1606
+					$data[$model->alias][$field] = \AngularParser::convertText($data[$model->alias][$field]);
+				}
 			}
 		}
 
